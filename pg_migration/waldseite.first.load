@@ -20,6 +20,10 @@ SET PostgreSQL PARAMETERS
 CAST type tinyint   to boolean drop typemod using tinyint-to-boolean,
      type int       to integer drop typemod,
      type bigint    to bigint   drop typemod,
+     /* MySQL CHAR(N) → PG character(N) by default, which pads stored values
+        to N spaces and breaks Directus's frontend equality checks (e.g. on
+        the `language` column of *_translations tables). Force varchar. */
+     type char      to varchar  drop typemod,
      type datetime  to "timestamp with time zone" drop default drop not null using zero-dates-to-null,
      type timestamp to "timestamp with time zone" drop default drop not null using zero-dates-to-null,
      type date      drop not null drop default using zero-dates-to-null
