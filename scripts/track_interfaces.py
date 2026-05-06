@@ -80,14 +80,6 @@ MAPPING = {
 }
 
 
-# Aliases on parent collections that point to directus_files via an integer
-# junction column. The relations themselves are unwirable until files have
-# UUIDs (see plan); for now hide the aliases so the UI doesn't surface a
-# "relationship not configured properly" error.
-BROKEN_FILE_ALIASES = [
-    ("haeuser",   "weitere_bilder"),
-    ("wohnungen", "weitere_bilder"),
-]
 
 
 def find_dump():
@@ -176,13 +168,6 @@ def main():
                 "archive_app_filter": True}
         if req("PATCH", f"/collections/{coll}", token, body={"meta": meta}) is not None:
             print(f"  archive_field='status' on {coll}")
-
-    # --- Hide the file-junction alias fields until file migration ---
-    print("\nHiding alias fields for unwired directus_files M2Ms:")
-    for coll, field in BROKEN_FILE_ALIASES:
-        if req("PATCH", f"/fields/{coll}/{field}", token,
-               body={"meta": {"hidden": True, "note": "Awaiting file migration to D11 UUIDs."}}) is not None:
-            print(f"  hidden: {coll}.{field}")
 
     print("\nDone.")
 

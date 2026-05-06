@@ -38,19 +38,20 @@ M2O = [
 #                 side_b_field, side_b_target,
 #                 alias_on_a, alias_on_b)
 # Each generates two relation rows + alias fields on both sides.
+#
+# Excluded: `wohnungen_directus_files` and `haeuser_directus_files`. Their
+# `directus_files_id` columns are integer (D8 file IDs) but D11's
+# directus_files.id is UUID — the relation can't be wired until the file
+# migration assigns new UUIDs and rewrites these junctions. Leaving the
+# half-wired relations causes "relationship not configured properly" errors
+# in the UI, so we don't create them at all.
 M2M = [
-    ("wohnungen_directus_files",
-     "wohnungen_id", "wohnungen", "directus_files_id", "directus_files",
-     "weitere_bilder", "wohnungen"),
     ("news_haeuser",
      "news_id", "news", "haeuser_id", "haeuser",
      "haeuser", "news"),
     ("ausfluege_haeuser",
      "ausfluege_id", "ausfluege", "haeuser_id", "haeuser",
      "haeuser", "ausfluege"),
-    ("haeuser_directus_files",
-     "haeuser_id", "haeuser", "directus_files_id", "directus_files",
-     "weitere_bilder", "haeuser"),
 ]
 
 
