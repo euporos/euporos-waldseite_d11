@@ -84,6 +84,13 @@ python3 scripts/track_translations.py http://localhost:8055 "$ADMIN_EMAIL" "$ADM
 echo "--- Applying D8 field interface overrides (WYSIWYG, etc.) ---"
 python3 scripts/track_interfaces.py "$DUMP_ZIP" http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
 
+if [ -d directus/uploads ] && [ "$(ls -A directus/uploads 2>/dev/null | wc -l)" -gt 0 ]; then
+  echo "--- Importing D8 file metadata + rewriting FK columns to UUIDs ---"
+  python3 scripts/import_d8_files.py "$DUMP_ZIP"
+else
+  echo "--- Skipping file import (directus/uploads/ is empty) ---"
+fi
+
 cat <<'EOF'
 
 ==============================================================================

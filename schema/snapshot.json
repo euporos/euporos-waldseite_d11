@@ -1993,23 +1993,25 @@
     {
       "collection": "ausfluege",
       "field": "bild",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "ausfluege",
         "conditions": null,
-        "display": null,
+        "display": "image",
         "display_options": null,
         "field": "bild",
         "group": null,
-        "hidden": true,
-        "interface": "input",
+        "hidden": false,
+        "interface": "file-image",
         "note": null,
         "options": null,
-        "readonly": true,
+        "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "file"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -2018,11 +2020,11 @@
       "schema": {
         "name": "bild",
         "table": "ausfluege",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -2030,8 +2032,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -2574,6 +2576,62 @@
       }
     },
     {
+      "collection": "directus_files",
+      "field": "haeuser",
+      "type": "alias",
+      "meta": {
+        "collection": "directus_files",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "haeuser",
+        "group": null,
+        "hidden": false,
+        "interface": "list-m2m",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "m2m"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "directus_files",
+      "field": "wohnungen",
+      "type": "alias",
+      "meta": {
+        "collection": "directus_files",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "wohnungen",
+        "group": null,
+        "hidden": false,
+        "interface": "list-m2m",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": [
+          "m2m"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "einstellungen",
       "field": "id",
       "type": "bigInteger",
@@ -2760,23 +2818,25 @@
     {
       "collection": "einstellungen",
       "field": "default_bild_ausfluege",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "einstellungen",
         "conditions": null,
-        "display": null,
+        "display": "image",
         "display_options": null,
         "field": "default_bild_ausfluege",
         "group": null,
-        "hidden": true,
-        "interface": "input",
+        "hidden": false,
+        "interface": "file-image",
         "note": null,
         "options": null,
-        "readonly": true,
+        "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "file"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -2785,11 +2845,11 @@
       "schema": {
         "name": "default_bild_ausfluege",
         "table": "einstellungen",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -2797,8 +2857,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -4478,23 +4538,25 @@
     {
       "collection": "galerie",
       "field": "bild",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "galerie",
         "conditions": null,
-        "display": null,
+        "display": "image",
         "display_options": null,
         "field": "bild",
         "group": null,
-        "hidden": true,
-        "interface": "input",
+        "hidden": false,
+        "interface": "file-image",
         "note": null,
         "options": null,
-        "readonly": true,
+        "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "file"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -4503,11 +4565,11 @@
       "schema": {
         "name": "bild",
         "table": "galerie",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -4515,8 +4577,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -5208,23 +5270,25 @@
     {
       "collection": "haeuser",
       "field": "hauptbild",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "haeuser",
         "conditions": null,
-        "display": null,
+        "display": "image",
         "display_options": null,
         "field": "hauptbild",
         "group": null,
-        "hidden": true,
-        "interface": "input",
+        "hidden": false,
+        "interface": "file-image",
         "note": null,
         "options": null,
-        "readonly": true,
+        "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "file"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -5233,11 +5297,11 @@
       "schema": {
         "name": "hauptbild",
         "table": "haeuser",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -5245,8 +5309,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -5316,6 +5380,34 @@
         "sort": 5,
         "special": [
           "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "haeuser",
+      "field": "weitere_bilder",
+      "type": "alias",
+      "meta": {
+        "collection": "haeuser",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "weitere_bilder",
+        "group": null,
+        "hidden": false,
+        "interface": "list-m2m",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": [
+          "m2m"
         ],
         "translations": null,
         "validation": null,
@@ -5407,14 +5499,14 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "haeuser",
+        "foreign_key_column": "id"
       }
     },
     {
       "collection": "haeuser_directus_files",
       "field": "directus_files_id",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "haeuser_directus_files",
         "conditions": null,
@@ -5439,20 +5531,20 @@
       "schema": {
         "name": "directus_files_id",
         "table": "haeuser_directus_files",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
-        "is_nullable": false,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
         "is_primary_key": false,
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -6280,23 +6372,25 @@
     {
       "collection": "news",
       "field": "bild",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "news",
         "conditions": null,
-        "display": null,
+        "display": "image",
         "display_options": null,
         "field": "bild",
         "group": null,
-        "hidden": true,
-        "interface": "input",
+        "hidden": false,
+        "interface": "file-image",
         "note": null,
         "options": null,
-        "readonly": true,
+        "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "file"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -6305,11 +6399,11 @@
       "schema": {
         "name": "bild",
         "table": "news",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -6317,8 +6411,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -7111,23 +7205,25 @@
     {
       "collection": "startseite",
       "field": "familienbild",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "startseite",
         "conditions": null,
-        "display": null,
+        "display": "image",
         "display_options": null,
         "field": "familienbild",
         "group": null,
-        "hidden": true,
-        "interface": "input",
+        "hidden": false,
+        "interface": "file-image",
         "note": null,
         "options": null,
-        "readonly": true,
+        "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "file"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -7136,11 +7232,11 @@
       "schema": {
         "name": "familienbild",
         "table": "startseite",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -7148,8 +7244,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -7665,23 +7761,25 @@
     {
       "collection": "wohnungen",
       "field": "hauptbild",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "wohnungen",
         "conditions": null,
-        "display": null,
+        "display": "image",
         "display_options": null,
         "field": "hauptbild",
         "group": null,
-        "hidden": true,
-        "interface": "input",
+        "hidden": false,
+        "interface": "file-image",
         "note": null,
         "options": null,
-        "readonly": true,
+        "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "file"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -7690,11 +7788,11 @@
       "schema": {
         "name": "hauptbild",
         "table": "wohnungen",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -7702,8 +7800,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -7869,6 +7967,34 @@
       }
     },
     {
+      "collection": "wohnungen",
+      "field": "weitere_bilder",
+      "type": "alias",
+      "meta": {
+        "collection": "wohnungen",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "weitere_bilder",
+        "group": null,
+        "hidden": false,
+        "interface": "list-m2m",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": [
+          "m2m"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "wohnungen_directus_files",
       "field": "id",
       "type": "bigInteger",
@@ -7952,14 +8078,14 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "wohnungen",
+        "foreign_key_column": "id"
       }
     },
     {
       "collection": "wohnungen_directus_files",
       "field": "directus_files_id",
-      "type": "integer",
+      "type": "uuid",
       "meta": {
         "collection": "wohnungen_directus_files",
         "conditions": null,
@@ -7984,11 +8110,11 @@
       "schema": {
         "name": "directus_files_id",
         "table": "wohnungen_directus_files",
-        "data_type": "integer",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -7996,8 +8122,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -8411,6 +8537,31 @@
       }
     },
     {
+      "collection": "ausfluege",
+      "field": "bild",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ausfluege",
+        "many_field": "bild",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ausfluege",
+        "column": "bild",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "ausfluege_bild_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
       "collection": "ausfluege_haeuser",
       "field": "ausfluege_id",
       "related_collection": "ausfluege",
@@ -8506,6 +8657,31 @@
         "foreign_key_table": "sprachen",
         "foreign_key_column": "code",
         "constraint_name": "ausfluege_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "einstellungen",
+      "field": "default_bild_ausfluege",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "einstellungen",
+        "many_field": "default_bild_ausfluege",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "einstellungen",
+        "column": "default_bild_ausfluege",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "einstellungen_default_bild_ausfluege_foreign",
         "on_update": "NO ACTION",
         "on_delete": "NO ACTION"
       }
@@ -8686,6 +8862,31 @@
       }
     },
     {
+      "collection": "galerie",
+      "field": "bild",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "galerie",
+        "many_field": "bild",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "galerie",
+        "column": "bild",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "galerie_bild_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
       "collection": "galerie_translations",
       "field": "galerie_id",
       "related_collection": "galerie",
@@ -8736,6 +8937,81 @@
       }
     },
     {
+      "collection": "haeuser",
+      "field": "hauptbild",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "haeuser",
+        "many_field": "hauptbild",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "haeuser",
+        "column": "hauptbild",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "haeuser_hauptbild_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "haeuser_directus_files",
+      "field": "haeuser_id",
+      "related_collection": "haeuser",
+      "meta": {
+        "junction_field": "directus_files_id",
+        "many_collection": "haeuser_directus_files",
+        "many_field": "haeuser_id",
+        "one_allowed_collections": null,
+        "one_collection": "haeuser",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "weitere_bilder",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "haeuser_directus_files",
+        "column": "haeuser_id",
+        "foreign_key_table": "haeuser",
+        "foreign_key_column": "id",
+        "constraint_name": "haeuser_directus_files_haeuser_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "haeuser_directus_files",
+      "field": "directus_files_id",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": "haeuser_id",
+        "many_collection": "haeuser_directus_files",
+        "many_field": "directus_files_id",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "haeuser",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "haeuser_directus_files",
+        "column": "directus_files_id",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "haeuser_directus_files_directus_files_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
       "collection": "haeuser_translations",
       "field": "haus_id",
       "related_collection": "haeuser",
@@ -8781,6 +9057,31 @@
         "foreign_key_table": "sprachen",
         "foreign_key_column": "code",
         "constraint_name": "haeuser_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "news",
+      "field": "bild",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "news",
+        "many_field": "bild",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "news",
+        "column": "bild",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "news_bild_foreign",
         "on_update": "NO ACTION",
         "on_delete": "NO ACTION"
       }
@@ -8886,6 +9187,31 @@
       }
     },
     {
+      "collection": "startseite",
+      "field": "familienbild",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "startseite",
+        "many_field": "familienbild",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "startseite",
+        "column": "familienbild",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "startseite_familienbild_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
       "collection": "startseite_translations",
       "field": "startseite_id",
       "related_collection": "startseite",
@@ -8956,6 +9282,81 @@
         "foreign_key_table": "haeuser",
         "foreign_key_column": "id",
         "constraint_name": "wohnungen_haus_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "wohnungen",
+      "field": "hauptbild",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "wohnungen",
+        "many_field": "hauptbild",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "wohnungen",
+        "column": "hauptbild",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "wohnungen_hauptbild_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "wohnungen_directus_files",
+      "field": "wohnungen_id",
+      "related_collection": "wohnungen",
+      "meta": {
+        "junction_field": "directus_files_id",
+        "many_collection": "wohnungen_directus_files",
+        "many_field": "wohnungen_id",
+        "one_allowed_collections": null,
+        "one_collection": "wohnungen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "weitere_bilder",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "wohnungen_directus_files",
+        "column": "wohnungen_id",
+        "foreign_key_table": "wohnungen",
+        "foreign_key_column": "id",
+        "constraint_name": "wohnungen_directus_files_wohnungen_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "wohnungen_directus_files",
+      "field": "directus_files_id",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": "wohnungen_id",
+        "many_collection": "wohnungen_directus_files",
+        "many_field": "directus_files_id",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "wohnungen",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "wohnungen_directus_files",
+        "column": "directus_files_id",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "wohnungen_directus_files_directus_files_id_foreign",
         "on_update": "NO ACTION",
         "on_delete": "NO ACTION"
       }
