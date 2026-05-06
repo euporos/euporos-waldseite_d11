@@ -81,6 +81,8 @@ echo "--- Creating M2O and M2M relations ---"
 python3 scripts/track_relations.py http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
 echo "--- Creating translations relations ---"
 python3 scripts/track_translations.py http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
+echo "--- Applying D8 field interface overrides (WYSIWYG, etc.) ---"
+python3 scripts/track_interfaces.py "$DUMP_ZIP" http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
 
 cat <<'EOF'
 
