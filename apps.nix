@@ -136,6 +136,16 @@ in
     '';
   };
 
+  # One-time bootstrap of waldseite D8 dump into a fresh D11 + Postgres.
+  # After this, do the manual UI cleanup pass and then `nix run .#schema-export`.
+  # Pass an optional dump path as the first arg; otherwise the most recent
+  # k113427_waldseite_*.sql.zip in the repo root is used.
+  waldseite-bootstrap = flake-utils.lib.mkApp {
+    drv = pkgs.writeShellScriptBin "waldseite-bootstrap" ''
+      exec nix develop .#default --command bash scripts/waldseite_bootstrap.sh "$@"
+    '';
+  };
+
   # Pull production Postgres directus DB → local devShell Postgres.
   # Wrapped in `nix develop` so PGHOST/PGPORT/... from pgEnvHook are in scope.
   pull-db-from-prod = flake-utils.lib.mkApp {

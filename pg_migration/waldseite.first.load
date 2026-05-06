@@ -1,0 +1,28 @@
+/* One-time waldseite bootstrap: pump the user-content tables from the
+   temp MariaDB (waldseite_directus, populated by scripts/load_waldseite_dump.sh)
+   into PostgreSQL, creating tables and indexes as we go.
+
+   Used only for the first import — once schema/snapshot.json is committed,
+   subsequent re-imports use a data-only variant (waldseite.load) alongside
+   `directus schema apply`. */
+
+LOAD DATABASE
+     FROM      mysql://directus:password@127.0.0.1:3306/waldseite_directus
+     INTO      postgresql://directus:password@127.0.0.1:5435/directus
+
+WITH include drop, create tables, create indexes,
+     reset sequences, preserve index names, quote identifiers
+
+SET PostgreSQL PARAMETERS
+     maintenance_work_mem to '128MB',
+     work_mem to '12MB'
+
+CAST type tinyint   to boolean drop typemod using tinyint-to-boolean,
+     type int       to integer drop typemod,
+     type bigint    to bigint   drop typemod,
+     type datetime  to "timestamp with time zone" drop default drop not null using zero-dates-to-null,
+     type timestamp to "timestamp with time zone" drop default drop not null using zero-dates-to-null,
+     type date      drop not null drop default using zero-dates-to-null
+
+ALTER SCHEMA 'waldseite_directus' RENAME TO 'public'
+;
