@@ -1,0 +1,415 @@
+- generic [ref=e4]:
+  - list [ref=e5]:
+    - link "Skip to Module Navigation" [ref=e6] [cursor=pointer]:
+      - /url: /admin/content/concerts#module-navigation
+    - link "Skip to Main Content" [ref=e7] [cursor=pointer]:
+      - /url: /admin/content/concerts#main-content
+    - link "Skip to Sidebar" [ref=e8] [cursor=pointer]:
+      - /url: /admin/content/concerts#sidebar
+  - generic [ref=e9]:
+    - generic [ref=e12]:
+      - link [ref=e14] [cursor=pointer]:
+        - /url: /admin/content
+        - img [ref=e17]
+      - link "people_alt" [ref=e20] [cursor=pointer]:
+        - /url: /admin/users
+        - generic [ref=e23]: people_alt
+      - link "folder" [ref=e25] [cursor=pointer]:
+        - /url: /admin/files
+        - generic [ref=e28]: folder
+      - link "insights" [ref=e30] [cursor=pointer]:
+        - /url: /admin/insights
+        - generic [ref=e33]: insights
+      - link "help" [ref=e35] [cursor=pointer]:
+        - /url: https://docs.directus.io
+        - generic [ref=e38]: help
+      - link "settings" [ref=e40] [cursor=pointer]:
+        - /url: /admin/settings
+        - generic [ref=e43]: settings
+      - link "launch" [ref=e45] [cursor=pointer]:
+        - /url: /admin/admin-app
+        - generic [ref=e48]: launch
+    - generic [ref=e49]:
+      - button "notifications" [ref=e52] [cursor=pointer]:
+        - generic [ref=e55]: notifications
+      - generic [ref=e56]:
+        - button [ref=e59] [cursor=pointer]:
+          - img [ref=e62]
+        - link "account_circle" [ref=e65] [cursor=pointer]:
+          - /url: /admin/users/99ea45fb-696a-4e9a-815d-112e9cd472a0
+          - generic [ref=e68]: account_circle
+  - generic [ref=e69]:
+    - generic [ref=e70]:
+      - list [ref=e71]:
+        - link "Skip to Navigation" [ref=e72] [cursor=pointer]:
+          - /url: /admin/content/concerts#navigation
+        - link "Skip to Main Content" [ref=e73] [cursor=pointer]:
+          - /url: /admin/content/concerts#main-content
+        - link "Skip to Sidebar" [ref=e74] [cursor=pointer]:
+          - /url: /admin/content/concerts#sidebar
+      - navigation "Module Navigation" [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e78]: Sounds of Ukraine
+          - button "left_panel_close" [ref=e79] [cursor=pointer]:
+            - generic [ref=e80]: left_panel_close
+        - list [ref=e83]:
+          - link "database Concerts" [ref=e84] [cursor=pointer]:
+            - /url: /admin/content/concerts
+            - generic [ref=e87]: database
+            - generic [ref=e89]: Concerts
+          - link "database Email Reservation" [ref=e90] [cursor=pointer]:
+            - /url: /admin/content/email_reservation
+            - generic [ref=e93]: database
+            - generic [ref=e95]: Email Reservation
+          - link "database General" [ref=e96] [cursor=pointer]:
+            - /url: /admin/content/general
+            - generic [ref=e99]: database
+            - generic [ref=e101]: General
+          - link "database Languages" [ref=e102] [cursor=pointer]:
+            - /url: /admin/content/languages
+            - generic [ref=e105]: database
+            - generic [ref=e107]: Languages
+          - link "database Musicians" [ref=e108] [cursor=pointer]:
+            - /url: /admin/content/musicians
+            - generic [ref=e111]: database
+            - generic [ref=e113]: Musicians
+          - link "database Pages" [ref=e114] [cursor=pointer]:
+            - /url: /admin/content/pages
+            - generic [ref=e117]: database
+            - generic [ref=e119]: Pages
+          - link "database Reservations" [ref=e120] [cursor=pointer]:
+            - /url: /admin/content/reservations
+            - generic [ref=e123]: database
+            - generic [ref=e125]: Reservations
+          - link "database Venues" [ref=e126] [cursor=pointer]:
+            - /url: /admin/content/venues
+            - generic [ref=e129]: database
+            - generic [ref=e131]: Venues
+    - separator "Resize"
+    - generic [ref=e133]:
+      - list [ref=e134]:
+        - link "Skip to Navigation" [ref=e135] [cursor=pointer]:
+          - /url: /admin/content/concerts#navigation
+        - link "Skip to Module Navigation" [ref=e136] [cursor=pointer]:
+          - /url: /admin/content/concerts#module-navigation
+        - link "Skip to Sidebar" [ref=e137] [cursor=pointer]:
+          - /url: /admin/content/concerts#sidebar
+      - generic [ref=e139]:
+        - generic [ref=e141]:
+          - banner [ref=e142]:
+            - generic [ref=e143]:
+              - generic [ref=e147]: database
+              - generic [ref=e148]:
+                - link "Content" [ref=e152] [cursor=pointer]:
+                  - /url: /admin/content
+                - heading "Concerts" [level=1] [ref=e154]:
+                  - generic [ref=e155]: Concerts
+              - button "bookmark" [ref=e159] [cursor=pointer]:
+                - generic [ref=e160]: bookmark
+              - button "right_panel_close" [ref=e161] [cursor=pointer]:
+                - generic [ref=e162]: right_panel_close
+            - generic [ref=e163]: 17 Items
+            - generic [ref=e164]:
+              - search [ref=e166]:
+                - button "search" [ref=e167] [cursor=pointer]:
+                  - generic [ref=e168]: search
+                - searchbox "Search Items..."
+                - button "filter_list" [ref=e169] [cursor=pointer]:
+                  - generic [ref=e170]: filter_list
+                - text: add expand_more
+              - link "add" [ref=e172] [cursor=pointer]:
+                - /url: /admin/content/concerts/+
+                - generic [ref=e175]: add
+          - main [ref=e176]:
+            - table "Translations, DateTime, Program" [ref=e179]:
+              - rowgroup [ref=e180]:
+                - row "check_box_outline_blank Translations arrow_drop_down DateTime sort Program arrow_drop_down add" [ref=e181]:
+                  - columnheader "check_box_outline_blank" [ref=e182]:
+                    - checkbox "check_box_outline_blank" [ref=e183] [cursor=pointer]:
+                      - generic [ref=e185]: check_box_outline_blank
+                  - columnheader "Translations arrow_drop_down" [ref=e186]:
+                    - button "Translations arrow_drop_down" [ref=e190] [cursor=pointer]:
+                      - generic [ref=e191]: Translations
+                      - generic [ref=e193]: arrow_drop_down
+                  - columnheader "DateTime sort" [ref=e195]:
+                    - button "DateTime sort" [ref=e199] [cursor=pointer]:
+                      - generic [ref=e200]: DateTime
+                      - generic [ref=e202]: sort
+                  - columnheader "Program arrow_drop_down" [ref=e204]:
+                    - button "Program arrow_drop_down" [ref=e208] [cursor=pointer]:
+                      - generic [ref=e209]: Program
+                      - generic [ref=e211]: arrow_drop_down
+                  - columnheader
+                  - cell "add" [ref=e213]:
+                    - button "add" [ref=e216] [cursor=pointer]:
+                      - generic [ref=e217]: add
+              - rowgroup [ref=e218]:
+                - 'row "check_box_outline_blank Vasyl Barvinsky & Antonín Dvořák info August 23rd, 2026 7:30 PM Vasyl Barvinsky (1888–1963) Trio in A minor I. Andante sentimentale – Allegro energico II. Andante III. Allegro giocoso (alla Kolomyika) Antonín Dvořák (1841–1904) Piano Trio No. 3 in F minor, op. 65 I. Allegro ma non troppo II. Allegretto grazioso III. Poco adagio IV. Finale: Allegro con brio" [ref=e219]':
+                  - cell "check_box_outline_blank" [ref=e220]:
+                    - checkbox "check_box_outline_blank" [ref=e221] [cursor=pointer]:
+                      - generic [ref=e223]: check_box_outline_blank
+                  - cell "Vasyl Barvinsky & Antonín Dvořák info" [ref=e224]:
+                    - generic [ref=e225]:
+                      - generic [ref=e227]: Vasyl Barvinsky & Antonín Dvořák
+                      - button "info" [ref=e230] [cursor=pointer]:
+                        - generic [ref=e231]: info
+                  - cell "August 23rd, 2026 7:30 PM" [ref=e232]:
+                    - generic [ref=e233]: August 23rd, 2026 7:30 PM
+                  - 'cell "Vasyl Barvinsky (1888–1963) Trio in A minor I. Andante sentimentale – Allegro energico II. Andante III. Allegro giocoso (alla Kolomyika) Antonín Dvořák (1841–1904) Piano Trio No. 3 in F minor, op. 65 I. Allegro ma non troppo II. Allegretto grazioso III. Poco adagio IV. Finale: Allegro con brio" [ref=e234]':
+                    - generic [ref=e235]: "Vasyl Barvinsky (1888–1963) Trio in A minor I. Andante sentimentale – Allegro energico II. Andante III. Allegro giocoso (alla Kolomyika) Antonín Dvořák (1841–1904) Piano Trio No. 3 in F minor, op. 65 I. Allegro ma non troppo II. Allegretto grazioso III. Poco adagio IV. Finale: Allegro con brio"
+                  - cell [ref=e236]
+                - 'row "check_box_outline_blank Viktor Kosenko & Frédéric Chopin info August 22nd, 2026 7:30 PM Viktor Kosenko (1896–1938) Piano Sonata No. 3, op. 15 — F minor • Allegro moderato Frédéric Chopin (1810–1849) Piano Sonata No. 3, op. 58 — B minor I. Allegro maestoso II. Scherzo: Molto vivace III. Largo IV. Finale: Presto non tanto" [ref=e237]':
+                  - cell "check_box_outline_blank" [ref=e238]:
+                    - checkbox "check_box_outline_blank" [ref=e239] [cursor=pointer]:
+                      - generic [ref=e241]: check_box_outline_blank
+                  - cell "Viktor Kosenko & Frédéric Chopin info" [ref=e242]:
+                    - generic [ref=e243]:
+                      - generic [ref=e245]: Viktor Kosenko & Frédéric Chopin
+                      - button "info" [ref=e248] [cursor=pointer]:
+                        - generic [ref=e249]: info
+                  - cell "August 22nd, 2026 7:30 PM" [ref=e250]:
+                    - generic [ref=e251]: August 22nd, 2026 7:30 PM
+                  - 'cell "Viktor Kosenko (1896–1938) Piano Sonata No. 3, op. 15 — F minor • Allegro moderato Frédéric Chopin (1810–1849) Piano Sonata No. 3, op. 58 — B minor I. Allegro maestoso II. Scherzo: Molto vivace III. Largo IV. Finale: Presto non tanto" [ref=e252]':
+                    - generic [ref=e253]: "Viktor Kosenko (1896–1938) Piano Sonata No. 3, op. 15 — F minor • Allegro moderato Frédéric Chopin (1810–1849) Piano Sonata No. 3, op. 58 — B minor I. Allegro maestoso II. Scherzo: Molto vivace III. Largo IV. Finale: Presto non tanto"
+                  - cell [ref=e254]
+                - row "check_box_outline_blank Serhij Bortkiewicz & Karol Szymanowski info June 5th, 2026 7:30 PM Serhii Bortkiewicz (1877–1952) Lyrica nova, op. 59 I. Moderato II. Andante III. Allegretto IV. Con slancio Karol Szymanowski (1882–1937) 4 Mazurkas, op. 50 No. 1 E minor No. 2 A major No. 3 C-sharp minor No. 4 B-flat major Serhii Bortkiewicz (1877–1952) 3 Mazurkas, op. 64 No. 1 A minor No. 2 E major No. 3 G-flat major Karol Szymanowski (1882–1937) Romance for violin and piano, op. 23 Serhii Bortkiewicz (1877–1952) Sonata for violin and piano in G minor, op. 26 I. Sostenuto – Allegro dramatico – Adagio II. Andante – Agitato – Cadenza – Andante lacrimoso III. Allegro vivace e con brio" [ref=e255]:
+                  - cell "check_box_outline_blank" [ref=e256]:
+                    - checkbox "check_box_outline_blank" [ref=e257] [cursor=pointer]:
+                      - generic [ref=e259]: check_box_outline_blank
+                  - cell "Serhij Bortkiewicz & Karol Szymanowski info" [ref=e260]:
+                    - generic [ref=e261]:
+                      - generic [ref=e263]: Serhij Bortkiewicz & Karol Szymanowski
+                      - button "info" [ref=e266] [cursor=pointer]:
+                        - generic [ref=e267]: info
+                  - cell "June 5th, 2026 7:30 PM" [ref=e268]:
+                    - generic [ref=e269]: June 5th, 2026 7:30 PM
+                  - cell "Serhii Bortkiewicz (1877–1952) Lyrica nova, op. 59 I. Moderato II. Andante III. Allegretto IV. Con slancio Karol Szymanowski (1882–1937) 4 Mazurkas, op. 50 No. 1 E minor No. 2 A major No. 3 C-sharp minor No. 4 B-flat major Serhii Bortkiewicz (1877–1952) 3 Mazurkas, op. 64 No. 1 A minor No. 2 E major No. 3 G-flat major Karol Szymanowski (1882–1937) Romance for violin and piano, op. 23 Serhii Bortkiewicz (1877–1952) Sonata for violin and piano in G minor, op. 26 I. Sostenuto – Allegro dramatico – Adagio II. Andante – Agitato – Cadenza – Andante lacrimoso III. Allegro vivace e con brio" [ref=e270]:
+                    - generic [ref=e271]: Serhii Bortkiewicz (1877–1952) Lyrica nova, op. 59 I. Moderato II. Andante III. Allegretto IV. Con slancio Karol Szymanowski (1882–1937) 4 Mazurkas, op. 50 No. 1 E minor No. 2 A major No. 3 C-sharp minor No. 4 B-flat major Serhii Bortkiewicz (1877–1952) 3 Mazurkas, op. 64 No. 1 A minor No. 2 E major No. 3 G-flat major Karol Szymanowski (1882–1937) Romance for violin and piano, op. 23 Serhii Bortkiewicz (1877–1952) Sonata for violin and piano in G minor, op. 26 I. Sostenuto – Allegro dramatico – Adagio II. Andante – Agitato – Cadenza – Andante lacrimoso III. Allegro vivace e con brio
+                  - cell [ref=e272]
+                - row "check_box_outline_blank Valentyn Silvestrov & Giya Kancheli info April 25th, 2026 7:00 PM --" [ref=e273]:
+                  - cell "check_box_outline_blank" [ref=e274]:
+                    - checkbox "check_box_outline_blank" [ref=e275] [cursor=pointer]:
+                      - generic [ref=e277]: check_box_outline_blank
+                  - cell "Valentyn Silvestrov & Giya Kancheli info" [ref=e278]:
+                    - generic [ref=e279]:
+                      - generic [ref=e281]: Valentyn Silvestrov & Giya Kancheli
+                      - button "info" [ref=e284] [cursor=pointer]:
+                        - generic [ref=e285]: info
+                  - cell "April 25th, 2026 7:00 PM" [ref=e286]:
+                    - generic [ref=e287]: April 25th, 2026 7:00 PM
+                  - cell "--" [ref=e288]:
+                    - generic [ref=e289]: "--"
+                  - cell [ref=e290]
+                - row "check_box_outline_blank Theodore Akimenko & die französische Schule (u. a. Claude Debussy) info March 5th, 2026 6:30 PM Akimenko Theodore (1876–1945) 6 ukrainische Stücke, op. 71 (1925) für Klavier zu vier Händen Dumka For dance Song Wedding November Grechanyky Claude Debussy (1862–1918) Petite Suite (1889) für Klavier zu vier Händen En bateau Cortège Menuet Ballet Akimenko Theodore (1876–1945) Ausgewählte Klavierwerke (Solo)" [ref=e291]:
+                  - cell "check_box_outline_blank" [ref=e292]:
+                    - checkbox "check_box_outline_blank" [ref=e293] [cursor=pointer]:
+                      - generic [ref=e295]: check_box_outline_blank
+                  - cell "Theodore Akimenko & die französische Schule (u. a. Claude Debussy) info" [ref=e296]:
+                    - generic [ref=e297]:
+                      - generic [ref=e299]: Theodore Akimenko & die französische Schule (u. a. Claude Debussy)
+                      - button "info" [ref=e302] [cursor=pointer]:
+                        - generic [ref=e303]: info
+                  - cell "March 5th, 2026 6:30 PM" [ref=e304]:
+                    - generic [ref=e305]: March 5th, 2026 6:30 PM
+                  - cell "Akimenko Theodore (1876–1945) 6 ukrainische Stücke, op. 71 (1925) für Klavier zu vier Händen Dumka For dance Song Wedding November Grechanyky Claude Debussy (1862–1918) Petite Suite (1889) für Klavier zu vier Händen En bateau Cortège Menuet Ballet Akimenko Theodore (1876–1945) Ausgewählte Klavierwerke (Solo)" [ref=e306]:
+                    - generic [ref=e307]: Akimenko Theodore (1876–1945) 6 ukrainische Stücke, op. 71 (1925) für Klavier zu vier Händen Dumka For dance Song Wedding November Grechanyky Claude Debussy (1862–1918) Petite Suite (1889) für Klavier zu vier Händen En bateau Cortège Menuet Ballet Akimenko Theodore (1876–1945) Ausgewählte Klavierwerke (Solo)
+                  - cell [ref=e308]
+                - 'row "check_box_outline_blank Klangwelten zwischen Romantik und Widerstand info June 5th, 2025 7:00 PM Robert Schumann (1810–1856) – Klavierquintett Es-Dur, op. 44 Allegro brillante In modo d’una Marcia. Un poco largamente Scherzo: Molto vivace Allegro ma non troppo Vasyl Barvinsky (1888–1963) – Klavierquintett g-Moll Grave, quasi sospirando – Allegro non troppo Largo sostenuto Borys Liatoshynsky (1895–1968) – Ukrainisches Klavierquintett g-Moll, op. 42 Allegro e poco agitato Lento e tranquillo Allegro Allegro risoluto" [ref=e309]':
+                  - cell "check_box_outline_blank" [ref=e310]:
+                    - checkbox "check_box_outline_blank" [ref=e311] [cursor=pointer]:
+                      - generic [ref=e313]: check_box_outline_blank
+                  - cell "Klangwelten zwischen Romantik und Widerstand info" [ref=e314]:
+                    - generic [ref=e315]:
+                      - generic [ref=e317]: Klangwelten zwischen Romantik und Widerstand
+                      - button "info" [ref=e320] [cursor=pointer]:
+                        - generic [ref=e321]: info
+                  - cell "June 5th, 2025 7:00 PM" [ref=e322]:
+                    - generic [ref=e323]: June 5th, 2025 7:00 PM
+                  - 'cell "Robert Schumann (1810–1856) – Klavierquintett Es-Dur, op. 44 Allegro brillante In modo d’una Marcia. Un poco largamente Scherzo: Molto vivace Allegro ma non troppo Vasyl Barvinsky (1888–1963) – Klavierquintett g-Moll Grave, quasi sospirando – Allegro non troppo Largo sostenuto Borys Liatoshynsky (1895–1968) – Ukrainisches Klavierquintett g-Moll, op. 42 Allegro e poco agitato Lento e tranquillo Allegro Allegro risoluto" [ref=e324]':
+                    - generic [ref=e325]: "Robert Schumann (1810–1856) – Klavierquintett Es-Dur, op. 44 Allegro brillante In modo d’una Marcia. Un poco largamente Scherzo: Molto vivace Allegro ma non troppo Vasyl Barvinsky (1888–1963) – Klavierquintett g-Moll Grave, quasi sospirando – Allegro non troppo Largo sostenuto Borys Liatoshynsky (1895–1968) – Ukrainisches Klavierquintett g-Moll, op. 42 Allegro e poco agitato Lento e tranquillo Allegro Allegro risoluto"
+                  - cell [ref=e326]
+                - 'row "check_box_outline_blank Ukrainische Kammermusik im Wandel der Zeit: Barvinsky/Lyatoschynsky info November 17th, 2024 7:00 PM --" [ref=e327]':
+                  - cell "check_box_outline_blank" [ref=e328]:
+                    - checkbox "check_box_outline_blank" [ref=e329] [cursor=pointer]:
+                      - generic [ref=e331]: check_box_outline_blank
+                  - 'cell "Ukrainische Kammermusik im Wandel der Zeit: Barvinsky/Lyatoschynsky info" [ref=e332]':
+                    - generic [ref=e333]:
+                      - generic [ref=e335]: "Ukrainische Kammermusik im Wandel der Zeit: Barvinsky/Lyatoschynsky"
+                      - button "info" [ref=e338] [cursor=pointer]:
+                        - generic [ref=e339]: info
+                  - cell "November 17th, 2024 7:00 PM" [ref=e340]:
+                    - generic [ref=e341]: November 17th, 2024 7:00 PM
+                  - cell "--" [ref=e342]:
+                    - generic [ref=e343]: "--"
+                  - cell [ref=e344]
+                - row "check_box_outline_blank Werke ukrainischer Komponisten im Spiegel italienischer Barockmusik info November 16th, 2024 7:00 PM --" [ref=e345]:
+                  - cell "check_box_outline_blank" [ref=e346]:
+                    - checkbox "check_box_outline_blank" [ref=e347] [cursor=pointer]:
+                      - generic [ref=e349]: check_box_outline_blank
+                  - cell "Werke ukrainischer Komponisten im Spiegel italienischer Barockmusik info" [ref=e350]:
+                    - generic [ref=e351]:
+                      - generic [ref=e353]: Werke ukrainischer Komponisten im Spiegel italienischer Barockmusik
+                      - button "info" [ref=e356] [cursor=pointer]:
+                        - generic [ref=e357]: info
+                  - cell "November 16th, 2024 7:00 PM" [ref=e358]:
+                    - generic [ref=e359]: November 16th, 2024 7:00 PM
+                  - cell "--" [ref=e360]:
+                    - generic [ref=e361]: "--"
+                  - cell [ref=e362]
+                - row "check_box_outline_blank Dialog mit der Stille info November 15th, 2024 7:00 PM --" [ref=e363]:
+                  - cell "check_box_outline_blank" [ref=e364]:
+                    - checkbox "check_box_outline_blank" [ref=e365] [cursor=pointer]:
+                      - generic [ref=e367]: check_box_outline_blank
+                  - cell "Dialog mit der Stille info" [ref=e368]:
+                    - generic [ref=e369]:
+                      - generic [ref=e371]: Dialog mit der Stille
+                      - button "info" [ref=e374] [cursor=pointer]:
+                        - generic [ref=e375]: info
+                  - cell "November 15th, 2024 7:00 PM" [ref=e376]:
+                    - generic [ref=e377]: November 15th, 2024 7:00 PM
+                  - cell "--" [ref=e378]:
+                    - generic [ref=e379]: "--"
+                  - cell [ref=e380]
+                - 'row "check_box_outline_blank Ukrainische Virtuosen: Klarinette und Klavier im Einklang info November 14th, 2024 7:00 PM - Levko Kolodub (*1927-2016*). Poem- Borys Lyatoshynsky (*1895-1968*). Melody- Lyudmyla Shukailo (*1946-*). Romance- Rostyslav Demchyshyn (*1949-*). Mrii- Carl Maria von Weber (*1786-1826*). Grand Duo- Yuriy Shchurovsky (*1945-*). Romance- Myroslav Skoryk (*1938-2020*). Carpathian Rhapsody" [ref=e381]':
+                  - cell "check_box_outline_blank" [ref=e382]:
+                    - checkbox "check_box_outline_blank" [ref=e383] [cursor=pointer]:
+                      - generic [ref=e385]: check_box_outline_blank
+                  - 'cell "Ukrainische Virtuosen: Klarinette und Klavier im Einklang info" [ref=e386]':
+                    - generic [ref=e387]:
+                      - generic [ref=e389]: "Ukrainische Virtuosen: Klarinette und Klavier im Einklang"
+                      - button "info" [ref=e392] [cursor=pointer]:
+                        - generic [ref=e393]: info
+                  - cell "November 14th, 2024 7:00 PM" [ref=e394]:
+                    - generic [ref=e395]: November 14th, 2024 7:00 PM
+                  - cell "- Levko Kolodub (*1927-2016*). Poem- Borys Lyatoshynsky (*1895-1968*). Melody- Lyudmyla Shukailo (*1946-*). Romance- Rostyslav Demchyshyn (*1949-*). Mrii- Carl Maria von Weber (*1786-1826*). Grand Duo- Yuriy Shchurovsky (*1945-*). Romance- Myroslav Skoryk (*1938-2020*). Carpathian Rhapsody" [ref=e396]:
+                    - generic [ref=e397]: "- Levko Kolodub (*1927-2016*). Poem- Borys Lyatoshynsky (*1895-1968*). Melody- Lyudmyla Shukailo (*1946-*). Romance- Rostyslav Demchyshyn (*1949-*). Mrii- Carl Maria von Weber (*1786-1826*). Grand Duo- Yuriy Shchurovsky (*1945-*). Romance- Myroslav Skoryk (*1938-2020*). Carpathian Rhapsody"
+                  - cell [ref=e398]
+                - 'row "check_box_outline_blank Erinnerungen an Lviv: Musik von Lyudkevych, Kolessa und Barvinsky info October 12th, 2024 7:00 PM Stanislaw Lyudkevych:1. Sonata for Violin and Piano (1965)2. Variations on a Folk Theme for Violin and Piano (1945-1946)3. Chabarashka for Violin and Piano (1912)4. Nocturne after a Letter from O.Y. for Piano5. Quiet Evening (Theme from Brahms) for Piano6. Valse Lente for Piano7. Lullaby for Violin and Piano (1905) Mykola Kolessa:1. Prelude “Fantastic” (1938)2. Prelude “Autumnal” (1969)3. Prelude “Hutsul” (1975)4. Prelude “About Dovbush” (1981) Vasyl Barvinsky:1. Prelude No. 1 in e minor from the cycle “5 Preludes for Piano” (1908)2. Prelude No. 2 in F-sharp Major from the cycle “5 Preludes for Piano” (1908)3. Prelude No. 3 in g minor from the cycle “5 Preludes for Piano” (1908)4. Song, Serenade (1911)" [ref=e399]':
+                  - cell "check_box_outline_blank" [ref=e400]:
+                    - checkbox "check_box_outline_blank" [ref=e401] [cursor=pointer]:
+                      - generic [ref=e403]: check_box_outline_blank
+                  - 'cell "Erinnerungen an Lviv: Musik von Lyudkevych, Kolessa und Barvinsky info" [ref=e404]':
+                    - generic [ref=e405]:
+                      - generic [ref=e407]: "Erinnerungen an Lviv: Musik von Lyudkevych, Kolessa und Barvinsky"
+                      - button "info" [ref=e410] [cursor=pointer]:
+                        - generic [ref=e411]: info
+                  - cell "October 12th, 2024 7:00 PM" [ref=e412]:
+                    - generic [ref=e413]: October 12th, 2024 7:00 PM
+                  - cell "Stanislaw Lyudkevych:1. Sonata for Violin and Piano (1965)2. Variations on a Folk Theme for Violin and Piano (1945-1946)3. Chabarashka for Violin and Piano (1912)4. Nocturne after a Letter from O.Y. for Piano5. Quiet Evening (Theme from Brahms) for Piano6. Valse Lente for Piano7. Lullaby for Violin and Piano (1905) Mykola Kolessa:1. Prelude “Fantastic” (1938)2. Prelude “Autumnal” (1969)3. Prelude “Hutsul” (1975)4. Prelude “About Dovbush” (1981) Vasyl Barvinsky:1. Prelude No. 1 in e minor from the cycle “5 Preludes for Piano” (1908)2. Prelude No. 2 in F-sharp Major from the cycle “5 Preludes for Piano” (1908)3. Prelude No. 3 in g minor from the cycle “5 Preludes for Piano” (1908)4. Song, Serenade (1911)" [ref=e414]:
+                    - generic [ref=e415]: Stanislaw Lyudkevych:1. Sonata for Violin and Piano (1965)2. Variations on a Folk Theme for Violin and Piano (1945-1946)3. Chabarashka for Violin and Piano (1912)4. Nocturne after a Letter from O.Y. for Piano5. Quiet Evening (Theme from Brahms) for Piano6. Valse Lente for Piano7. Lullaby for Violin and Piano (1905) Mykola Kolessa:1. Prelude “Fantastic” (1938)2. Prelude “Autumnal” (1969)3. Prelude “Hutsul” (1975)4. Prelude “About Dovbush” (1981) Vasyl Barvinsky:1. Prelude No. 1 in e minor from the cycle “5 Preludes for Piano” (1908)2. Prelude No. 2 in F-sharp Major from the cycle “5 Preludes for Piano” (1908)3. Prelude No. 3 in g minor from the cycle “5 Preludes for Piano” (1908)4. Song, Serenade (1911)
+                  - cell [ref=e416]
+                - 'row "check_box_outline_blank Ukrainische Weihnachten info December 16th, 2023 6:00 PM Serge Yushkevich (1953*) Carol of the Bells fis-Moll Vítězslav Novák (1870-1949) Songs of Winter Nights, op. 303. Song on Christmas night: Andante misterioso Vasyl Barvinsky (1888-1963) Lied in g-moll 12 Kolyadki (Ukrainische Weihnachtslieder ) Giya Kancheli (1935-2019) 5 Miniaturen Valentyn Silvestrov (1937 5 Stücke zum Neuen Jahr Moderato F-DurAllegretto G-DurAllegro As-DurAndante As-DurModerato B-Dur Märchen aus dem Zyklus \"Naive Musik\"" [ref=e417]':
+                  - cell "check_box_outline_blank" [ref=e418]:
+                    - checkbox "check_box_outline_blank" [ref=e419] [cursor=pointer]:
+                      - generic [ref=e421]: check_box_outline_blank
+                  - cell "Ukrainische Weihnachten info" [ref=e422]:
+                    - generic [ref=e423]:
+                      - generic [ref=e425]: Ukrainische Weihnachten
+                      - button "info" [ref=e428] [cursor=pointer]:
+                        - generic [ref=e429]: info
+                  - cell "December 16th, 2023 6:00 PM" [ref=e430]:
+                    - generic [ref=e431]: December 16th, 2023 6:00 PM
+                  - 'cell "Serge Yushkevich (1953*) Carol of the Bells fis-Moll Vítězslav Novák (1870-1949) Songs of Winter Nights, op. 303. Song on Christmas night: Andante misterioso Vasyl Barvinsky (1888-1963) Lied in g-moll 12 Kolyadki (Ukrainische Weihnachtslieder ) Giya Kancheli (1935-2019) 5 Miniaturen Valentyn Silvestrov (1937 5 Stücke zum Neuen Jahr Moderato F-DurAllegretto G-DurAllegro As-DurAndante As-DurModerato B-Dur Märchen aus dem Zyklus \"Naive Musik\"" [ref=e432]':
+                    - generic [ref=e433]: "Serge Yushkevich (1953*) Carol of the Bells fis-Moll Vítězslav Novák (1870-1949) Songs of Winter Nights, op. 303. Song on Christmas night: Andante misterioso Vasyl Barvinsky (1888-1963) Lied in g-moll 12 Kolyadki (Ukrainische Weihnachtslieder ) Giya Kancheli (1935-2019) 5 Miniaturen Valentyn Silvestrov (1937 5 Stücke zum Neuen Jahr Moderato F-DurAllegretto G-DurAllegro As-DurAndante As-DurModerato B-Dur Märchen aus dem Zyklus \"Naive Musik\""
+                  - cell [ref=e434]
+                - row "check_box_outline_blank Ukrainische Weihnachten info December 15th, 2023 7:00 PM --" [ref=e435]:
+                  - cell "check_box_outline_blank" [ref=e436]:
+                    - checkbox "check_box_outline_blank" [ref=e437] [cursor=pointer]:
+                      - generic [ref=e439]: check_box_outline_blank
+                  - cell "Ukrainische Weihnachten info" [ref=e440]:
+                    - generic [ref=e441]:
+                      - generic [ref=e443]: Ukrainische Weihnachten
+                      - button "info" [ref=e446] [cursor=pointer]:
+                        - generic [ref=e447]: info
+                  - cell "December 15th, 2023 7:00 PM" [ref=e448]:
+                    - generic [ref=e449]: December 15th, 2023 7:00 PM
+                  - cell "--" [ref=e450]:
+                    - generic [ref=e451]: "--"
+                  - cell [ref=e452]
+                - row "check_box_outline_blank Der Klang des ukrainischen Herzens in 4 Händen info November 2nd, 2023 7:00 PM --" [ref=e453]:
+                  - cell "check_box_outline_blank" [ref=e454]:
+                    - checkbox "check_box_outline_blank" [ref=e455] [cursor=pointer]:
+                      - generic [ref=e457]: check_box_outline_blank
+                  - cell "Der Klang des ukrainischen Herzens in 4 Händen info" [ref=e458]:
+                    - generic [ref=e459]:
+                      - generic [ref=e461]: Der Klang des ukrainischen Herzens in 4 Händen
+                      - button "info" [ref=e464] [cursor=pointer]:
+                        - generic [ref=e465]: info
+                  - cell "November 2nd, 2023 7:00 PM" [ref=e466]:
+                    - generic [ref=e467]: November 2nd, 2023 7:00 PM
+                  - cell "--" [ref=e468]:
+                    - generic [ref=e469]: "--"
+                  - cell [ref=e470]
+                - row "check_box_outline_blank Barvinsky und Skoryk info September 10th, 2023 6:00 PM --" [ref=e471]:
+                  - cell "check_box_outline_blank" [ref=e472]:
+                    - checkbox "check_box_outline_blank" [ref=e473] [cursor=pointer]:
+                      - generic [ref=e475]: check_box_outline_blank
+                  - cell "Barvinsky und Skoryk info" [ref=e476]:
+                    - generic [ref=e477]:
+                      - generic [ref=e479]: Barvinsky und Skoryk
+                      - button "info" [ref=e482] [cursor=pointer]:
+                        - generic [ref=e483]: info
+                  - cell "September 10th, 2023 6:00 PM" [ref=e484]:
+                    - generic [ref=e485]: September 10th, 2023 6:00 PM
+                  - cell "--" [ref=e486]:
+                    - generic [ref=e487]: "--"
+                  - cell [ref=e488]
+                - row "check_box_outline_blank Ukrainische Romanze info September 9th, 2023 6:00 PM --" [ref=e489]:
+                  - cell "check_box_outline_blank" [ref=e490]:
+                    - checkbox "check_box_outline_blank" [ref=e491] [cursor=pointer]:
+                      - generic [ref=e493]: check_box_outline_blank
+                  - cell "Ukrainische Romanze info" [ref=e494]:
+                    - generic [ref=e495]:
+                      - generic [ref=e497]: Ukrainische Romanze
+                      - button "info" [ref=e500] [cursor=pointer]:
+                        - generic [ref=e501]: info
+                  - cell "September 9th, 2023 6:00 PM" [ref=e502]:
+                    - generic [ref=e503]: September 9th, 2023 6:00 PM
+                  - cell "--" [ref=e504]:
+                    - generic [ref=e505]: "--"
+                  - cell [ref=e506]
+                - row "check_box_outline_blank Ukrainisches Poem Kammermusik für Violine und Klavier info September 8th, 2023 7:00 PM --" [ref=e507]:
+                  - cell "check_box_outline_blank" [ref=e508]:
+                    - checkbox "check_box_outline_blank" [ref=e509] [cursor=pointer]:
+                      - generic [ref=e511]: check_box_outline_blank
+                  - cell "Ukrainisches Poem Kammermusik für Violine und Klavier info" [ref=e512]:
+                    - generic [ref=e513]:
+                      - generic [ref=e515]: Ukrainisches Poem Kammermusik für Violine und Klavier
+                      - button "info" [ref=e518] [cursor=pointer]:
+                        - generic [ref=e519]: info
+                  - cell "September 8th, 2023 7:00 PM" [ref=e520]:
+                    - generic [ref=e521]: September 8th, 2023 7:00 PM
+                  - cell "--" [ref=e522]:
+                    - generic [ref=e523]: "--"
+                  - cell [ref=e524]
+        - separator "Resize"
+        - generic [ref=e528]:
+          - list [ref=e529]:
+            - link "Skip to Navigation" [ref=e530] [cursor=pointer]:
+              - /url: /admin/content/concerts#navigation
+            - link "Skip to Module Navigation" [ref=e531] [cursor=pointer]:
+              - /url: /admin/content/concerts#module-navigation
+            - link "Skip to Main Content" [ref=e532] [cursor=pointer]:
+              - /url: /admin/content/concerts#main-content
+          - contentinfo "Module Sidebar" [ref=e533]:
+            - generic [ref=e534]:
+              - heading "layers Layout Options chevron_left" [level=3] [ref=e536]:
+                - button "layers Layout Options chevron_left" [ref=e537] [cursor=pointer]:
+                  - generic [ref=e540]: layers
+                  - generic [ref=e541]: Layout Options
+                  - generic [ref=e543]: chevron_left
+              - heading "sync_disabled Auto Refresh chevron_left" [level=3] [ref=e545]:
+                - button "sync_disabled Auto Refresh chevron_left" [ref=e546] [cursor=pointer]:
+                  - generic [ref=e549]: sync_disabled
+                  - generic [ref=e550]: Auto Refresh
+                  - generic [ref=e552]: chevron_left
+              - heading "import_export Import / Export chevron_left" [level=3] [ref=e554]:
+                - button "import_export Import / Export chevron_left" [ref=e555] [cursor=pointer]:
+                  - generic [ref=e558]: import_export
+                  - generic [ref=e559]: Import / Export
+                  - generic [ref=e561]: chevron_left
+            - button "AI Assistant chevron_left" [ref=e563] [cursor=pointer]:
+              - generic [ref=e564]:
+                - img [ref=e565]
+                - generic [ref=e568]: AI Assistant
+                - generic [ref=e570]: chevron_left

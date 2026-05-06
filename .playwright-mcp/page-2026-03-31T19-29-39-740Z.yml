@@ -1,0 +1,449 @@
+- generic [ref=e4]:
+  - list [ref=e5]:
+    - link "Skip to Module Navigation" [ref=e6] [cursor=pointer]:
+      - /url: /admin/content/musicians#module-navigation
+    - link "Skip to Main Content" [ref=e7] [cursor=pointer]:
+      - /url: /admin/content/musicians#main-content
+    - link "Skip to Sidebar" [ref=e8] [cursor=pointer]:
+      - /url: /admin/content/musicians#sidebar
+  - generic [ref=e9]:
+    - generic [ref=e12]:
+      - link [ref=e14] [cursor=pointer]:
+        - /url: /admin/content
+        - img [ref=e17]
+      - link "people_alt" [ref=e20] [cursor=pointer]:
+        - /url: /admin/users
+        - generic [ref=e23]: people_alt
+      - link "folder" [ref=e25] [cursor=pointer]:
+        - /url: /admin/files
+        - generic [ref=e28]: folder
+      - link "insights" [ref=e30] [cursor=pointer]:
+        - /url: /admin/insights
+        - generic [ref=e33]: insights
+      - link "help" [ref=e35] [cursor=pointer]:
+        - /url: https://docs.directus.io
+        - generic [ref=e38]: help
+      - link "settings" [ref=e40] [cursor=pointer]:
+        - /url: /admin/settings
+        - generic [ref=e43]: settings
+      - link "launch" [ref=e45] [cursor=pointer]:
+        - /url: /admin/admin-app
+        - generic [ref=e48]: launch
+    - generic [ref=e49]:
+      - button "notifications" [ref=e52] [cursor=pointer]:
+        - generic [ref=e55]: notifications
+      - generic [ref=e56]:
+        - button [ref=e59] [cursor=pointer]:
+          - img [ref=e62]
+        - link "account_circle" [ref=e65] [cursor=pointer]:
+          - /url: /admin/users/99ea45fb-696a-4e9a-815d-112e9cd472a0
+          - generic [ref=e68]: account_circle
+  - generic [ref=e69]:
+    - generic [ref=e70]:
+      - list [ref=e71]:
+        - link "Skip to Navigation" [ref=e72] [cursor=pointer]:
+          - /url: /admin/content/musicians#navigation
+        - link "Skip to Main Content" [ref=e73] [cursor=pointer]:
+          - /url: /admin/content/musicians#main-content
+        - link "Skip to Sidebar" [ref=e74] [cursor=pointer]:
+          - /url: /admin/content/musicians#sidebar
+      - navigation "Module Navigation" [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e78]: Sounds of Ukraine
+          - button "left_panel_close" [ref=e79] [cursor=pointer]:
+            - generic [ref=e80]: left_panel_close
+        - list [ref=e83]:
+          - link "database Concerts" [ref=e84] [cursor=pointer]:
+            - /url: /admin/content/concerts
+            - generic [ref=e87]: database
+            - generic [ref=e89]: Concerts
+          - link "database Email Reservation" [ref=e90] [cursor=pointer]:
+            - /url: /admin/content/email_reservation
+            - generic [ref=e93]: database
+            - generic [ref=e95]: Email Reservation
+          - link "database General" [ref=e96] [cursor=pointer]:
+            - /url: /admin/content/general
+            - generic [ref=e99]: database
+            - generic [ref=e101]: General
+          - link "database Languages" [ref=e102] [cursor=pointer]:
+            - /url: /admin/content/languages
+            - generic [ref=e105]: database
+            - generic [ref=e107]: Languages
+          - link "database Musicians" [ref=e108] [cursor=pointer]:
+            - /url: /admin/content/musicians
+            - generic [ref=e111]: database
+            - generic [ref=e113]: Musicians
+          - link "database Pages" [ref=e114] [cursor=pointer]:
+            - /url: /admin/content/pages
+            - generic [ref=e117]: database
+            - generic [ref=e119]: Pages
+          - link "database Reservations" [ref=e120] [cursor=pointer]:
+            - /url: /admin/content/reservations
+            - generic [ref=e123]: database
+            - generic [ref=e125]: Reservations
+          - link "database Venues" [ref=e126] [cursor=pointer]:
+            - /url: /admin/content/venues
+            - generic [ref=e129]: database
+            - generic [ref=e131]: Venues
+    - separator "Resize"
+    - generic [ref=e133]:
+      - list [ref=e134]:
+        - link "Skip to Navigation" [ref=e135] [cursor=pointer]:
+          - /url: /admin/content/musicians#navigation
+        - link "Skip to Module Navigation" [ref=e136] [cursor=pointer]:
+          - /url: /admin/content/musicians#module-navigation
+        - link "Skip to Sidebar" [ref=e137] [cursor=pointer]:
+          - /url: /admin/content/musicians#sidebar
+      - generic [ref=e139]:
+        - generic [ref=e141]:
+          - banner [ref=e142]:
+            - generic [ref=e143]:
+              - generic [ref=e147]: database
+              - generic [ref=e148]:
+                - link "Content" [ref=e152] [cursor=pointer]:
+                  - /url: /admin/content
+                - heading "Musicians" [level=1] [ref=e154]:
+                  - generic [ref=e155]: Musicians
+              - button "bookmark" [ref=e159] [cursor=pointer]:
+                - generic [ref=e160]: bookmark
+              - button "right_panel_close" [ref=e161] [cursor=pointer]:
+                - generic [ref=e162]: right_panel_close
+            - generic [ref=e163]: 17 Items
+            - generic [ref=e164]:
+              - search [ref=e166]:
+                - button "search" [ref=e167] [cursor=pointer]:
+                  - generic [ref=e168]: search
+                - searchbox "Search Items..."
+                - button "filter_list" [ref=e169] [cursor=pointer]:
+                  - generic [ref=e170]: filter_list
+                - text: add expand_more
+              - link "add" [ref=e172] [cursor=pointer]:
+                - /url: /admin/content/musicians/+
+                - generic [ref=e175]: add
+          - main [ref=e176]:
+            - table "Slug, Homepage, Image, Status, Translations, ID" [ref=e179]:
+              - rowgroup [ref=e180]:
+                - row "check_box_outline_blank Slug arrow_drop_down Homepage arrow_drop_down Image arrow_drop_down Status arrow_drop_down Translations arrow_drop_down ID sort add" [ref=e181]:
+                  - columnheader "check_box_outline_blank" [ref=e182]:
+                    - checkbox "check_box_outline_blank" [ref=e183] [cursor=pointer]:
+                      - generic [ref=e185]: check_box_outline_blank
+                  - columnheader "Slug arrow_drop_down" [ref=e186]:
+                    - button "Slug arrow_drop_down" [ref=e190] [cursor=pointer]:
+                      - generic [ref=e191]: Slug
+                      - generic [ref=e193]: arrow_drop_down
+                  - columnheader "Homepage arrow_drop_down" [ref=e195]:
+                    - button "Homepage arrow_drop_down" [ref=e199] [cursor=pointer]:
+                      - generic [ref=e200]: Homepage
+                      - generic [ref=e202]: arrow_drop_down
+                  - columnheader "Image arrow_drop_down" [ref=e204]:
+                    - button "Image arrow_drop_down" [ref=e208] [cursor=pointer]:
+                      - generic [ref=e209]: Image
+                      - generic [ref=e211]: arrow_drop_down
+                  - columnheader "Status arrow_drop_down" [ref=e213]:
+                    - button "Status arrow_drop_down" [ref=e217] [cursor=pointer]:
+                      - generic [ref=e218]: Status
+                      - generic [ref=e220]: arrow_drop_down
+                  - columnheader "Translations arrow_drop_down" [ref=e222]:
+                    - button "Translations arrow_drop_down" [ref=e226] [cursor=pointer]:
+                      - generic [ref=e227]: Translations
+                      - generic [ref=e229]: arrow_drop_down
+                  - columnheader "ID sort" [ref=e231]:
+                    - button "ID sort" [ref=e235] [cursor=pointer]:
+                      - generic [ref=e236]: ID
+                      - generic [ref=e238]: sort
+                  - columnheader
+                  - cell "add" [ref=e240]:
+                    - button "add" [ref=e243] [cursor=pointer]:
+                      - generic [ref=e244]: add
+              - rowgroup [ref=e245]:
+                - row "check_box_outline_blank Violina Petrychenko https://violina-petrychenko.de/ a6190b21-998a-4326-ab5f-33803e37868a [2,8,18] 1" [ref=e246]:
+                  - cell "check_box_outline_blank" [ref=e247]:
+                    - checkbox "check_box_outline_blank" [ref=e248] [cursor=pointer]:
+                      - generic [ref=e250]: check_box_outline_blank
+                  - cell "Violina Petrychenko" [ref=e251]:
+                    - generic [ref=e252]: Violina Petrychenko
+                  - cell "https://violina-petrychenko.de/" [ref=e253]:
+                    - generic [ref=e254]: https://violina-petrychenko.de/
+                  - cell "a6190b21-998a-4326-ab5f-33803e37868a" [ref=e255]:
+                    - generic [ref=e256]: a6190b21-998a-4326-ab5f-33803e37868a
+                  - cell [ref=e257]
+                  - cell "[2,8,18]" [ref=e261]
+                  - cell "1" [ref=e262]:
+                    - generic [ref=e263]: "1"
+                  - cell [ref=e264]
+                - row "check_box_outline_blank Lilia Nikitchuk -- 53fe87df-e165-4eef-8b45-b9e338140aab [9,16,17] 2" [ref=e265]:
+                  - cell "check_box_outline_blank" [ref=e266]:
+                    - checkbox "check_box_outline_blank" [ref=e267] [cursor=pointer]:
+                      - generic [ref=e269]: check_box_outline_blank
+                  - cell "Lilia Nikitchuk" [ref=e270]:
+                    - generic [ref=e271]: Lilia Nikitchuk
+                  - cell "--" [ref=e272]:
+                    - generic [ref=e273]: "--"
+                  - cell "53fe87df-e165-4eef-8b45-b9e338140aab" [ref=e274]:
+                    - generic [ref=e275]: 53fe87df-e165-4eef-8b45-b9e338140aab
+                  - cell [ref=e276]
+                  - cell "[9,16,17]" [ref=e280]
+                  - cell "2" [ref=e281]:
+                    - generic [ref=e282]: "2"
+                  - cell [ref=e283]
+                - row "check_box_outline_blank Natalia Gordeeva -- 69bb733c-1445-4adb-b57f-fc15bd428fd2 [7,10,19] 3" [ref=e284]:
+                  - cell "check_box_outline_blank" [ref=e285]:
+                    - checkbox "check_box_outline_blank" [ref=e286] [cursor=pointer]:
+                      - generic [ref=e288]: check_box_outline_blank
+                  - cell "Natalia Gordeeva" [ref=e289]:
+                    - generic [ref=e290]: Natalia Gordeeva
+                  - cell "--" [ref=e291]:
+                    - generic [ref=e292]: "--"
+                  - cell "69bb733c-1445-4adb-b57f-fc15bd428fd2" [ref=e293]:
+                    - generic [ref=e294]: 69bb733c-1445-4adb-b57f-fc15bd428fd2
+                  - cell [ref=e295]
+                  - cell "[7,10,19]" [ref=e299]
+                  - cell "3" [ref=e300]:
+                    - generic [ref=e301]: "3"
+                  - cell [ref=e302]
+                - row "check_box_outline_blank Maksym Rymar -- 61143b41-105d-42de-bc02-ebee72723f66 [6,12,20] 4" [ref=e303]:
+                  - cell "check_box_outline_blank" [ref=e304]:
+                    - checkbox "check_box_outline_blank" [ref=e305] [cursor=pointer]:
+                      - generic [ref=e307]: check_box_outline_blank
+                  - cell "Maksym Rymar" [ref=e308]:
+                    - generic [ref=e309]: Maksym Rymar
+                  - cell "--" [ref=e310]:
+                    - generic [ref=e311]: "--"
+                  - cell "61143b41-105d-42de-bc02-ebee72723f66" [ref=e312]:
+                    - generic [ref=e313]: 61143b41-105d-42de-bc02-ebee72723f66
+                  - cell [ref=e314]
+                  - cell "[6,12,20]" [ref=e318]
+                  - cell "4" [ref=e319]:
+                    - generic [ref=e320]: "4"
+                  - cell [ref=e321]
+                - row "check_box_outline_blank Oliver Drechsel www.odrechsel.de 603ea5ef-e234-42b6-bc14-f89224502925 [14,15,21] 6" [ref=e322]:
+                  - cell "check_box_outline_blank" [ref=e323]:
+                    - checkbox "check_box_outline_blank" [ref=e324] [cursor=pointer]:
+                      - generic [ref=e326]: check_box_outline_blank
+                  - cell "Oliver Drechsel" [ref=e327]:
+                    - generic [ref=e328]: Oliver Drechsel
+                  - cell "www.odrechsel.de" [ref=e329]:
+                    - generic [ref=e330]: www.odrechsel.de
+                  - cell "603ea5ef-e234-42b6-bc14-f89224502925" [ref=e331]:
+                    - generic [ref=e332]: 603ea5ef-e234-42b6-bc14-f89224502925
+                  - cell [ref=e333]
+                  - cell "[14,15,21]" [ref=e337]
+                  - cell "6" [ref=e338]:
+                    - generic [ref=e339]: "6"
+                  - cell [ref=e340]
+                - row "check_box_outline_blank Ievgeniia Iermachkova -- 20a09490-8d6d-4744-9ccb-6c442fa423bb [22,30,31] 7" [ref=e341]:
+                  - cell "check_box_outline_blank" [ref=e342]:
+                    - checkbox "check_box_outline_blank" [ref=e343] [cursor=pointer]:
+                      - generic [ref=e345]: check_box_outline_blank
+                  - cell "Ievgeniia Iermachkova" [ref=e346]:
+                    - generic [ref=e347]: Ievgeniia Iermachkova
+                  - cell "--" [ref=e348]:
+                    - generic [ref=e349]: "--"
+                  - cell "20a09490-8d6d-4744-9ccb-6c442fa423bb" [ref=e350]:
+                    - generic [ref=e351]: 20a09490-8d6d-4744-9ccb-6c442fa423bb
+                  - cell [ref=e352]
+                  - cell "[22,30,31]" [ref=e356]
+                  - cell "7" [ref=e357]:
+                    - generic [ref=e358]: "7"
+                  - cell [ref=e359]
+                - row "check_box_outline_blank Andrii Paliarush -- cdc4ac2b-1bd4-46d4-82b0-1523e61adfbd [23,32,33] 8" [ref=e360]:
+                  - cell "check_box_outline_blank" [ref=e361]:
+                    - checkbox "check_box_outline_blank" [ref=e362] [cursor=pointer]:
+                      - generic [ref=e364]: check_box_outline_blank
+                  - cell "Andrii Paliarush" [ref=e365]:
+                    - generic [ref=e366]: Andrii Paliarush
+                  - cell "--" [ref=e367]:
+                    - generic [ref=e368]: "--"
+                  - cell "cdc4ac2b-1bd4-46d4-82b0-1523e61adfbd" [ref=e369]:
+                    - generic [ref=e370]: cdc4ac2b-1bd4-46d4-82b0-1523e61adfbd
+                  - cell [ref=e371]
+                  - cell "[23,32,33]" [ref=e375]
+                  - cell "8" [ref=e376]:
+                    - generic [ref=e377]: "8"
+                  - cell [ref=e378]
+                - row "check_box_outline_blank Terra Barocca -- 6af293dc-2443-4d35-8e65-79033ca776b7 [24,25,37] 9" [ref=e379]:
+                  - cell "check_box_outline_blank" [ref=e380]:
+                    - checkbox "check_box_outline_blank" [ref=e381] [cursor=pointer]:
+                      - generic [ref=e383]: check_box_outline_blank
+                  - cell "Terra Barocca" [ref=e384]:
+                    - generic [ref=e385]: Terra Barocca
+                  - cell "--" [ref=e386]:
+                    - generic [ref=e387]: "--"
+                  - cell "6af293dc-2443-4d35-8e65-79033ca776b7" [ref=e388]:
+                    - generic [ref=e389]: 6af293dc-2443-4d35-8e65-79033ca776b7
+                  - cell [ref=e390]
+                  - cell "[24,25,37]" [ref=e394]
+                  - cell "9" [ref=e395]:
+                    - generic [ref=e396]: "9"
+                  - cell [ref=e397]
+                - row "check_box_outline_blank Phoenix -- 782c27bf-b789-437e-a448-389ae65f26f5 [26,28,29] 10" [ref=e398]:
+                  - cell "check_box_outline_blank" [ref=e399]:
+                    - checkbox "check_box_outline_blank" [ref=e400] [cursor=pointer]:
+                      - generic [ref=e402]: check_box_outline_blank
+                  - cell "Phoenix" [ref=e403]:
+                    - generic [ref=e404]: Phoenix
+                  - cell "--" [ref=e405]:
+                    - generic [ref=e406]: "--"
+                  - cell "782c27bf-b789-437e-a448-389ae65f26f5" [ref=e407]:
+                    - generic [ref=e408]: 782c27bf-b789-437e-a448-389ae65f26f5
+                  - cell [ref=e409]
+                  - cell "[26,28,29]" [ref=e413]
+                  - cell "10" [ref=e414]:
+                    - generic [ref=e415]: "10"
+                  - cell [ref=e416]
+                - row "check_box_outline_blank Kateryna Kostiuk -- 8823a21d-a567-4cca-9848-d37cf779c1e4 [27,34,36] 11" [ref=e417]:
+                  - cell "check_box_outline_blank" [ref=e418]:
+                    - checkbox "check_box_outline_blank" [ref=e419] [cursor=pointer]:
+                      - generic [ref=e421]: check_box_outline_blank
+                  - cell "Kateryna Kostiuk" [ref=e422]:
+                    - generic [ref=e423]: Kateryna Kostiuk
+                  - cell "--" [ref=e424]:
+                    - generic [ref=e425]: "--"
+                  - cell "8823a21d-a567-4cca-9848-d37cf779c1e4" [ref=e426]:
+                    - generic [ref=e427]: 8823a21d-a567-4cca-9848-d37cf779c1e4
+                  - cell [ref=e428]
+                  - cell "[27,34,36]" [ref=e432]
+                  - cell "11" [ref=e433]:
+                    - generic [ref=e434]: "11"
+                  - cell [ref=e435]
+                - row "check_box_outline_blank Nasar Pylatiuk -- 805921ef-84c9-4616-a7e7-e5c82647393c [38,39,40] 12" [ref=e436]:
+                  - cell "check_box_outline_blank" [ref=e437]:
+                    - checkbox "check_box_outline_blank" [ref=e438] [cursor=pointer]:
+                      - generic [ref=e440]: check_box_outline_blank
+                  - cell "Nasar Pylatiuk" [ref=e441]:
+                    - generic [ref=e442]: Nasar Pylatiuk
+                  - cell "--" [ref=e443]:
+                    - generic [ref=e444]: "--"
+                  - cell "805921ef-84c9-4616-a7e7-e5c82647393c" [ref=e445]:
+                    - generic [ref=e446]: 805921ef-84c9-4616-a7e7-e5c82647393c
+                  - cell [ref=e447]
+                  - cell "[38,39,40]" [ref=e451]
+                  - cell "12" [ref=e452]:
+                    - generic [ref=e453]: "12"
+                  - cell [ref=e454]
+                - row "check_box_outline_blank Rostyslav Fedyna -- 38fc2883-bfcd-41f9-a1c5-9a55e3fb7f8c [41,42,43] 13" [ref=e455]:
+                  - cell "check_box_outline_blank" [ref=e456]:
+                    - checkbox "check_box_outline_blank" [ref=e457] [cursor=pointer]:
+                      - generic [ref=e459]: check_box_outline_blank
+                  - cell "Rostyslav Fedyna" [ref=e460]:
+                    - generic [ref=e461]: Rostyslav Fedyna
+                  - cell "--" [ref=e462]:
+                    - generic [ref=e463]: "--"
+                  - cell "38fc2883-bfcd-41f9-a1c5-9a55e3fb7f8c" [ref=e464]:
+                    - generic [ref=e465]: 38fc2883-bfcd-41f9-a1c5-9a55e3fb7f8c
+                  - cell [ref=e466]
+                  - cell "[41,42,43]" [ref=e470]
+                  - cell "13" [ref=e471]:
+                    - generic [ref=e472]: "13"
+                  - cell [ref=e473]
+                - row "check_box_outline_blank Maria Fedyna -- 0fc5b6a3-8397-4143-9f7a-4fc795675808 [44,45,46] 14" [ref=e474]:
+                  - cell "check_box_outline_blank" [ref=e475]:
+                    - checkbox "check_box_outline_blank" [ref=e476] [cursor=pointer]:
+                      - generic [ref=e478]: check_box_outline_blank
+                  - cell "Maria Fedyna" [ref=e479]:
+                    - generic [ref=e480]: Maria Fedyna
+                  - cell "--" [ref=e481]:
+                    - generic [ref=e482]: "--"
+                  - cell "0fc5b6a3-8397-4143-9f7a-4fc795675808" [ref=e483]:
+                    - generic [ref=e484]: 0fc5b6a3-8397-4143-9f7a-4fc795675808
+                  - cell [ref=e485]
+                  - cell "[44,45,46]" [ref=e489]
+                  - cell "14" [ref=e490]:
+                    - generic [ref=e491]: "14"
+                  - cell [ref=e492]
+                - row "check_box_outline_blank Kateryna Shalaiska -- ada0d9f6-ca6b-407b-a28c-5c2e85b6146f [47,48,49] 15" [ref=e493]:
+                  - cell "check_box_outline_blank" [ref=e494]:
+                    - checkbox "check_box_outline_blank" [ref=e495] [cursor=pointer]:
+                      - generic [ref=e497]: check_box_outline_blank
+                  - cell "Kateryna Shalaiska" [ref=e498]:
+                    - generic [ref=e499]: Kateryna Shalaiska
+                  - cell "--" [ref=e500]:
+                    - generic [ref=e501]: "--"
+                  - cell "ada0d9f6-ca6b-407b-a28c-5c2e85b6146f" [ref=e502]:
+                    - generic [ref=e503]: ada0d9f6-ca6b-407b-a28c-5c2e85b6146f
+                  - cell [ref=e504]
+                  - cell "[47,48,49]" [ref=e508]
+                  - cell "15" [ref=e509]:
+                    - generic [ref=e510]: "15"
+                  - cell [ref=e511]
+                - row "check_box_outline_blank -- -- 02d7e49c-3049-4107-a268-2788d07da256 [50,51,52] 16" [ref=e512]:
+                  - cell "check_box_outline_blank" [ref=e513]:
+                    - checkbox "check_box_outline_blank" [ref=e514] [cursor=pointer]:
+                      - generic [ref=e516]: check_box_outline_blank
+                  - cell "--" [ref=e517]:
+                    - generic [ref=e518]: "--"
+                  - cell "--" [ref=e519]:
+                    - generic [ref=e520]: "--"
+                  - cell "02d7e49c-3049-4107-a268-2788d07da256" [ref=e521]:
+                    - generic [ref=e522]: 02d7e49c-3049-4107-a268-2788d07da256
+                  - cell [ref=e523]
+                  - cell "[50,51,52]" [ref=e527]
+                  - cell "16" [ref=e528]:
+                    - generic [ref=e529]: "16"
+                  - cell [ref=e530]
+                - row "check_box_outline_blank -- -- a2307270-a124-4953-9358-f1e4572be7f7 [53,54,55] 17" [ref=e531]:
+                  - cell "check_box_outline_blank" [ref=e532]:
+                    - checkbox "check_box_outline_blank" [ref=e533] [cursor=pointer]:
+                      - generic [ref=e535]: check_box_outline_blank
+                  - cell "--" [ref=e536]:
+                    - generic [ref=e537]: "--"
+                  - cell "--" [ref=e538]:
+                    - generic [ref=e539]: "--"
+                  - cell "a2307270-a124-4953-9358-f1e4572be7f7" [ref=e540]:
+                    - generic [ref=e541]: a2307270-a124-4953-9358-f1e4572be7f7
+                  - cell [ref=e542]
+                  - cell "[53,54,55]" [ref=e546]
+                  - cell "17" [ref=e547]:
+                    - generic [ref=e548]: "17"
+                  - cell [ref=e549]
+                - row "check_box_outline_blank Oleksandr Oliinyk -- d070203c-1ed3-4904-b52c-520e72e1682e [56,57,58] 18" [ref=e550]:
+                  - cell "check_box_outline_blank" [ref=e551]:
+                    - checkbox "check_box_outline_blank" [ref=e552] [cursor=pointer]:
+                      - generic [ref=e554]: check_box_outline_blank
+                  - cell "Oleksandr Oliinyk" [ref=e555]:
+                    - generic [ref=e556]: Oleksandr Oliinyk
+                  - cell "--" [ref=e557]:
+                    - generic [ref=e558]: "--"
+                  - cell "d070203c-1ed3-4904-b52c-520e72e1682e" [ref=e559]:
+                    - generic [ref=e560]: d070203c-1ed3-4904-b52c-520e72e1682e
+                  - cell [ref=e561]
+                  - cell "[56,57,58]" [ref=e565]
+                  - cell "18" [ref=e566]:
+                    - generic [ref=e567]: "18"
+                  - cell [ref=e568]
+        - separator "Resize"
+        - generic [ref=e572]:
+          - list [ref=e573]:
+            - link "Skip to Navigation" [ref=e574] [cursor=pointer]:
+              - /url: /admin/content/musicians#navigation
+            - link "Skip to Module Navigation" [ref=e575] [cursor=pointer]:
+              - /url: /admin/content/musicians#module-navigation
+            - link "Skip to Main Content" [ref=e576] [cursor=pointer]:
+              - /url: /admin/content/musicians#main-content
+          - contentinfo "Module Sidebar" [ref=e577]:
+            - generic [ref=e578]:
+              - heading "layers Layout Options chevron_left" [level=3] [ref=e580]:
+                - button "layers Layout Options chevron_left" [ref=e581] [cursor=pointer]:
+                  - generic [ref=e584]: layers
+                  - generic [ref=e585]: Layout Options
+                  - generic [ref=e587]: chevron_left
+              - heading "archive Archive chevron_left" [level=3] [ref=e589]:
+                - button "archive Archive chevron_left" [ref=e590] [cursor=pointer]:
+                  - generic [ref=e593]: archive
+                  - generic [ref=e594]: Archive
+                  - generic [ref=e596]: chevron_left
+              - heading "sync_disabled Auto Refresh chevron_left" [level=3] [ref=e598]:
+                - button "sync_disabled Auto Refresh chevron_left" [ref=e599] [cursor=pointer]:
+                  - generic [ref=e602]: sync_disabled
+                  - generic [ref=e603]: Auto Refresh
+                  - generic [ref=e605]: chevron_left
+              - heading "import_export Import / Export chevron_left" [level=3] [ref=e607]:
+                - button "import_export Import / Export chevron_left" [ref=e608] [cursor=pointer]:
+                  - generic [ref=e611]: import_export
+                  - generic [ref=e612]: Import / Export
+                  - generic [ref=e614]: chevron_left
+            - button "AI Assistant chevron_left" [ref=e616] [cursor=pointer]:
+              - generic [ref=e617]:
+                - img [ref=e618]
+                - generic [ref=e621]: AI Assistant
+                - generic [ref=e623]: chevron_left

@@ -1,0 +1,503 @@
+- generic [ref=e4]:
+  - list [ref=e5]:
+    - link "Skip to Module Navigation" [ref=e6] [cursor=pointer]:
+      - /url: /admin/content/concerts/19#module-navigation
+    - link "Skip to Main Content" [ref=e7] [cursor=pointer]:
+      - /url: /admin/content/concerts/19#main-content
+    - link "Skip to Sidebar" [ref=e8] [cursor=pointer]:
+      - /url: /admin/content/concerts/19#sidebar
+  - generic [ref=e9]:
+    - generic [ref=e12]:
+      - link [ref=e14] [cursor=pointer]:
+        - /url: /admin/content
+        - img [ref=e17]
+      - link "people_alt" [ref=e20] [cursor=pointer]:
+        - /url: /admin/users
+        - generic [ref=e23]: people_alt
+      - link "folder" [ref=e25] [cursor=pointer]:
+        - /url: /admin/files
+        - generic [ref=e28]: folder
+      - link "insights" [ref=e30] [cursor=pointer]:
+        - /url: /admin/insights
+        - generic [ref=e33]: insights
+      - link "help" [ref=e35] [cursor=pointer]:
+        - /url: https://docs.directus.io
+        - generic [ref=e38]: help
+      - link "settings" [ref=e40] [cursor=pointer]:
+        - /url: /admin/settings
+        - generic [ref=e43]: settings
+      - link "launch" [ref=e45] [cursor=pointer]:
+        - /url: /admin/admin-app
+        - generic [ref=e48]: launch
+    - generic [ref=e49]:
+      - button "notifications" [ref=e52] [cursor=pointer]:
+        - generic [ref=e55]: notifications
+      - generic [ref=e56]:
+        - button [ref=e59] [cursor=pointer]:
+          - img [ref=e62]
+        - link "account_circle" [ref=e65] [cursor=pointer]:
+          - /url: /admin/users/99ea45fb-696a-4e9a-815d-112e9cd472a0
+          - generic [ref=e68]: account_circle
+  - generic [ref=e69]:
+    - generic [ref=e70]:
+      - list [ref=e71]:
+        - link "Skip to Navigation" [ref=e72] [cursor=pointer]:
+          - /url: /admin/content/concerts/19#navigation
+        - link "Skip to Main Content" [ref=e73] [cursor=pointer]:
+          - /url: /admin/content/concerts/19#main-content
+        - link "Skip to Sidebar" [ref=e74] [cursor=pointer]:
+          - /url: /admin/content/concerts/19#sidebar
+      - navigation "Module Navigation" [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e78]: Sounds of Ukraine
+          - button "left_panel_close" [ref=e79] [cursor=pointer]:
+            - generic [ref=e80]: left_panel_close
+        - list [ref=e83]:
+          - link "database Concerts" [ref=e84] [cursor=pointer]:
+            - /url: /admin/content/concerts
+            - generic [ref=e87]: database
+            - generic [ref=e89]: Concerts
+          - link "database Email Reservation" [ref=e90] [cursor=pointer]:
+            - /url: /admin/content/email_reservation
+            - generic [ref=e93]: database
+            - generic [ref=e95]: Email Reservation
+          - link "database General" [ref=e96] [cursor=pointer]:
+            - /url: /admin/content/general
+            - generic [ref=e99]: database
+            - generic [ref=e101]: General
+          - link "database Languages" [ref=e102] [cursor=pointer]:
+            - /url: /admin/content/languages
+            - generic [ref=e105]: database
+            - generic [ref=e107]: Languages
+          - link "database Musicians" [ref=e108] [cursor=pointer]:
+            - /url: /admin/content/musicians
+            - generic [ref=e111]: database
+            - generic [ref=e113]: Musicians
+          - link "database Pages" [ref=e114] [cursor=pointer]:
+            - /url: /admin/content/pages
+            - generic [ref=e117]: database
+            - generic [ref=e119]: Pages
+          - link "database Reservations" [ref=e120] [cursor=pointer]:
+            - /url: /admin/content/reservations
+            - generic [ref=e123]: database
+            - generic [ref=e125]: Reservations
+          - link "database Venues" [ref=e126] [cursor=pointer]:
+            - /url: /admin/content/venues
+            - generic [ref=e129]: database
+            - generic [ref=e131]: Venues
+    - separator "Resize"
+    - generic [ref=e133]:
+      - list [ref=e134]:
+        - link "Skip to Navigation" [ref=e135] [cursor=pointer]:
+          - /url: /admin/content/concerts/19#navigation
+        - link "Skip to Module Navigation" [ref=e136] [cursor=pointer]:
+          - /url: /admin/content/concerts/19#module-navigation
+        - link "Skip to Sidebar" [ref=e137] [cursor=pointer]:
+          - /url: /admin/content/concerts/19#sidebar
+      - generic [ref=e139]:
+        - generic [ref=e141]:
+          - banner [ref=e142]:
+            - generic [ref=e143]:
+              - button "arrow_back" [ref=e146] [cursor=pointer]:
+                - generic [ref=e149]: arrow_back
+              - generic [ref=e150]:
+                - link "Concerts" [ref=e155] [cursor=pointer]:
+                  - /url: /admin/content/concerts
+                - heading "Vasyl Barvinsky & Antonín Dvořák, Василь Барвінський &Антонін Дворжак, Vasyl Barvinsky & Antonín Dvořák" [level=1] [ref=e157]:
+                  - generic [ref=e159]: Vasyl Barvinsky & Antonín Dvořák, Василь Барвінський &Антонін Дворжак, Vasyl Barvinsky & Antonín Dvořák
+              - button "right_panel_close" [ref=e160] [cursor=pointer]:
+                - generic [ref=e161]: right_panel_close
+            - generic [ref=e162]:
+              - button "delete" [ref=e165] [cursor=pointer]:
+                - generic [ref=e168]: delete
+              - button "check" [disabled] [ref=e170]:
+                - generic [ref=e173]: check
+          - main [ref=e174]:
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - button "DateTime arrow_drop_down" [ref=e182] [cursor=pointer]:
+                  - generic [ref=e184]: DateTime
+                  - generic [ref=e186]: arrow_drop_down
+                - button "August 23rd, 2026 19:30 close" [ref=e191] [cursor=pointer]:
+                  - text: August 23rd, 2026 19:30
+                  - button "close" [ref=e193]:
+                    - generic [ref=e194]: close
+              - generic [ref=e195]:
+                - button "Venue arrow_drop_down" [ref=e199] [cursor=pointer]:
+                  - generic [ref=e201]: Venue
+                  - generic [ref=e203]: arrow_drop_down
+                - button "Aposteln-Aula an St. Aposteln edit close" [ref=e207] [cursor=pointer]:
+                  - generic [ref=e210]: Aposteln-Aula an St. Aposteln
+                  - generic [ref=e211]:
+                    - button "edit" [ref=e212]:
+                      - generic [ref=e213]: edit
+                    - button "close" [ref=e214]:
+                      - generic [ref=e215]: close
+              - generic [ref=e216]:
+                - button "Translations arrow_drop_down" [ref=e220] [cursor=pointer]:
+                  - generic [ref=e222]: Translations
+                  - generic [ref=e224]: arrow_drop_down
+                - generic [ref=e228]:
+                  - button "translate de delete flip expand_more" [ref=e231] [cursor=pointer]:
+                    - generic [ref=e233]: translate
+                    - generic [ref=e234]: de
+                    - generic [ref=e235]:
+                      - button "delete" [ref=e236]:
+                        - generic [ref=e237]: delete
+                      - button "flip" [ref=e238]:
+                        - generic [ref=e239]: flip
+                    - generic [ref=e241]: expand_more
+                  - generic [ref=e242]:
+                    - generic [ref=e243]:
+                      - button "Title de arrow_drop_down" [ref=e247] [cursor=pointer]:
+                        - generic [ref=e248]:
+                          - generic [ref=e249]: Title
+                          - generic [ref=e251]: de
+                        - generic [ref=e253]: arrow_drop_down
+                      - textbox [ref=e258]: Vasyl Barvinsky & Antonín Dvořák
+                    - generic [ref=e259]:
+                      - button "Description de arrow_drop_down" [ref=e263] [cursor=pointer]:
+                        - generic [ref=e264]:
+                          - generic [ref=e265]: Description
+                          - generic [ref=e267]: de
+                        - generic [ref=e269]: arrow_drop_down
+                      - application [ref=e273]:
+                        - generic [ref=e274]:
+                          - group [ref=e276]:
+                            - group [ref=e277]:
+                              - toolbar [ref=e278]:
+                                - button "Bold" [ref=e279]:
+                                  - generic [ref=e280]: format_bold
+                                - button "Italic" [ref=e281]:
+                                  - generic [ref=e282]: format_italic
+                                - button "Underline" [ref=e283]:
+                                  - generic [ref=e284]: format_underlined
+                                - button "Heading 1" [ref=e285]:
+                                  - generic [ref=e286]: H1
+                                - button "Heading 2" [ref=e287]:
+                                  - generic [ref=e288]: H2
+                                - button "Heading 3" [ref=e289]:
+                                  - generic [ref=e290]: H3
+                                - button "Numbered List" [ref=e291]:
+                                  - img [ref=e293]
+                                - button "Bullet List" [ref=e295]:
+                                  - img [ref=e297]
+                                - button "Remove Format" [ref=e299]:
+                                  - img [ref=e301]
+                                - button "Blockquote" [ref=e303]:
+                                  - img [ref=e305]
+                                - button "Add/Edit Link" [ref=e307]:
+                                  - generic [ref=e308]: insert_link
+                                - button "Add/Edit Image" [ref=e309]:
+                                  - img [ref=e311]
+                                - button "Add/Edit Media" [ref=e313]:
+                                  - img [ref=e315]
+                                - button "Horizontal Rule" [ref=e317]:
+                                  - img [ref=e319]
+                                - button "Edit Source Code" [ref=e321]:
+                                  - img [ref=e323]
+                                - button "Full Screen" [ref=e326]:
+                                  - img [ref=e328]
+                          - iframe [ref=e332]:
+                            - generic "Rich Text Area. Press ALT-0 for help." [active] [ref=f2e1]:
+                              - paragraph [ref=f2e2]: Das Abschlusskonzert des Festivals Sounds of Ukraine ist der Kammermusik sowie dem Schaffen von Vasyl Barvinsky und Antonín Dvořák gewidmet. Der Abend fasst die Idee des Festivals zusammen und eröffnet einen Dialog zwischen ukrainischer und europäischer Musiktradition.
+                              - paragraph [ref=f2e3]
+                              - paragraph [ref=f2e4]: Antonín Dvořák zählt zu den bedeutendsten tschechischen Komponisten des 19. Jahrhunderts. Seine Musik verbindet klassische Formen mit einer tiefen Verwurzelung in der Volksmusik. Besonders in der Kammermusik entwickelte er eine Ausdruckssprache von großer emotionaler Kraft und struktureller Klarheit.
+                              - paragraph [ref=f2e5]
+                              - paragraph [ref=f2e6]: Vasyl Barvinsky gehört zu den wichtigsten Komponisten Galiziens und ist eine zentrale Figur der ukrainischen Musik des frühen 20. Jahrhunderts. Er studierte in Prag und wurde stark von der dortigen Komponistenschule geprägt. Aufgrund politischer Verfolgung verschwand seine Musik über Jahrzehnte aus dem Konzertleben, viele seiner Werke wurden zerstört. Erst heute kehrt Barvinskys Musik allmählich auf die Konzertbühnen zurück.
+                              - paragraph [ref=f2e7]
+                              - paragraph [ref=f2e8]: "Das Programm umfasst zwei Klaviertrios: das a-Moll-Trio von Barvinsky und das f-Moll-Trio op. 65 von Dvořák. Beide Werke zeigen die Kammermusik als einen Raum intensiven musikalischen Dialogs, in dem nationale Identität und europäische Form in enger Verbindung stehen."
+                    - generic [ref=e333]:
+                      - button "Description Short de arrow_drop_down" [ref=e337] [cursor=pointer]:
+                        - generic [ref=e338]:
+                          - generic [ref=e339]: Description Short
+                          - generic [ref=e341]: de
+                        - generic [ref=e343]: arrow_drop_down
+                      - textbox [ref=e347]: Das Abschlusskonzert des Festivals ist der Kammermusik und dem Werk von Vasyl Barvinsky und Antonín Dvořák gewidmet. Im Mittelpunkt stehen zwei Klaviertrios, die ukrainische und tschechische Musiktraditionen, Volksmusik und klassische europäische Form verbinden.
+                    - generic [ref=e348]:
+                      - button "Meta Description de arrow_drop_down" [ref=e352] [cursor=pointer]:
+                        - generic [ref=e353]:
+                          - generic [ref=e354]: Meta Description
+                          - generic [ref=e356]: de
+                        - generic [ref=e358]: arrow_drop_down
+                      - generic [ref=e361]:
+                        - textbox [ref=e362]: Barvinsky & Dvořák – das Abschlusskonzert des Sounds of Ukraine 2026 in Köln mit Kammermusik-Trios, die ukrainische und tschechische Stimmen vereinen.
+                        - generic [ref=e363]: "10"
+                    - generic [ref=e364]:
+                      - button "Program de arrow_drop_down" [ref=e368] [cursor=pointer]:
+                        - generic [ref=e369]:
+                          - generic [ref=e370]: Program
+                          - generic [ref=e372]: de
+                        - generic [ref=e374]: arrow_drop_down
+                      - application [ref=e378]:
+                        - generic [ref=e379]:
+                          - group [ref=e381]:
+                            - group [ref=e382]:
+                              - toolbar [ref=e383]:
+                                - button "Bold" [ref=e384]:
+                                  - generic [ref=e385]: format_bold
+                                - button "Italic" [ref=e386]:
+                                  - generic [ref=e387]: format_italic
+                                - button "Underline" [ref=e388]:
+                                  - generic [ref=e389]: format_underlined
+                                - button "Heading 1" [ref=e390]:
+                                  - generic [ref=e391]: H1
+                                - button "Heading 2" [ref=e392]:
+                                  - generic [ref=e393]: H2
+                                - button "Heading 3" [ref=e394]:
+                                  - generic [ref=e395]: H3
+                                - button "Numbered List" [ref=e396]:
+                                  - img [ref=e398]
+                                - button "Bullet List" [ref=e400]:
+                                  - img [ref=e402]
+                                - button "Remove Format" [ref=e404]:
+                                  - img [ref=e406]
+                                - button "Blockquote" [ref=e408]:
+                                  - img [ref=e410]
+                                - button "Add/Edit Link" [pressed] [ref=e412]:
+                                  - generic [ref=e413]: insert_link
+                                - button "Add/Edit Image" [ref=e414]:
+                                  - img [ref=e416]
+                                - button "Add/Edit Media" [ref=e418]:
+                                  - img [ref=e420]
+                                - button "Horizontal Rule" [ref=e422]:
+                                  - img [ref=e424]
+                                - button "Edit Source Code" [ref=e426]:
+                                  - img [ref=e428]
+                                - button "Full Screen" [ref=e431]:
+                                  - img [ref=e433]
+                          - iframe [ref=e437]:
+                            - generic "Rich Text Area. Press ALT-0 for help." [active] [ref=f3e1]:
+                              - paragraph [ref=f3e2]:
+                                - link "Vasyl Barvinsky" [ref=f3e3] [cursor=pointer]:
+                                  - /url: chatgpt://generic-entity?number=2
+                                - text: (1888–1963)
+                              - paragraph [ref=f3e4]: Trio a-Moll
+                              - paragraph [ref=f3e5]: I. Andante sentimentale – Allegro energico
+                              - paragraph [ref=f3e6]: II. Andante
+                              - paragraph [ref=f3e7]: III. Allegro giocoso (alla Kolomyika)
+                              - paragraph [ref=f3e8]
+                              - paragraph [ref=f3e9]:
+                                - link "Antonín Dvořák" [ref=f3e10] [cursor=pointer]:
+                                  - /url: chatgpt://generic-entity?number=3
+                                - text: (1841–1904)
+                              - paragraph [ref=f3e11]: Klaviertrio Nr. 3 f-Moll, op. 65
+                              - paragraph [ref=f3e12]: I. Allegro ma non troppo
+                              - paragraph [ref=f3e13]: II. Allegretto grazioso
+                              - paragraph [ref=f3e14]: III. Poco adagio
+                              - paragraph [ref=f3e15]: "IV. Finale: Allegro con brio"
+                  - separator [ref=e439]
+              - generic [ref=e440]:
+                - button "Program arrow_drop_down" [ref=e444] [cursor=pointer]:
+                  - generic [ref=e446]: Program
+                  - generic [ref=e448]: arrow_drop_down
+                - application [ref=e452]:
+                  - generic [ref=e453]:
+                    - group [ref=e455]:
+                      - group [ref=e456]:
+                        - toolbar [ref=e457]:
+                          - button "Bold" [ref=e458]:
+                            - generic [ref=e459]: format_bold
+                          - button "Italic" [ref=e460]:
+                            - generic [ref=e461]: format_italic
+                          - button "Underline" [ref=e462]:
+                            - generic [ref=e463]: format_underlined
+                          - button "Heading 1" [ref=e464]:
+                            - generic [ref=e465]: H1
+                          - button "Heading 2" [ref=e466]:
+                            - generic [ref=e467]: H2
+                          - button "Heading 3" [ref=e468]:
+                            - generic [ref=e469]: H3
+                          - button "Numbered List" [ref=e470]:
+                            - img [ref=e472]
+                          - button "Bullet List" [ref=e474]:
+                            - img [ref=e476]
+                          - button "Remove Format" [ref=e478]:
+                            - img [ref=e480]
+                          - button "Blockquote" [ref=e482]:
+                            - img [ref=e484]
+                          - button "Add/Edit Link" [pressed] [ref=e486]:
+                            - generic [ref=e487]: insert_link
+                          - button "Add/Edit Image" [ref=e488]:
+                            - img [ref=e490]
+                          - button "Add/Edit Media" [ref=e492]:
+                            - img [ref=e494]
+                          - button "Horizontal Rule" [ref=e496]:
+                            - img [ref=e498]
+                          - button "Edit Source Code" [ref=e500]:
+                            - img [ref=e502]
+                          - button "Full Screen" [ref=e505]:
+                            - img [ref=e507]
+                    - iframe [ref=e511]:
+                      - generic "Rich Text Area. Press ALT-0 for help." [active] [ref=f1e1]:
+                        - paragraph [ref=f1e2]:
+                          - link "Vasyl Barvinsky" [ref=f1e3] [cursor=pointer]:
+                            - /url: chatgpt://generic-entity?number=4
+                          - text: (1888–1963)
+                        - paragraph [ref=f1e4]: Trio in A minor
+                        - paragraph [ref=f1e5]: I. Andante sentimentale – Allegro energico
+                        - paragraph [ref=f1e6]: II. Andante
+                        - paragraph [ref=f1e7]: III. Allegro giocoso (alla Kolomyika)
+                        - paragraph [ref=f1e8]
+                        - paragraph [ref=f1e9]:
+                          - link "Antonín Dvořák" [ref=f1e10] [cursor=pointer]:
+                            - /url: chatgpt://generic-entity?number=5
+                          - text: (1841–1904)
+                        - paragraph [ref=f1e11]: Piano Trio No. 3 in F minor, op. 65
+                        - paragraph [ref=f1e12]: I. Allegro ma non troppo
+                        - paragraph [ref=f1e13]: II. Allegretto grazioso
+                        - paragraph [ref=f1e14]: III. Poco adagio
+                        - paragraph [ref=f1e15]: "IV. Finale: Allegro con brio"
+              - generic [ref=e512]:
+                - button "Musicians arrow_drop_down" [ref=e516] [cursor=pointer]:
+                  - generic [ref=e518]: Musicians
+                  - generic [ref=e520]: arrow_drop_down
+                - generic [ref=e524]:
+                  - list [ref=e525]:
+                    - button "Maria Fedyna delete" [ref=e526] [cursor=pointer]:
+                      - generic [ref=e528]: Maria Fedyna
+                      - button "delete" [ref=e530]:
+                        - generic [ref=e531]: delete
+                    - button "Kateryna Shalaiska delete" [ref=e532] [cursor=pointer]:
+                      - generic [ref=e534]: Kateryna Shalaiska
+                      - button "delete" [ref=e536]:
+                        - generic [ref=e537]: delete
+                    - button "-- delete" [ref=e538] [cursor=pointer]:
+                      - generic [ref=e540]: "--"
+                      - button "delete" [ref=e542]:
+                        - generic [ref=e543]: delete
+                    - button "-- delete" [ref=e544] [cursor=pointer]:
+                      - generic [ref=e546]: "--"
+                      - button "delete" [ref=e548]:
+                        - generic [ref=e549]: delete
+                  - generic [ref=e550]:
+                    - button "Create New" [ref=e552] [cursor=pointer]:
+                      - generic [ref=e553]: Create New
+                    - button "Add Existing" [ref=e555] [cursor=pointer]:
+                      - generic [ref=e556]: Add Existing
+              - generic [ref=e557]:
+                - button "Image arrow_drop_down" [ref=e561] [cursor=pointer]:
+                  - generic [ref=e563]: Image
+                  - generic [ref=e565]: arrow_drop_down
+                - generic [ref=e569]:
+                  - generic [ref=e571]:
+                    - button "zoom_in" [ref=e573] [cursor=pointer]:
+                      - generic [ref=e576]: zoom_in
+                    - link "download" [ref=e578] [cursor=pointer]:
+                      - /url: http://localhost:8055/assets/477f9398-7f51-40bc-866e-9aa5eb97a6f5?download=
+                      - generic [ref=e581]: download
+                    - button "edit" [ref=e583] [cursor=pointer]:
+                      - generic [ref=e586]: edit
+                    - button "tune" [ref=e588] [cursor=pointer]:
+                      - generic [ref=e591]: tune
+                    - button "close" [ref=e593] [cursor=pointer]:
+                      - generic [ref=e596]: close
+                  - generic [ref=e597]:
+                    - generic [ref=e598]: C8443 D98 7 C6 D 4 D26 98 F4 40 D7 Da A62130
+                    - generic: 1,536x1,024 • 628.5 kB • image/jpeg
+              - generic [ref=e599]:
+                - button "Status arrow_drop_down" [ref=e603] [cursor=pointer]:
+                  - generic [ref=e605]: Status
+                  - generic [ref=e607]: arrow_drop_down
+                - generic [ref=e613] [cursor=pointer]:
+                  - textbox "Select an item..."
+                  - generic [ref=e616]: expand_more
+              - generic [ref=e617]:
+                - button "Og Image arrow_drop_down" [ref=e621] [cursor=pointer]:
+                  - generic [ref=e623]: Og Image
+                  - generic [ref=e625]: arrow_drop_down
+                - generic [ref=e629]:
+                  - generic [ref=e631]:
+                    - button "zoom_in" [ref=e633] [cursor=pointer]:
+                      - generic [ref=e636]: zoom_in
+                    - link "download" [ref=e638] [cursor=pointer]:
+                      - /url: http://localhost:8055/assets/93e5efc0-fe2b-498e-8ca3-314d7082345d?download=
+                      - generic [ref=e641]: download
+                    - button "edit" [ref=e643] [cursor=pointer]:
+                      - generic [ref=e646]: edit
+                    - button "tune" [ref=e648] [cursor=pointer]:
+                      - generic [ref=e651]: tune
+                    - button "close" [ref=e653] [cursor=pointer]:
+                      - generic [ref=e656]: close
+                  - generic [ref=e657]:
+                    - generic [ref=e658]: C8443 D98 7 C6 D 4 D26 98 F4 40 D7 Da A62130
+                    - generic: 1,200x630 • 138.4 kB • image/jpeg
+              - generic [ref=e659]:
+                - button "Sold Out arrow_drop_down" [ref=e663] [cursor=pointer]:
+                  - generic [ref=e665]: Sold Out
+                  - generic [ref=e667]: arrow_drop_down
+                - checkbox "indeterminate_check_box Enabled" [ref=e670] [cursor=pointer]:
+                  - generic [ref=e672]: indeterminate_check_box
+                  - generic [ref=e673]: Enabled
+              - generic [ref=e674]:
+                - button "Additional Performances arrow_drop_down" [ref=e678] [cursor=pointer]:
+                  - generic [ref=e680]: Additional Performances
+                  - generic [ref=e682]: arrow_drop_down
+                - generic [ref=e686]:
+                  - generic [ref=e687]:
+                    - generic [ref=e690]: info
+                    - generic [ref=e691]: No items
+                  - list
+                  - generic [ref=e692]:
+                    - button "Create New" [ref=e694] [cursor=pointer]:
+                      - generic [ref=e695]: Create New
+                    - button "Add Existing" [ref=e697] [cursor=pointer]:
+                      - generic [ref=e698]: Add Existing
+              - generic [ref=e699]:
+                - button "YouTube Link arrow_drop_down" [ref=e703] [cursor=pointer]:
+                  - generic [ref=e705]: YouTube Link
+                  - generic [ref=e707]: arrow_drop_down
+                - textbox [ref=e712]
+              - generic [ref=e713]:
+                - button "Event Images arrow_drop_down" [ref=e717] [cursor=pointer]:
+                  - generic [ref=e719]: Event Images
+                  - generic [ref=e721]: arrow_drop_down
+                - generic [ref=e724]:
+                  - generic [ref=e725]:
+                    - generic [ref=e728]: info
+                    - generic [ref=e729]: No items
+                  - generic [ref=e730]:
+                    - button "Upload File" [ref=e732] [cursor=pointer]:
+                      - generic [ref=e733]: Upload File
+                    - button "Add Existing" [ref=e735] [cursor=pointer]:
+                      - generic [ref=e736]: Add Existing
+              - generic [ref=e737]:
+                - link "open_in_new View on Website" [active] [ref=e741] [cursor=pointer]:
+                  - /url: https://sounds-of-ukraine.de/de/konzerte/19
+                  - generic [ref=e742]:
+                    - generic [ref=e744]: open_in_new
+                    - generic [ref=e745]: View on Website
+                - paragraph [ref=e747]: Auto-generated by dschema.links
+        - separator "Resize"
+        - generic [ref=e750]:
+          - list [ref=e751]:
+            - link "Skip to Navigation" [ref=e752] [cursor=pointer]:
+              - /url: /admin/content/concerts/19#navigation
+            - link "Skip to Module Navigation" [ref=e753] [cursor=pointer]:
+              - /url: /admin/content/concerts/19#module-navigation
+            - link "Skip to Main Content" [ref=e754] [cursor=pointer]:
+              - /url: /admin/content/concerts/19#main-content
+          - contentinfo "Module Sidebar" [ref=e755]:
+            - generic [ref=e756]:
+              - heading "7 change_history Revisions chevron_left" [level=3] [ref=e758]:
+                - button "7 change_history Revisions chevron_left" [ref=e759] [cursor=pointer]:
+                  - generic [ref=e760]:
+                    - generic [ref=e762]: "7"
+                    - generic [ref=e764]: change_history
+                  - generic [ref=e765]: Revisions
+                  - generic [ref=e767]: chevron_left
+              - heading "chat_bubble_outline Comments chevron_left" [level=3] [ref=e769]:
+                - button "chat_bubble_outline Comments chevron_left" [ref=e770] [cursor=pointer]:
+                  - generic [ref=e773]: chat_bubble_outline
+                  - generic [ref=e774]: Comments
+                  - generic [ref=e776]: chevron_left
+              - heading "share Shares chevron_left" [level=3] [ref=e778]:
+                - button "share Shares chevron_left" [ref=e779] [cursor=pointer]:
+                  - generic [ref=e782]: share
+                  - generic [ref=e783]: Shares
+                  - generic [ref=e785]: chevron_left
+            - button "AI Assistant chevron_left" [ref=e787] [cursor=pointer]:
+              - generic [ref=e788]:
+                - img [ref=e789]
+                - generic [ref=e792]: AI Assistant
+                - generic [ref=e794]: chevron_left

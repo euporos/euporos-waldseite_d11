@@ -1,0 +1,158 @@
+* General Assessment of Festival Macchiato & psite Library Ecosystem
+
+** What Works Well
+
+*The schema system (dschema) is genuinely clever.* Reading the Directus snapshot at compile time and emitting both Clojure defs and SQL view definitions is a solid idea. It gives you compile-time validation of field names, eliminates a whole class of typo bugs, and the generated views with per-locale LEFT JOINs + COALESCE are a clean solution to the multilingual query problem. This is the strongest piece of original architecture in the project.
+
+*SQL injection is not a concern.* HoneySQL is used consistently throughout. All user-facing queries are parameterized. I didn't find a single instance of string-concatenated SQL touching user input.
+
+*CSRF protection is properly implemented.* Token generation, form embedding, header-based API submission — all correct.
+
+*The booking anti-spam approach is reasonable* for the scale: time-based throttle + honeypot + Malli validation. Not over-engineered, appropriate for a festival site.
+
+** Architectural Problems
+
+*** 1. Error propagation is the weakest link in the entire stack
+
+The =psite.async= layer has a fundamental design problem. =query-db= (=mysql.cljs:70-91=) puts errors /as values/ onto channels:
+
+#+begin_src clojure
+(if error
+  (>! c error)    ;; error goes onto the channel as a normal value
+  (>! c result))
+#+end_src
+
+This means every consumer must check ~(instance? js/Error result)~ after every =<!= take. But your handlers use =go-try= / =<?= from =async-error=, which expects errors to be /thrown/ inside the channel, not returned as values. The =<?= operator will only catch errors that were thrown, not error objects placed as values.
+
+This is a latent bug. In =handle-response= (=async.cljs:21-40=), you do check ~(h/error? response)~, which catches JS Error instances returned as values. But that only works at the outermost layer. If a handler does ~(<? (db/query ...))~ and the DB returns an error object on the channel, =<?= won't throw — it'll just pass the error object through as a value. The mismatch between "errors as values on channels" and "errors as exceptions in go-try" means error handling is /incidentally/ working but not /reliably/ working.
+
+*** 2. In-memory sessions are a ticking time bomb for production
+
+#+begin_src clojure
+(session.memory/memory-store setup.session/session-map)
+#+end_src
+
+Every server restart loses all sessions. Every CSRF token becomes invalid. Every logged-in admin gets kicked out. If you ever need to scale to two processes, sessions break entirely. For a single-server festival site this is tolerable, but it means deployments cause a hard user-facing disruption and any Node.js crash silently invalidates all in-flight forms.
+
+*** 3. The =psite= library does too many things and has no clear boundaries
+
+=psite= contains: MySQL wrapper, PostgreSQL wrapper, HTTP fetching, email sending, authentication, session tracking, salt management, cron jobs, transit serialization, middleware, localization, navigation rendering, SEO helpers, and config reading. This is a "framework" only in the sense that everything is dumped into one namespace tree. There's no dependency inversion — =psite.fetching= directly calls =psite.mail= to email the admin on fetch failure. =psite.middleware= directly calls =psite.fetching=. The config system is read by everything.
+
+If you want to reuse this for future projects, the first thing you'll need is to split it. A MySQL adapter shouldn't know about email. A middleware library shouldn't know about your specific fetching patterns.
+
+*** 4. The config system has a confusing merge order and prints secrets
+
+=psite.config.read/read-env= (=read.cljc:63-81=):
+- Recursively follows =:merge-config= chains
+- Then merges all environment variables on top
+- Then *prints the result to stdout* including database credentials
+
+The env var parsing (=env-props=) reads /every/ environment variable, converts them to EDN paths via =__= splitting, and deep-merges them into your config. This means any environment variable like ~DB__CONFIG__PASSWORD=x~ overwrites your config. That's a feature, but it's also an attack surface if the process environment is ever partially controlled (e.g., via a CI misconfiguration). And the unconditional =pprint= of the merged config at startup means credentials appear in your process logs.
+
+*** 5. The "obfuscation" in the config reader is security theater
+
+#+begin_src clojure
+(defn obfuscate [text]
+  (js/btoa (reduce str (reverse text))))
+#+end_src
+
+This reverses the string and base64-encodes it. It's trivially reversible. The name =obfuscate= is honest, but the fact that it's registered as a reader tag (~#psite.config.read/obfuscate~) and used in settings files gives a false sense of security. Anyone reading the settings file can decode it in one line.
+
+** Security Vulnerabilities
+
+*** 6. EDN reader on untrusted input (critical)
+
+=wrap-edn-params= (=middleware.cljs:74-97=) does:
+
+#+begin_src clojure
+(handler (assoc req :edn-params (edn/read-string @data))
+#+end_src
+
+This calls =cljs.reader/read-string= on the raw POST body. While ClojureScript's =read-string= is safer than Clojure's (no arbitrary code execution), it does support tagged literals. If custom readers are registered globally (and your config system does register readers), this could be exploitable. More importantly, there's no size limit on the POST body — it accumulates chunks into a volatile string with no upper bound, making this a trivial memory exhaustion vector. An attacker can POST gigabytes to any EDN endpoint.
+
+*** 7. The tracking ID is a weak pseudonymous identifier
+
+#+begin_src clojure
+(defn wrap-tracking-id [handler]
+  ;; ...
+  (sha256 (str @salt remote-addr (get headers "user-agent"))))
+#+end_src
+
+The salt is ~(str (rand-int 1000000000000000))~ — JavaScript's =rand-int= uses =Math.random()=, which is not cryptographically secure. The salt is stored in a plaintext file. The tracking ID is SHA256 of salt + IP + user-agent, which means anyone who knows the salt can compute tracking IDs for arbitrary users. The salt rotates daily, but the rotation timestamp comparison logic (line 70-72) looks buggy:
+
+#+begin_src clojure
+tracking-id-expired? (> (- @last-salt-rotation-timestamp
+                           (get-in req [:session :tracking :timestamp]))
+                        rotation-interval)
+#+end_src
+
+This subtracts the tracking timestamp from the /salt rotation/ timestamp, not from the current time. If the salt was rotated more recently than the tracking was set, this could produce a negative number, which is never ~> rotation-interval~. The intent is unclear but the math looks wrong.
+
+*** 8. No rate limiting on any endpoint
+
+There is no rate limiting anywhere — not on the booking API, not on the login endpoint, not on the admin pages. The 4-second form timing check is client-attestation only (the client sends =:time-spent=), so an attacker can trivially set ~time-spent: 999999~. The honeypot only catches naive bots.
+
+The login endpoint is particularly exposed: unlimited bcrypt attempts with no lockout, no delay, no IP-based throttle.
+
+*** 9. Email template injection (low severity but real)
+
+In =api/book.cljs=, user-supplied =name= and =message= are interpolated into a Mustache HTML email template without escaping. Mustache's ~{{var}}~ does HTML-escape, but if any of the template snippets use ~{{{var}}}~ (triple-mustache, unescaped), user content becomes raw HTML in the email. Even with double-mustache, the name and message are rendered into CMS-sourced template strings that are themselves Mustache-rendered, creating a double-render scenario. If the CMS content contains ~{{name}}~, user input flows into email HTML. This is a stored XSS in the email context.
+
+*** 10. The proxy endpoint has a whitelist but no path restriction
+
+=api/proxy.cljs= validates the target hostname against a whitelist, but (depending on implementation) may not restrict the path. This could allow an attacker to use your server as a proxy to internal Directus API endpoints that should not be publicly accessible.
+
+** Code Quality Issues
+
+*** 11. Dead code and TODO comments everywhere
+
+- =psite.fetching= has ~allow-caching? false~ hardcoded with a =TODO: remove caching mechanism=
+- =download-fetcherpair!= has =TODO: signature seems wrong=
+- =fetch-multiple!= has =TODO: Why not use the passed value here?= — and indeed, =throw?= from the caller is ignored in favor of hardcoded =false=
+- =fetch-handler= has a typo: ="fetch-handler runningg"=
+- =ical.cljs= appears to be orphaned (not wired into routes)
+- =load-last-salt-rotation-timestamp!= is an empty function
+- =psite.track= and =psite.admin-auth= contain nearly identical salt/tracking code — duplicated, not shared
+
+These TODOs aren't just cosmetic. The =throw?= being ignored in =fetch-multiple!= means error handling doesn't work as the caller expects. This is a real bug.
+
+*** 12. The =wrap-edn-params= middleware is hand-rolled request body parsing
+
+You're manually accumulating chunks from Node's request stream, parsing EDN, and injecting it. This bypasses Macchiato's own body parsing entirely. There's no content-length check, no timeout on the stream, and the error handling catch block at the bottom returns =e= (the raw error) instead of calling =res= or =raise=, which likely causes the request to hang on parse errors.
+
+#+begin_src clojure
+(catch js/Error e
+  (let [data (js->clj (.-data e))]
+    (if (= :reader-exception (:type data))
+      (-> (r/bad-request) ... res)
+      e)))  ;; <-- just returns the error, doesn't call res or raise
+#+end_src
+
+*** 13. Mixed conventions across the libs
+
+- =putils= and =npm_wrappers= both define =toggle-class-by-id= and =set-inner-html= — identical code, duplicated
+- =putils.helpers/map-vals= is defined, but =tdstuff.core= also defines its own =map-vals=
+- The Directus library uses both v1 and v2 URL formats (=fetcher-format= vs =fetcher-format-v2=)
+- Some functions take locale as keyword, others as string, some as both
+
+** Structural Recommendations for Reuse
+
+If you want to extract a reusable framework from this, here's what I'd prioritize:
+
+1. *Fix the error channel contract.* Either make =query-db= throw errors inside go-try (so =<?= works), or stop using =go-try= / =<?= and explicitly check for errors. Pick one pattern and use it everywhere. The current hybrid is the most dangerous kind of bug — it works until it doesn't.
+
+2. *Split psite into at least 4 libraries:* db adapters, http/middleware, config, and auth. The current monolith means every project that uses =psite= gets email sending, cron job scheduling, and PostgreSQL support whether it needs them or not.
+
+3. *Add request body size limits.* One line of code prevents a trivial DoS.
+
+4. *Replace the in-memory session store* with something persistent, even if it's just a file or SQLite. This is a production correctness issue, not just scalability.
+
+5. *Stop printing config at startup.* Log that config was loaded, not what it contains.
+
+6. *Add rate limiting middleware.* Even a simple in-memory token bucket per IP for login and form submission.
+
+7. *Clean up the dead code.* The TODOs with real bugs embedded in them (ignored =throw?=, wrong function arity in =download-fetcherpair!=) are technical debt that will bite you in the next project.
+
+** Bottom Line
+
+This is competent work for a single-developer, single-site project. The database layer is solid, the schema system is genuinely good, and the security basics (CSRF, parameterized queries, input validation) are all present. The main concerns are: the async error handling has a contract mismatch that could silently swallow database errors, =psite= is too monolithic and internally coupled for clean reuse, there's no rate limiting, and the EDN body parser is an unbounded memory sink. None of these are catastrophic for a festival website with modest traffic, but they'd need fixing before building another project on this foundation.

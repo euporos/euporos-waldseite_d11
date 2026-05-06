@@ -1,0 +1,171 @@
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: /de/
+      - link "Українска" [ref=e6] [cursor=pointer]:
+        - /url: http://localhost:3000/uk/admin
+      - link "English" [ref=e7] [cursor=pointer]:
+        - /url: http://localhost:3000/en/admin
+    - generic [ref=e9]:
+      - link "Musiker" [ref=e10] [cursor=pointer]:
+        - /url: /de/#musicians
+      - link "Konzerte" [ref=e11] [cursor=pointer]:
+        - /url: /de/#concerts
+      - link "Kontakt" [ref=e12] [cursor=pointer]:
+        - /url: /de/#contact
+      - generic [ref=e14] [cursor=pointer]: Archiv
+  - generic [ref=e16]:
+    - heading "Reservierungen (221)" [level=1] [ref=e17]
+    - generic [ref=e18]:
+      - heading "5.3 Theodore Akimenko & die französische Schule (u. a. Claude Debussy) (76)" [level=2] [ref=e19]
+      - generic [ref=e20]: "Emailadressen kopieren:"
+      - button "Alle" [ref=e21]
+      - button "Ukrainisch" [ref=e22]
+      - button "Englisch" [ref=e23]
+      - button "Deutsch" [ref=e24]
+      - generic [ref=e25]: "Erinnerungs-Email herunterladen:"
+      - link "Alle" [ref=e26] [cursor=pointer]:
+        - /url: /admin/reminder-eml/15/all
+      - link "Ukrainisch" [ref=e27] [cursor=pointer]:
+        - /url: /admin/reminder-eml/15/uk
+      - link "Englisch" [ref=e28] [cursor=pointer]:
+        - /url: /admin/reminder-eml/15/en
+      - link "Deutsch" [ref=e29] [cursor=pointer]:
+        - /url: /admin/reminder-eml/15/de
+      - link "Reservierungsliste" [ref=e31] [cursor=pointer]:
+        - /url: /admin/reservations/15
+    - generic [ref=e32]:
+      - heading "25.4 Valentyn Silvestrov & Giya Kancheli (54)" [level=2] [ref=e33]
+      - generic [ref=e34]: "Emailadressen kopieren:"
+      - button "Alle" [ref=e35]
+      - button "Ukrainisch" [ref=e36]
+      - button "Englisch" [ref=e37]
+      - button "Deutsch" [ref=e38]
+      - generic [ref=e39]: "Erinnerungs-Email herunterladen:"
+      - link "Alle" [ref=e40] [cursor=pointer]:
+        - /url: /admin/reminder-eml/16/all
+      - link "Ukrainisch" [ref=e41] [cursor=pointer]:
+        - /url: /admin/reminder-eml/16/uk
+      - link "Englisch" [ref=e42] [cursor=pointer]:
+        - /url: /admin/reminder-eml/16/en
+      - link "Deutsch" [ref=e43] [cursor=pointer]:
+        - /url: /admin/reminder-eml/16/de
+      - link "Reservierungsliste" [ref=e45] [cursor=pointer]:
+        - /url: /admin/reservations/16
+    - generic [ref=e46]:
+      - heading "5.6 Serhij Bortkiewicz & Karol Szymanowski (31)" [level=2] [ref=e47]
+      - generic [ref=e48]: "Emailadressen kopieren:"
+      - button "Alle" [ref=e49]
+      - button "Ukrainisch" [ref=e50]
+      - button "Englisch" [ref=e51]
+      - button "Deutsch" [ref=e52]
+      - generic [ref=e53]: "Erinnerungs-Email herunterladen:"
+      - link "Alle" [ref=e54] [cursor=pointer]:
+        - /url: /admin/reminder-eml/17/all
+      - link "Ukrainisch" [ref=e55] [cursor=pointer]:
+        - /url: /admin/reminder-eml/17/uk
+      - link "Englisch" [ref=e56] [cursor=pointer]:
+        - /url: /admin/reminder-eml/17/en
+      - link "Deutsch" [ref=e57] [cursor=pointer]:
+        - /url: /admin/reminder-eml/17/de
+      - link "Reservierungsliste" [ref=e59] [cursor=pointer]:
+        - /url: /admin/reservations/17
+    - generic [ref=e60]:
+      - heading "22.8 Viktor Kosenko & Frédéric Chopin (32)" [level=2] [ref=e61]
+      - generic [ref=e62]: "Emailadressen kopieren:"
+      - button "Alle" [ref=e63]
+      - button "Ukrainisch" [ref=e64]
+      - button "Englisch" [ref=e65]
+      - button "Deutsch" [ref=e66]
+      - generic [ref=e67]: "Erinnerungs-Email herunterladen:"
+      - link "Alle" [ref=e68] [cursor=pointer]:
+        - /url: /admin/reminder-eml/18/all
+      - link "Ukrainisch" [ref=e69] [cursor=pointer]:
+        - /url: /admin/reminder-eml/18/uk
+      - link "Englisch" [ref=e70] [cursor=pointer]:
+        - /url: /admin/reminder-eml/18/en
+      - link "Deutsch" [ref=e71] [cursor=pointer]:
+        - /url: /admin/reminder-eml/18/de
+      - link "Reservierungsliste" [ref=e73] [cursor=pointer]:
+        - /url: /admin/reservations/18
+    - generic [ref=e74]:
+      - heading "23.8 Vasyl Barvinsky & Antonín Dvořák (28)" [level=2] [ref=e75]
+      - generic [ref=e76]: "Emailadressen kopieren:"
+      - button "Alle" [ref=e77]
+      - button "Ukrainisch" [ref=e78]
+      - button "Englisch" [ref=e79]
+      - button "Deutsch" [ref=e80]
+      - generic [ref=e81]: "Erinnerungs-Email herunterladen:"
+      - link "Alle" [ref=e82] [cursor=pointer]:
+        - /url: /admin/reminder-eml/19/all
+      - link "Ukrainisch" [ref=e83] [cursor=pointer]:
+        - /url: /admin/reminder-eml/19/uk
+      - link "Englisch" [ref=e84] [cursor=pointer]:
+        - /url: /admin/reminder-eml/19/en
+      - link "Deutsch" [ref=e85] [cursor=pointer]:
+        - /url: /admin/reminder-eml/19/de
+      - link "Reservierungsliste" [ref=e87] [cursor=pointer]:
+        - /url: /admin/reservations/19
+  - contentinfo [ref=e88]:
+    - generic [ref=e90]:
+      - generic [ref=e92]:
+        - paragraph [ref=e93]:
+          - link "Impressum" [ref=e94] [cursor=pointer]:
+            - /url: /de/pg/1-impressum
+        - paragraph [ref=e95]:
+          - link "Datenschutz" [ref=e96] [cursor=pointer]:
+            - /url: /de/pg/2-datenschutz
+      - generic [ref=e98]:
+        - generic [ref=e99]:
+          - generic [ref=e100]: "Unterstützt von:"
+          - generic [ref=e101]:
+            - link [ref=e103] [cursor=pointer]:
+              - /url: https://www.bechstein.com/centren/duesseldorf/startseite/
+            - link [ref=e105] [cursor=pointer]:
+              - /url: https://www.klavierhaus-klavins.de/
+        - generic [ref=e106]:
+          - generic [ref=e107]: "Gefördert durch:"
+          - generic [ref=e108]:
+            - link [ref=e110] [cursor=pointer]:
+              - /url: https://gvl.de/
+            - link [ref=e112] [cursor=pointer]:
+              - /url: https://www.mkw.nrw/
+            - link [ref=e114] [cursor=pointer]:
+              - /url: https://philharmonia.lviv.ua/en/events/
+  - generic [ref=e117]:
+    - generic [ref=e120]:
+      - generic [ref=e122]: Event History
+      - generic [ref=e123]:
+        - button "There are no previous epochs" [ref=e125]:
+          - img [ref=e127]
+        - button "There are no later epochs" [ref=e130]:
+          - img [ref=e132]
+        - button "Already showig latest epoch" [ref=e135]:
+          - img [ref=e137]
+      - generic [ref=e139]:
+        - img [ref=e140]
+        - textbox "filter event history" [ref=e142]
+      - button "history" [ref=e144] [cursor=pointer]:
+        - generic [ref=e145]:
+          - checkbox [checked] [ref=e147]
+          - text: history
+      - generic [ref=e148]:
+        - button "Settings" [ref=e150] [cursor=pointer]:
+          - img [ref=e152]
+        - button "Pop out" [ref=e156] [cursor=pointer]:
+          - img [ref=e158]
+        - button "Hide panel" [ref=e162] [cursor=pointer]:
+          - img [ref=e164]
+    - generic [ref=e173]:
+      - generic [ref=e175]:
+        - button "event" [ref=e178]
+        - button "fx" [ref=e181]
+        - button "app-db" [ref=e184]
+        - button "subs" [ref=e187]
+        - button "traces" [ref=e190]
+        - button "timing" [ref=e193]
+      - generic [ref=e197]:
+        - paragraph [ref=e199]: Code trace is not available for this event
+        - link "Instructions for enabling Event Code Tracing" [ref=e201] [cursor=pointer]:
+          - /url: https://github.com/day8/re-frame-10x/blob/master/docs/HyperlinkedInformation/EventCodeTracing.md

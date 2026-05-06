@@ -1,0 +1,344 @@
+- generic [ref=e624]:
+  - list [ref=e625]:
+    - link "Skip to Module Navigation" [ref=e626] [cursor=pointer]:
+      - /url: /admin/content/musicians/1#module-navigation
+    - link "Skip to Main Content" [ref=e627] [cursor=pointer]:
+      - /url: /admin/content/musicians/1#main-content
+    - link "Skip to Sidebar" [ref=e628] [cursor=pointer]:
+      - /url: /admin/content/musicians/1#sidebar
+  - generic [ref=e629]:
+    - generic [ref=e632]:
+      - link [ref=e634] [cursor=pointer]:
+        - /url: /admin/content
+        - img [ref=e637]
+      - link "people_alt" [ref=e640] [cursor=pointer]:
+        - /url: /admin/users
+        - generic [ref=e643]: people_alt
+      - link "folder" [ref=e645] [cursor=pointer]:
+        - /url: /admin/files
+        - generic [ref=e648]: folder
+      - link "insights" [ref=e650] [cursor=pointer]:
+        - /url: /admin/insights
+        - generic [ref=e653]: insights
+      - link "help" [ref=e655] [cursor=pointer]:
+        - /url: https://docs.directus.io
+        - generic [ref=e658]: help
+      - link "settings" [ref=e660] [cursor=pointer]:
+        - /url: /admin/settings
+        - generic [ref=e663]: settings
+      - link "launch" [ref=e665] [cursor=pointer]:
+        - /url: /admin/admin-app
+        - generic [ref=e668]: launch
+    - generic [ref=e669]:
+      - button "notifications" [ref=e672] [cursor=pointer]:
+        - generic [ref=e675]: notifications
+      - generic [ref=e676]:
+        - button [ref=e679] [cursor=pointer]:
+          - img [ref=e682]
+        - link "account_circle" [ref=e685] [cursor=pointer]:
+          - /url: /admin/users/99ea45fb-696a-4e9a-815d-112e9cd472a0
+          - generic [ref=e688]: account_circle
+  - generic [ref=e689]:
+    - generic [ref=e690]:
+      - list [ref=e691]:
+        - link "Skip to Navigation" [ref=e692] [cursor=pointer]:
+          - /url: /admin/content/musicians/1#navigation
+        - link "Skip to Main Content" [ref=e693] [cursor=pointer]:
+          - /url: /admin/content/musicians/1#main-content
+        - link "Skip to Sidebar" [ref=e694] [cursor=pointer]:
+          - /url: /admin/content/musicians/1#sidebar
+      - navigation "Module Navigation" [ref=e695]:
+        - generic [ref=e696]:
+          - generic [ref=e698]: Sounds of Ukraine
+          - button "left_panel_close" [ref=e699] [cursor=pointer]:
+            - generic [ref=e700]: left_panel_close
+        - list [ref=e703]:
+          - link "database Concerts" [ref=e704] [cursor=pointer]:
+            - /url: /admin/content/concerts
+            - generic [ref=e707]: database
+            - generic [ref=e709]: Concerts
+          - link "database Email Reservation" [ref=e710] [cursor=pointer]:
+            - /url: /admin/content/email_reservation
+            - generic [ref=e713]: database
+            - generic [ref=e715]: Email Reservation
+          - link "database General" [ref=e716] [cursor=pointer]:
+            - /url: /admin/content/general
+            - generic [ref=e719]: database
+            - generic [ref=e721]: General
+          - link "database Languages" [ref=e722] [cursor=pointer]:
+            - /url: /admin/content/languages
+            - generic [ref=e725]: database
+            - generic [ref=e727]: Languages
+          - link "database Musicians" [ref=e728] [cursor=pointer]:
+            - /url: /admin/content/musicians
+            - generic [ref=e731]: database
+            - generic [ref=e733]: Musicians
+          - link "database Pages" [ref=e734] [cursor=pointer]:
+            - /url: /admin/content/pages
+            - generic [ref=e737]: database
+            - generic [ref=e739]: Pages
+          - link "database Reservations" [ref=e740] [cursor=pointer]:
+            - /url: /admin/content/reservations
+            - generic [ref=e743]: database
+            - generic [ref=e745]: Reservations
+          - link "database Venues" [ref=e746] [cursor=pointer]:
+            - /url: /admin/content/venues
+            - generic [ref=e749]: database
+            - generic [ref=e751]: Venues
+    - separator "Resize"
+    - generic [ref=e753]:
+      - list [ref=e754]:
+        - link "Skip to Navigation" [ref=e755] [cursor=pointer]:
+          - /url: /admin/content/musicians/1#navigation
+        - link "Skip to Module Navigation" [ref=e756] [cursor=pointer]:
+          - /url: /admin/content/musicians/1#module-navigation
+        - link "Skip to Sidebar" [ref=e757] [cursor=pointer]:
+          - /url: /admin/content/musicians/1#sidebar
+      - generic [ref=e759]:
+        - generic [ref=e761]:
+          - banner [ref=e762]:
+            - generic [ref=e763]:
+              - button "arrow_back" [ref=e766] [cursor=pointer]:
+                - generic [ref=e769]: arrow_back
+              - generic [ref=e770]:
+                - link "Musicians" [ref=e775] [cursor=pointer]:
+                  - /url: /admin/content/musicians
+                - heading "Editing Item in Musicians" [level=1] [ref=e777]:
+                  - generic [ref=e778]: Editing Item in Musicians
+              - button "right_panel_close" [ref=e779] [cursor=pointer]:
+                - generic [ref=e780]: right_panel_close
+            - generic [ref=e781]:
+              - button "delete" [ref=e784] [cursor=pointer]:
+                - generic [ref=e787]: delete
+              - button "archive" [ref=e790] [cursor=pointer]:
+                - generic [ref=e793]: archive
+              - button "check" [disabled] [ref=e795]:
+                - generic [ref=e798]: check
+          - main [ref=e799]:
+            - generic [ref=e802]:
+              - generic [ref=e803]:
+                - link "open_in_new View on Website" [ref=e807] [cursor=pointer]:
+                  - /url: /admin/de/musiker/1
+                  - generic [ref=e808]:
+                    - generic [ref=e810]: open_in_new
+                    - generic [ref=e811]: View on Website
+                - paragraph [ref=e813]: Auto-generated by dschema.links
+              - generic [ref=e814]:
+                - button "Status arrow_drop_down" [ref=e818] [cursor=pointer]:
+                  - generic [ref=e820]: Status
+                  - generic [ref=e822]: arrow_drop_down
+                - generic [ref=e828] [cursor=pointer]:
+                  - textbox "Select an item...": Published
+                  - generic [ref=e831]: expand_more
+              - generic [ref=e832]:
+                - button "Image arrow_drop_down" [ref=e836] [cursor=pointer]:
+                  - generic [ref=e838]: Image
+                  - generic [ref=e840]: arrow_drop_down
+                - generic [ref=e844]:
+                  - generic [ref=e846]:
+                    - button "zoom_in" [ref=e848] [cursor=pointer]:
+                      - generic [ref=e851]: zoom_in
+                    - link "download" [ref=e853] [cursor=pointer]:
+                      - /url: http://localhost:8055/assets/a6190b21-998a-4326-ab5f-33803e37868a?download=
+                      - generic [ref=e856]: download
+                    - button "edit" [ref=e858] [cursor=pointer]:
+                      - generic [ref=e861]: edit
+                    - button "tune" [ref=e863] [cursor=pointer]:
+                      - generic [ref=e866]: tune
+                    - button "close" [ref=e868] [cursor=pointer]:
+                      - generic [ref=e871]: close
+                  - generic [ref=e872]:
+                    - generic: 1,620x1,080 • 278.3 kB • image/jpeg
+              - generic [ref=e873]:
+                - button "Image Position arrow_drop_down" [ref=e877] [cursor=pointer]:
+                  - generic [ref=e879]: Image Position
+                  - generic [ref=e881]: arrow_drop_down
+                - generic [ref=e887] [cursor=pointer]:
+                  - textbox "Select an item...": left
+                  - generic [ref=e890]: expand_more
+              - generic [ref=e891]:
+                - button "Translations arrow_drop_down" [ref=e895] [cursor=pointer]:
+                  - generic [ref=e897]: Translations
+                  - generic [ref=e899]: arrow_drop_down
+                - generic [ref=e903]:
+                  - button "translate de delete flip expand_more" [ref=e906] [cursor=pointer]:
+                    - generic [ref=e908]: translate
+                    - generic [ref=e909]: de
+                    - generic [ref=e910]:
+                      - button "delete" [ref=e911]:
+                        - generic [ref=e912]: delete
+                      - button "flip" [ref=e913]:
+                        - generic [ref=e914]: flip
+                    - generic [ref=e916]: expand_more
+                  - generic [ref=e917]:
+                    - generic [ref=e918]:
+                      - button "Name de arrow_drop_down" [ref=e922] [cursor=pointer]:
+                        - generic [ref=e923]:
+                          - generic [ref=e924]: Name
+                          - generic [ref=e926]: de
+                        - generic [ref=e928]: arrow_drop_down
+                      - textbox [ref=e933]: Violina Petrychenko
+                    - generic [ref=e934]:
+                      - button "Subtitle de arrow_drop_down" [ref=e938] [cursor=pointer]:
+                        - generic [ref=e939]:
+                          - generic [ref=e940]: Subtitle
+                          - generic [ref=e942]: de
+                        - generic [ref=e944]: arrow_drop_down
+                      - textbox [ref=e949]: Klavier, künstlerische Leitung
+                    - generic [ref=e950]:
+                      - button "Accusative de arrow_drop_down" [ref=e954] [cursor=pointer]:
+                        - generic [ref=e955]:
+                          - generic [ref=e956]: Accusative
+                          - generic [ref=e958]: de
+                        - generic [ref=e960]: arrow_drop_down
+                      - textbox [ref=e965]
+                    - generic [ref=e966]:
+                      - button "Bio Short de arrow_drop_down" [ref=e970] [cursor=pointer]:
+                        - generic [ref=e971]:
+                          - generic [ref=e972]: Bio Short
+                          - generic [ref=e974]: de
+                        - generic [ref=e976]: arrow_drop_down
+                      - textbox [ref=e980]: Die Pianistin Violina Petrychenko sieht ihre Mission darin, ukrainische Musik und Kultur bekannter zu machen. In ihrer Heimatstadt Saporischja begann sie ihre Ausbildung in Musikwissenschaft und als Pianistin. Ihr Studium führte sie nach Kiew, Weimar, Köln und Essen. Gegenwärtig arbeitet und unterrichtet sie in Köln. Acht CD-Einspielungen widmete sie ukrainischen Komponisten des 20. Jahrhunderts. Zusammen mit ihren Ensembles, bringt die ukrainische Pianistin Violina Petrychenko die klassische Musik der Ukraine in die Konzerthäuser Europas.
+                    - generic [ref=e981]:
+                      - button "Bio Long de arrow_drop_down" [ref=e985] [cursor=pointer]:
+                        - generic [ref=e986]:
+                          - generic [ref=e987]: Bio Long
+                          - generic [ref=e989]: de
+                        - generic [ref=e991]: arrow_drop_down
+                      - application [ref=e995]:
+                        - generic [ref=e996]:
+                          - group [ref=e998]:
+                            - group [ref=e999]:
+                              - toolbar [ref=e1000]:
+                                - button "Bold" [pressed] [ref=e1001]:
+                                  - generic [ref=e1002]: format_bold
+                                - button "Italic" [ref=e1003]:
+                                  - generic [ref=e1004]: format_italic
+                                - button "Underline" [ref=e1005]:
+                                  - generic [ref=e1006]: format_underlined
+                                - button "Heading 1" [ref=e1007]:
+                                  - generic [ref=e1008]: H1
+                                - button "Heading 2" [pressed] [ref=e1009]:
+                                  - generic [ref=e1010]: H2
+                                - button "Heading 3" [ref=e1011]:
+                                  - generic [ref=e1012]: H3
+                                - button "Numbered List" [ref=e1013]:
+                                  - img [ref=e1015]
+                                - button "Bullet List" [ref=e1017]:
+                                  - img [ref=e1019]
+                                - button "Remove Format" [ref=e1021]:
+                                  - img [ref=e1023]
+                                - button "Blockquote" [ref=e1025]:
+                                  - img [ref=e1027]
+                                - button "Add/Edit Link" [ref=e1029]:
+                                  - generic [ref=e1030]: insert_link
+                                - button "Add/Edit Image" [ref=e1031]:
+                                  - img [ref=e1033]
+                                - button "Add/Edit Media" [ref=e1035]:
+                                  - img [ref=e1037]
+                                - button "Horizontal Rule" [ref=e1039]:
+                                  - img [ref=e1041]
+                                - button "Edit Source Code" [ref=e1043]:
+                                  - img [ref=e1045]
+                                - button "Full Screen" [ref=e1048]:
+                                  - img [ref=e1050]
+                          - iframe [ref=e1054]:
+                            - generic "Rich Text Area. Press ALT-0 for help." [active] [ref=f4e1]:
+                              - heading "Violina Petrychenko" [level=2] [ref=f4e2]:
+                                - strong [ref=f4e3]: Violina Petrychenko
+                              - paragraph [ref=f4e4]: Konzertpianistin | Künstlerische Leiterin | Botschafterin der ukrainischen Musik
+                              - paragraph [ref=f4e5]
+                              - paragraph [ref=f4e6]: Violina Petrychenko ist eine leidenschaftliche Pianistin, deren künstlerisches Schaffen der Bewahrung und weltweiten Verbreitung ukrainischer Musik gewidmet ist. Ihre international anerkannte Karriere führte sie von den Konservatorien in Kyjiw und Weimar zu bedeutenden europäischen Bühnen – darunter die Berliner Philharmonie sowie die Philharmonien von Luxemburg, Freiburg, Karlsruhe, Warschau, Kattowitz und Stettin.
+                              - paragraph [ref=f4e7]: In der Ukraine trat sie in nahezu allen großen Konzerthäusern auf, darunter die Philharmonien von Kyjiw, Lwiw, Iwano-Frankiwsk, Chmelnyzkyj, Odessa, Dnipro, Czerniwzi und Saporischschja.
+                              - paragraph [ref=f4e8]: Geboren in Saporischschja in eine Musikerfamilie, begann sie bereits im Alter von sechs Jahren mit dem Klavierspiel. Ihre musikalische Ausbildung erhielt sie an der Nationalen Musikakademie der Ukraine in Kyjiw sowie an den deutschen Hochschulen in Weimar, Köln und Essen, wo sie von Professoren wie Jacob Leuschner und Evgeny Sinaiski geprägt wurde. Meisterkurse bei namhaften Künstlern wie Pierre-Laurent Aimard, Ferenc Rados und Peter Nagy rundeten ihre Ausbildung ab.
+                              - paragraph [ref=f4e9]
+                              - paragraph [ref=f4e10]: Ihre musikalische Exzellenz wurde mit zahlreichen Preisen und Stipendien ausgezeichnet, darunter das Präsidentenstipendium der Ukraine, der DAAD-Preis, Förderungen der Werner Richard – Dr. Carl Dörken Stiftung, der Neuen Liszt Stiftung Weimar, der Anna Ruths Stiftung sowie der Gesellschaft der Freunde und Förderer der Hochschule für Musik „Franz Liszt“ Weimar.
+                              - paragraph [ref=f4e11]
+                              - paragraph [ref=f4e12]: Als Solistin und Kammermusikerin ist Violina international tätig. Sie trat mehrfach im Rundfunk auf – u. a. bei WDR, MDR, SWR, dem Bayerischen Rundfunk sowie im ZDF, und ihre Musik wurde dort regelmäßig übertragen. Ihre Festivalauftritte führten sie in zahlreiche Länder Europas, darunter nach Stockholm (Festival Ukrainischer Frühling), Kopenhagen (Copenhagen Summer Festival), Palermo (Palermo Classica), Kwidzyn (Kwidzyn Music Spring International Festival), Bayreuth (Bayreuth Piano Festival) sowie zu den renommierten Festivals Virtuosen von Lemberg und Kontraste Lemberg in der Ukraine.
+                              - paragraph [ref=f4e13]: Einen zentralen Schwerpunkt ihrer Arbeit bildet das ukrainische Repertoire – Musik, die sie mit Hingabe, Forschung und künstlerischer Leidenschaft wiederentdeckt und in die Gegenwart führt.
+                              - paragraph [ref=f4e14]: Ein zentrales Feld ihres Schaffens ist die Kammermusik. Violina wirkt in mehreren Ensembles – vom Duo bis zum Sextett – und verbindet in ihren Programmen klassisches Repertoire mit selten gespielten ukrainischen Werken. Mit ihrem Quintett „Las Damas“ widmet sie sich zudem den leidenschaftlichen Klängen von Astor Piazzolla und der Musik des 20. Jahrhunderts.
+                              - paragraph [ref=f4e15]: "Bis heute hat Violina acht CDs aufgenommen, darunter Slavic Nobility, Ukrainian Moods, Barvinsky: Silent Voice, Mriyi (Dreams) – Ukrainian Hope (nominiert für den Opus Klassik), Winter Whispers, Passion for Ukraine (mit Lena Belkina) sowie die 2025 erscheinenden Alben Piano Concertos by Barvinsky and Kosenko und Piano Quintets by Barvinsky and Lyatoshynsky mit dem Phoenix String Quartet."
+                              - paragraph [ref=f4e16]: Neben ihrer Konzerttätigkeit engagiert sich Violina als künstlerische Leiterin und Gründerin des Festivals „Sounds of Ukraine“ in Köln, das sie 2023 ins Leben rief. Dieses Festival widmet sich der Vielfalt ukrainischer Musik und bringt sie in einem internationalen Dialog auf die Bühnen Europas.
+                              - paragraph [ref=f4e17]: Seit 2025 leitet sie in Lwiw die neue Konzertreihe „Barvinsky Salon“, die der Wiederentdeckung und Popularisierung der Musik von Vasyl Barvinsky gewidmet ist.
+                              - paragraph [ref=f4e18]: "Seit Beginn des Krieges hat Violina Petrychenko ihre Bemühungen noch einmal verstärkt. Ihr Ziel ist es, die Vielfalt der ukrainischen Musik zu zeigen und ihr das Recht zu geben, gespielt und gehört zu werden. Wie der Musikkritiker Michael Zerban (O-Ton) schrieb: „Sie tritt nicht nur für sich, sondern für ihr Land auf – hier geht es um Gesellschaft und Freiheit.“"
+                              - paragraph [ref=f4e19]: In jedem ihrer Konzerte erklingt seither mindestens ein Werk eines ukrainischen Komponisten – als Zeichen des Widerstands, der Erinnerung und der kulturellen Selbstbehauptung.
+                              - paragraph [ref=f4e20]: Derzeit ist Violina Petrychenko Solistin der Lemberger Philharmonie und weltweit als Konzertpianistin unterwegs.
+                    - generic [ref=e1055]:
+                      - button "Meta Description de arrow_drop_down" [ref=e1059] [cursor=pointer]:
+                        - generic [ref=e1060]:
+                          - generic [ref=e1061]: Meta Description
+                          - generic [ref=e1063]: de
+                        - generic [ref=e1065]: arrow_drop_down
+                      - generic [ref=e1068]:
+                        - textbox [ref=e1069]: Die Pianistin Violina Petrychenko sieht ihre Mission darin, ukrainische Musik und Kultur bekannter zu machen. Sie übernimmt die künstlerische Leitung des Festivals.
+                        - generic [ref=e1070]: "-4"
+                  - separator [ref=e1072]
+              - generic [ref=e1073]:
+                - button "Homepage arrow_drop_down" [ref=e1077] [cursor=pointer]:
+                  - generic [ref=e1079]: Homepage
+                  - generic [ref=e1081]: arrow_drop_down
+                - textbox [ref=e1086]: https://violina-petrychenko.de/
+              - generic [ref=e1087]:
+                - button "Slug arrow_drop_down" [ref=e1091] [cursor=pointer]:
+                  - generic [ref=e1093]: Slug
+                  - generic [ref=e1095]: arrow_drop_down
+                - textbox "Deutscher name" [ref=e1100]: Violina Petrychenko
+              - generic [ref=e1101]:
+                - button "Card Crop arrow_drop_down" [ref=e1105] [cursor=pointer]:
+                  - generic [ref=e1107]: Card Crop
+                  - generic [ref=e1109]: arrow_drop_down
+                - generic [ref=e1113]:
+                  - spinbutton [ref=e1114]: "0"
+                  - generic [ref=e1115]:
+                    - button "keyboard_arrow_up" [ref=e1116] [cursor=pointer]:
+                      - generic [ref=e1117]: keyboard_arrow_up
+                    - button "keyboard_arrow_down" [ref=e1118] [cursor=pointer]:
+                      - generic [ref=e1119]: keyboard_arrow_down
+              - generic [ref=e1120]:
+                - button "Og Image arrow_drop_down" [ref=e1124] [cursor=pointer]:
+                  - generic [ref=e1126]: Og Image
+                  - generic [ref=e1128]: arrow_drop_down
+                - generic [ref=e1132]:
+                  - generic [ref=e1133]:
+                    - button "Choose File file_upload" [ref=e1135] [cursor=pointer]:
+                      - generic [ref=e1136]:
+                        - button "Choose File" [ref=e1137]
+                        - generic [ref=e1139]: file_upload
+                    - button "folder_open" [ref=e1141] [cursor=pointer]:
+                      - generic [ref=e1144]: folder_open
+                    - button "link" [ref=e1146] [cursor=pointer]:
+                      - generic [ref=e1149]: link
+                  - paragraph [ref=e1150]: Drag & Drop a File Here
+        - separator "Resize"
+        - generic [ref=e1153]:
+          - list [ref=e1154]:
+            - link "Skip to Navigation" [ref=e1155] [cursor=pointer]:
+              - /url: /admin/content/musicians/1#navigation
+            - link "Skip to Module Navigation" [ref=e1156] [cursor=pointer]:
+              - /url: /admin/content/musicians/1#module-navigation
+            - link "Skip to Main Content" [ref=e1157] [cursor=pointer]:
+              - /url: /admin/content/musicians/1#main-content
+          - contentinfo "Module Sidebar" [ref=e1158]:
+            - generic [ref=e1159]:
+              - heading "14 change_history Revisions chevron_left" [level=3] [ref=e1161]:
+                - button "14 change_history Revisions chevron_left" [ref=e1162] [cursor=pointer]:
+                  - generic [ref=e1163]:
+                    - generic [ref=e1165]: "14"
+                    - generic [ref=e1167]: change_history
+                  - generic [ref=e1168]: Revisions
+                  - generic [ref=e1170]: chevron_left
+              - heading "chat_bubble_outline Comments chevron_left" [level=3] [ref=e1172]:
+                - button "chat_bubble_outline Comments chevron_left" [ref=e1173] [cursor=pointer]:
+                  - generic [ref=e1176]: chat_bubble_outline
+                  - generic [ref=e1177]: Comments
+                  - generic [ref=e1179]: chevron_left
+              - heading "share Shares chevron_left" [level=3] [ref=e1181]:
+                - button "share Shares chevron_left" [ref=e1182] [cursor=pointer]:
+                  - generic [ref=e1185]: share
+                  - generic [ref=e1186]: Shares
+                  - generic [ref=e1188]: chevron_left
+            - button "AI Assistant chevron_left" [ref=e1190] [cursor=pointer]:
+              - generic [ref=e1191]:
+                - img [ref=e1192]
+                - generic [ref=e1195]: AI Assistant
+                - generic [ref=e1197]: chevron_left
