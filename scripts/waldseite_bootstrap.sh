@@ -79,6 +79,8 @@ echo "--- Tracking field metadata ---"
 python3 scripts/track_fields.py http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
 echo "--- Creating M2O and M2M relations ---"
 python3 scripts/track_relations.py http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
+echo "--- Creating translations relations ---"
+python3 scripts/track_translations.py http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
 
 cat <<'EOF'
 
@@ -88,8 +90,6 @@ waldseite_bootstrap complete.
   Login: admin@example.com / admin   (override via ADMIN_EMAIL/ADMIN_PASSWORD env)
 
 Remaining manual work:
-  - Translations relations (9): need a decision on how the legacy `sprachen`
-    collection maps to D11's expected language collection. Configure via UI.
   - Two M2M sides to directus_files: skipped due to UUID vs integer mismatch.
     Will be wired after the file migration assigns new UUIDs to existing rows.
 

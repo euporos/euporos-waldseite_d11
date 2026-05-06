@@ -629,7 +629,7 @@
         "collapse": "open",
         "collection": "sprachen",
         "color": null,
-        "display_template": null,
+        "display_template": "{{code}} — {{langname}}",
         "group": null,
         "hidden": false,
         "icon": "translate",
@@ -878,6 +878,36 @@
       }
     },
     {
+      "collection": "allgemeines",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "allgemeines",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "allgemeines_translations",
       "field": "id",
       "type": "bigInteger",
@@ -1020,15 +1050,17 @@
         "display_options": null,
         "field": "allgemeines_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -1049,8 +1081,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "allgemeines",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -1060,19 +1092,23 @@
       "meta": {
         "collection": "allgemeines_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -1093,8 +1129,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -1284,15 +1320,17 @@
         "display_options": null,
         "field": "article",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -1313,8 +1351,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "articles",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -1324,19 +1362,23 @@
       "meta": {
         "collection": "article_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -1357,8 +1399,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -1670,6 +1712,36 @@
       }
     },
     {
+      "collection": "articles",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "ausfluege",
       "field": "haeuser",
       "type": "alias",
@@ -1917,6 +1989,36 @@
         "has_auto_increment": false,
         "foreign_key_table": null,
         "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ausfluege",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "ausfluege",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
       }
     },
     {
@@ -2278,19 +2380,23 @@
       "meta": {
         "collection": "ausfluege_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -2311,8 +2417,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -2326,15 +2432,17 @@
         "display_options": null,
         "field": "ausflug_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -2355,8 +2463,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "ausfluege",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -2904,6 +3012,36 @@
       }
     },
     {
+      "collection": "einzelseiten",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "einzelseiten",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "einzelseiten_translations",
       "field": "id",
       "type": "bigInteger",
@@ -3090,15 +3228,17 @@
         "display_options": null,
         "field": "einzelseite_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -3119,8 +3259,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "einzelseiten",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -3130,19 +3270,23 @@
       "meta": {
         "collection": "einzelseiten_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -3163,8 +3307,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -3297,6 +3441,36 @@
         "has_auto_increment": false,
         "foreign_key_table": null,
         "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "fixe_seiten",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "fixe_seiten",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
       }
     },
     {
@@ -3482,19 +3656,23 @@
       "meta": {
         "collection": "fixe_seiten_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -3515,8 +3693,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -3530,15 +3708,17 @@
         "display_options": null,
         "field": "fixed_seite_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -3559,8 +3739,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "fixe_seiten",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -4224,6 +4404,36 @@
       }
     },
     {
+      "collection": "galerie",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "galerie",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "galerie_translations",
       "field": "id",
       "type": "bigInteger",
@@ -4322,15 +4532,17 @@
         "display_options": null,
         "field": "galerie_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -4351,8 +4563,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "galerie",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -4362,19 +4574,23 @@
       "meta": {
         "collection": "galerie_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -4395,8 +4611,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -4914,6 +5130,36 @@
       }
     },
     {
+      "collection": "haeuser",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "haeuser",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "haeuser_directus_files",
       "field": "id",
       "type": "bigInteger",
@@ -5232,15 +5478,17 @@
         "display_options": null,
         "field": "haus_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -5261,8 +5509,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "haeuser",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -5272,19 +5520,23 @@
       "meta": {
         "collection": "haeuser_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -5305,8 +5557,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -5912,6 +6164,36 @@
       }
     },
     {
+      "collection": "news",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "news",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "news_haeuser",
       "field": "id",
       "type": "bigInteger",
@@ -6226,19 +6508,23 @@
       "meta": {
         "collection": "news_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -6259,8 +6545,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -6274,15 +6560,17 @@
         "display_options": null,
         "field": "news_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -6303,8 +6591,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "news",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -6616,6 +6904,36 @@
       }
     },
     {
+      "collection": "startseite",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "startseite",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "startseite_translations",
       "field": "id",
       "type": "bigInteger",
@@ -6710,19 +7028,23 @@
       "meta": {
         "collection": "startseite_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -6743,8 +7065,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -6758,15 +7080,17 @@
         "display_options": null,
         "field": "startseite_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -6787,8 +7111,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "startseite",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -7262,6 +7586,36 @@
       }
     },
     {
+      "collection": "wohnungen",
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "wohnungen",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "languageField": "code"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "wohnungen_directus_files",
       "field": "id",
       "type": "bigInteger",
@@ -7536,15 +7890,17 @@
         "display_options": null,
         "field": "wohnung_id",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -7565,8 +7921,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "wohnungen",
+        "foreign_key_column": "id"
       }
     },
     {
@@ -7576,19 +7932,23 @@
       "meta": {
         "collection": "wohnungen_translations",
         "conditions": null,
-        "display": null,
-        "display_options": null,
+        "display": "translations",
+        "display_options": {
+          "template": "{{ code }}"
+        },
         "field": "language",
         "group": null,
-        "hidden": false,
-        "interface": null,
+        "hidden": true,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -7609,8 +7969,8 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code"
       }
     },
     {
@@ -7683,6 +8043,106 @@
   ],
   "relations": [
     {
+      "collection": "allgemeines_translations",
+      "field": "allgemeines_id",
+      "related_collection": "allgemeines",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "allgemeines_translations",
+        "many_field": "allgemeines_id",
+        "one_allowed_collections": null,
+        "one_collection": "allgemeines",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "allgemeines_translations",
+        "column": "allgemeines_id",
+        "foreign_key_table": "allgemeines",
+        "foreign_key_column": "id",
+        "constraint_name": "allgemeines_translations_allgemeines_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "allgemeines_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "allgemeines_id",
+        "many_collection": "allgemeines_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "allgemeines_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "allgemeines_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "article_translations",
+      "field": "article",
+      "related_collection": "articles",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "article_translations",
+        "many_field": "article",
+        "one_allowed_collections": null,
+        "one_collection": "articles",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "article_translations",
+        "column": "article",
+        "foreign_key_table": "articles",
+        "foreign_key_column": "id",
+        "constraint_name": "article_translations_article_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "article_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "article",
+        "many_collection": "article_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "article_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "article_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
       "collection": "ausfluege_haeuser",
       "field": "ausfluege_id",
       "related_collection": "ausfluege",
@@ -7728,6 +8188,156 @@
         "foreign_key_table": "haeuser",
         "foreign_key_column": "id",
         "constraint_name": "ausfluege_haeuser_haeuser_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "ausfluege_translations",
+      "field": "ausflug_id",
+      "related_collection": "ausfluege",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "ausfluege_translations",
+        "many_field": "ausflug_id",
+        "one_allowed_collections": null,
+        "one_collection": "ausfluege",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ausfluege_translations",
+        "column": "ausflug_id",
+        "foreign_key_table": "ausfluege",
+        "foreign_key_column": "id",
+        "constraint_name": "ausfluege_translations_ausflug_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "ausfluege_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "ausflug_id",
+        "many_collection": "ausfluege_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ausfluege_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "ausfluege_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "einzelseiten_translations",
+      "field": "einzelseite_id",
+      "related_collection": "einzelseiten",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "einzelseiten_translations",
+        "many_field": "einzelseite_id",
+        "one_allowed_collections": null,
+        "one_collection": "einzelseiten",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "einzelseiten_translations",
+        "column": "einzelseite_id",
+        "foreign_key_table": "einzelseiten",
+        "foreign_key_column": "id",
+        "constraint_name": "einzelseiten_translations_einzelseite_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "einzelseiten_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "einzelseite_id",
+        "many_collection": "einzelseiten_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "einzelseiten_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "einzelseiten_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "fixe_seiten_translations",
+      "field": "fixed_seite_id",
+      "related_collection": "fixe_seiten",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "fixe_seiten_translations",
+        "many_field": "fixed_seite_id",
+        "one_allowed_collections": null,
+        "one_collection": "fixe_seiten",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "fixe_seiten_translations",
+        "column": "fixed_seite_id",
+        "foreign_key_table": "fixe_seiten",
+        "foreign_key_column": "id",
+        "constraint_name": "fixe_seiten_translations_fixed_seite_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "fixe_seiten_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "fixed_seite_id",
+        "many_collection": "fixe_seiten_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "fixe_seiten_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "fixe_seiten_translations_language_foreign",
         "on_update": "NO ACTION",
         "on_delete": "NO ACTION"
       }
@@ -7808,6 +8418,56 @@
       }
     },
     {
+      "collection": "galerie_translations",
+      "field": "galerie_id",
+      "related_collection": "galerie",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "galerie_translations",
+        "many_field": "galerie_id",
+        "one_allowed_collections": null,
+        "one_collection": "galerie",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "galerie_translations",
+        "column": "galerie_id",
+        "foreign_key_table": "galerie",
+        "foreign_key_column": "id",
+        "constraint_name": "galerie_translations_galerie_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "galerie_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "galerie_id",
+        "many_collection": "galerie_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "galerie_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "galerie_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
       "collection": "haeuser_directus_files",
       "field": "haeuser_id",
       "related_collection": "haeuser",
@@ -7828,6 +8488,56 @@
         "foreign_key_table": "haeuser",
         "foreign_key_column": "id",
         "constraint_name": "haeuser_directus_files_haeuser_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "haeuser_translations",
+      "field": "haus_id",
+      "related_collection": "haeuser",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "haeuser_translations",
+        "many_field": "haus_id",
+        "one_allowed_collections": null,
+        "one_collection": "haeuser",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "haeuser_translations",
+        "column": "haus_id",
+        "foreign_key_table": "haeuser",
+        "foreign_key_column": "id",
+        "constraint_name": "haeuser_translations_haus_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "haeuser_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "haus_id",
+        "many_collection": "haeuser_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "haeuser_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "haeuser_translations_language_foreign",
         "on_update": "NO ACTION",
         "on_delete": "NO ACTION"
       }
@@ -7883,6 +8593,106 @@
       }
     },
     {
+      "collection": "news_translations",
+      "field": "news_id",
+      "related_collection": "news",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "news_translations",
+        "many_field": "news_id",
+        "one_allowed_collections": null,
+        "one_collection": "news",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "news_translations",
+        "column": "news_id",
+        "foreign_key_table": "news",
+        "foreign_key_column": "id",
+        "constraint_name": "news_translations_news_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "news_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "news_id",
+        "many_collection": "news_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "news_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "news_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "startseite_translations",
+      "field": "startseite_id",
+      "related_collection": "startseite",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "startseite_translations",
+        "many_field": "startseite_id",
+        "one_allowed_collections": null,
+        "one_collection": "startseite",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "startseite_translations",
+        "column": "startseite_id",
+        "foreign_key_table": "startseite",
+        "foreign_key_column": "id",
+        "constraint_name": "startseite_translations_startseite_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "startseite_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "startseite_id",
+        "many_collection": "startseite_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "startseite_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "startseite_translations_language_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
       "collection": "wohnungen",
       "field": "haus",
       "related_collection": "haeuser",
@@ -7928,6 +8738,56 @@
         "foreign_key_table": "wohnungen",
         "foreign_key_column": "id",
         "constraint_name": "wohnungen_directus_files_wohnungen_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "wohnungen_translations",
+      "field": "wohnung_id",
+      "related_collection": "wohnungen",
+      "meta": {
+        "junction_field": "language",
+        "many_collection": "wohnungen_translations",
+        "many_field": "wohnung_id",
+        "one_allowed_collections": null,
+        "one_collection": "wohnungen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "translations",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "wohnungen_translations",
+        "column": "wohnung_id",
+        "foreign_key_table": "wohnungen",
+        "foreign_key_column": "id",
+        "constraint_name": "wohnungen_translations_wohnung_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "wohnungen_translations",
+      "field": "language",
+      "related_collection": "sprachen",
+      "meta": {
+        "junction_field": "wohnung_id",
+        "many_collection": "wohnungen_translations",
+        "many_field": "language",
+        "one_allowed_collections": null,
+        "one_collection": "sprachen",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "wohnungen_translations",
+        "column": "language",
+        "foreign_key_table": "sprachen",
+        "foreign_key_column": "code",
+        "constraint_name": "wohnungen_translations_language_foreign",
         "on_update": "NO ACTION",
         "on_delete": "NO ACTION"
       }
