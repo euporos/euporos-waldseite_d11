@@ -94,10 +94,9 @@
    :from   [[s/startseite_t s/startseite]]
    :limit  1})
 
-(defn haeuser-overview [locale]
+(defn haeuser-overview [_locale]
   {:select   [s/haeuser-id
               s/haeuser-name
               s/haeuser-hauptbild]
    :from     [[s/haeuser_t s/haeuser]]
-   :where    [:= s/haeuser-status "published"]
    :order-by [s/haeuser-name]})
