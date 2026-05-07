@@ -27,7 +27,7 @@
        ;; TODO: route :haus once added; link is a no-op anchor for now.
        [:a {:href "#"}
         [:img {:width "100%"
-               :src   (d/image-by-preset 512 hauptbild)}]]]]
+               :src   (d/image-by-preset "600" hauptbild)}]]]]
      [:div.is-size-3 name]]]])
 
 (defn- page-body [req startseite haeuser]
@@ -55,7 +55,7 @@
           [:div.column.is-italic.has-text-centered
            [:span.is-size-3 "Ihre Familie Bickel"] [:br]
            [:div.mt-4
-            [:img {:src (d/image-by-preset 512 familienbild)}]]]])]]]))
+            [:img {:src (d/image-by-preset "600" familienbild)}]]]])]]]))
 
 (defhandler handler [req]
   (p/let [locale     (:locale req)
