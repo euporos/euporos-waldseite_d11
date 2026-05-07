@@ -130,6 +130,34 @@ body > .footer { margin-top: auto; }
 .constructionmessage { text-align: center; font-size: 2rem; }
 
 // ---------------------------------------------------------------------------
+// /galerie page — server-rendered grid + PhotoSwipe lightbox
+// ---------------------------------------------------------------------------
+
+.galerie-gruppe { margin-bottom: 2rem; }
+
+.galerie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem;
+
+  a.galerie-item {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: zoom-in;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    &:hover img { transform: scale(1.04); }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Wohnung / Haus — Ausstattung table (DTV stars + floating side card)
 // ---------------------------------------------------------------------------
 

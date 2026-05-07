@@ -1,7 +1,7 @@
-// import 'photoswipe/style.css';
+import 'photoswipe/style.css';
 import '@splidejs/splide/css';
 import '../styles/main.scss';
-// import PhotoSwipeLightbox from 'photoswipe/lightbox';
+import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import Splide from '@splidejs/splide';
 
 addEventListener('DOMContentLoaded', () => {
@@ -23,12 +23,16 @@ addEventListener('DOMContentLoaded', () => {
       pauseOnFocus: true,
     }).mount();
 
-    // Click-to-fullscreen lightbox disabled — slide <a> falls back to
-    // opening the full-res image in a new tab via target="_blank".
-    // new PhotoSwipeLightbox({
-    //   gallery: '#' + el.id,
-    //   children: '.splide__slide:not(.splide__slide--clone) a',
-    //   pswpModule: () => import('photoswipe'),
-    // }).init();
+    // Click-to-fullscreen lightbox stays disabled on Splide carousels —
+    // slide <a> falls back to opening the full-res image in a new tab.
+  });
+
+  document.querySelectorAll('[data-photoswipe-gallery]').forEach((el, i) => {
+    if (!el.id) el.id = `pswp-gallery-${i}`;
+    new PhotoSwipeLightbox({
+      gallery: '#' + el.id,
+      children: 'a',
+      pswpModule: () => import('photoswipe'),
+    }).init();
   });
 });

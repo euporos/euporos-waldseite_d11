@@ -110,6 +110,22 @@
    :where    [:= :wohnungen_directus_files.wohnungen_id wohnung-id]
    :order-by [:wohnungen_directus_files.id]})
 
+(defn galerie-overview [locale]
+  {:select    [s/galerie-id
+               s/galerie-bild
+               s/galerie-haus
+               (db/localized s/galerie-beschreibung locale)
+               [:directus_files.width :width]
+               [:directus_files.height :height]
+               [s/haeuser-name :haus_name]]
+   :from      [[s/galerie_t s/galerie]]
+   :left-join [:directus_files     [:= :directus_files.id s/galerie-bild]
+               [s/haeuser_t s/haeuser] [:= s/galerie-haus s/haeuser-id]]
+   :where     [:and
+               [:= s/galerie-status "published"]
+               [:is-not s/galerie-bild nil]]
+   :order-by  [s/galerie-haus s/galerie-id]})
+
 (defn einzelseite-detail [locale einzelseite-id]
   {:select [s/einzelseiten-id
             (db/localized s/einzelseiten-titel locale)
