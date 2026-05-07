@@ -21,7 +21,7 @@ addEventListener('DOMContentLoaded', () => {
 
     new PhotoSwipeLightbox({
       gallery: '#' + el.id,
-      children: '.splide__slide a',
+      children: '.splide__slide:not(.splide__slide--clone) a',
       pswpModule: () => import('photoswipe'),
     }).init();
   });
