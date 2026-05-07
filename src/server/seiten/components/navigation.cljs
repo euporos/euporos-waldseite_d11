@@ -6,10 +6,10 @@
 ;; #################
 
 (defn statify-navitem
-  "vereinfacht Rendering"
-  [req dynamic-menuitem]
-  (let [{:keys [pathfn href name]} dynamic-menuitem]
-    (-> dynamic-menuitem
+  "Resolve :pathfn -> :href and i18n :name -> string for the current request."
+  [req item]
+  (let [{:keys [pathfn href name]} item]
+    (-> item
         (assoc :href (cond
                        href   href
                        pathfn (pathfn req)
@@ -24,92 +24,71 @@
 ;; ##############
 
 (defn navbar-section
-  "class is navbar-start or navbar-end"
-  [req headitem items]
-  [:div
-   {:class (:class headitem)}
-   items])
+  "Container for a row of items inside the navbar (navbar-start / navbar-end)."
+  [_req headitem items]
+  [:div {:class (:class headitem)} items])
 
 (defn navbar-item
   [req item]
   (let [item (statify-navitem req item)]
-    [:li.navigation__item.menuitem.menuitem--lvl-0
-     [:a.navbar-item
-      {:href (:href item)}
-      (:name item)]]))
-
-(defn locale-span
-  "erzeugt aus einer Sprachkollektion, z.b. Deutsch
-  einen span mit der entsprechenden Sprachschaltfläche"
-  [req item]
-  (let [item (statify-navitem req item)]
-    [:span.navigation__locale
-     [:a
-      {:href (:href item)}
-      (:name item)]]))
-
-(defn locale-choice
-  "mapt über alle Sprachcollections und erzeugt für jede
-  einen locale-Span. packt dann alle in ein Nav-item."
-  [req headitem items]
-  (into
-   [:li.navigation__item.navigation__item--locale]
-   items))
+    [:a.navbar-item {:href (:href item)} (:name item)]))
 
 (defn navbar-dropdown
-  ""
   [_req headitem items]
   [:div.navbar-item.has-dropdown.is-hoverable
-   [:a.navbar-link
-    {:href (:href headitem)}
-    (:name headitem)]
-   [:div.navbar-dropdown
-    items]])
+   [:a.navbar-link {:href (:href headitem)} (:name headitem)]
+   [:div.navbar-dropdown items]])
 
 (defn navbar
-  ""
   [_req headitem items]
-  [:div.navigation
-   [:input#navi-toggle.navigation__checkbox
-    {:type "checkbox"}]
-   [:label.navigation__button
-    {:for "navi-toggle"}
-    [:span.navigation__hamburger]]
-   [:div.navigation__background " "]
-   [:nav.navigation__nav
-    [:div.navigation__list.navigation__list--lvl-0
-     {:id (:menuid headitem)}
-     items]]])
+  [:nav.navbar
+   {:role       "navigation"
+    :aria-label "main navigation"}
+   [:div.navbar-brand
+    [:a.navbar-item.nationalpark-partner-top
+     {:rel    "noopener noreferrer"
+      :target "_blank"
+      :href   "https://www.nationalpark-partner.com/"}
+     [:img {:src "/imgs/nationalpark.png"}]]
+    [:a.navbar-burger.burger
+     {:role          "button"
+      :aria-label    "menu"
+      :aria-expanded "false"
+      :data-target   (:menuid headitem)}
+     [:span {:aria-hidden "true"}]
+     [:span {:aria-hidden "true"}]
+     [:span {:aria-hidden "true"}]]]
+   [:div.navbar-menu {:id (:menuid headitem)} items]])
 
 ;; ##############
 ;; ### Footer ###
 ;; ##############
 
-(def facebook-button-shariff
-  (list
-
-   [:div.shariff]
-   [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/shariff/1.26.2/shariff.min.js"}]))
-
 (defn fb-button [url]
   [:div.solid-icon.social-media-icon
-   [:a
-    {:rel    "noopener noreferrer"
-     :target "_blank"
-     :href   (str "https://www.facebook.com/sharer/sharer.php?u="
-                  url)}
+   [:a {:rel    "noopener noreferrer"
+        :target "_blank"
+        :href   (str "https://www.facebook.com/sharer/sharer.php?u=" url)}
     [:img {:src "/imgs/icons/facebook-black.png"}]]])
 
 (defn footer-menuitem
-  ""
   [req item]
   (let [item (statify-navitem req item)]
-    [:a
-     {:href (:href item)} (:name item)]))
+    [:div.column.is-narrow
+     [:a.discretelink {:href (:href item)} (:name item)]]))
 
 (defn footer-menu
-  ""
-  [req headitem items]
-  [:div.footer__menue.footer__menue--lvl-0
-   items])
-
+  [_req _headitem items]
+  [:div.columns.is-mobile.is-vcentered
+   [:div.column.is-one-quarter.has-text-centered
+    [:div.nationalpark-partner
+     [:a {:rel    "noopener noreferrer"
+          :target "_blank"
+          :href   "https://www.nationalpark-partner.com/"}
+      [:img {:src "/imgs/nationalpark.png"}]]]]
+   [:div.column.is-half
+    [:div.columns.is-centered.is-multiline
+     (interpose [:div.is-divider-vertical {:data-content "OR"}]
+                items)]]
+   [:div.column.is-one-quarter.has-text-centered
+    (fb-button "https://bickels-ferienwohnungen.de")]])

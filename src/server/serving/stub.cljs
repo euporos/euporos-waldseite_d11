@@ -1,12 +1,22 @@
 (ns serving.stub
-  (:require [macchiato.util.response :as r]))
+  (:require [seiten.templates :as templates]))
 
-(defn- stub-body [req]
-  (str "STUB " (:request-method req) " " (:uri req) "\n"
-       "path-params:  " (pr-str (:path-params req)) "\n"
-       "query-params: " (pr-str (:query-params req)) "\n"))
+(defn- stub-body [req route-name]
+  [:section.section
+   [:div.container
+    [:h1.title.is-3 (str "Stub: " (name route-name))]
+    [:table.table
+     [:tbody
+      [:tr [:th "method"]       [:td (str (:request-method req))]]
+      [:tr [:th "uri"]          [:td (:uri req)]]
+      [:tr [:th "path-params"]  [:td [:code (pr-str (:path-params req))]]]
+      [:tr [:th "query-params"] [:td [:code (pr-str (:query-params req))]]]]]]])
 
 (defn make-handler [route-name]
-  (fn [req res _raise]
-    (res (-> (r/ok (str "[" route-name "]\n" (stub-body req)))
-             (r/content-type "text/plain; charset=utf-8")))))
+  (fn [req res raise]
+    (-> (templates/render-page
+         req
+         {:titel (str "Stub: " (name route-name))}
+         (stub-body req route-name))
+        (.then res)
+        (.catch raise))))

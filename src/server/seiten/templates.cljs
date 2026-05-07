@@ -10,6 +10,8 @@
    [goog.string :as gstring]
    [goog.string.format]
    [kitchen-async.promise :as p]
+   [db.queries :as q]
+   [macchiato.util.response :as r]
    [psite-menu.core :as pmenu]
    [psite-routing.core :as routing]
    [psite-seo.core :as seo]
@@ -154,7 +156,24 @@
            (nav/make-menu req (:main composed))
            [:div#modal]
            comps
-           (nav/make-menu req (:footer composed)))))
+           [:footer.footer
+            [:div.content.has-text-centered
+             (nav/make-menu req (:footer composed))]])))
+
+(defn render-page
+  "Fetch menu inputs, render head-and-foot-blank with the given body,
+  return a Promise of an HTML response. Use this from any handler that
+  doesn't already need haeuser/einzelseiten on its own."
+  [req head-data & comps]
+  (p/let [locale  (:locale req)
+          haeuser (db/query (q/haeuser-overview locale))
+          einzel  (db/query (q/einzelseiten-for-menus locale))]
+    (-> (r/ok (apply head-and-foot-blank
+                     req head-data
+                     {:haeuser                haeuser
+                      :einzelseiten-for-menus einzel}
+                     comps))
+        (r/content-type "text/html; charset=utf-8"))))
 
 (defn router-free
   [req head-data & comps]
