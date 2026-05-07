@@ -99,7 +99,9 @@ def main():
     for junction, parent_fk, parent in TRANSLATIONS:
         print(f"\n-- {parent} ↔ {junction} --")
 
-        # 2. Add (or update) alias field `translations` on parent
+        # 2. Add (or update) alias field `translations` on parent.
+        # The `translations` display renders the matching-language value in
+        # list views instead of an array of translation row IDs.
         alias_body = {
             "field": "translations",
             "type": "alias",
@@ -107,6 +109,10 @@ def main():
                 "interface": "translations",
                 "special": ["translations"],
                 "options": {"languageField": "code"},
+                "display": "translations",
+                "display_options": {"defaultLanguage": "de",
+                                    "languageField": "language",
+                                    "userLanguage": True},
             },
         }
         res = post_field(token, parent, alias_body)

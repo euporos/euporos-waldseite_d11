@@ -280,7 +280,7 @@ def main():
         # track_interfaces; flip it to file-image so it shows the picker.
         http("PATCH", f"/fields/{coll}/{field}", token, body={"meta": {
             "interface": "file-image", "special": ["file"], "hidden": False, "readonly": False,
-            "display": "image",
+            "display": "image", "display_options": {},
         }})
         res = http("POST", "/relations", token, body={
             "collection": coll, "field": field, "related_collection": "directus_files",
@@ -293,15 +293,16 @@ def main():
 
     # M2M junctions: aliases on both sides + two relation rows each.
     for jc, parent, parent_fk, file_fk, alias_p, alias_f in JUNCTIONS:
-        # Alias on parent (e.g. haeuser.weitere_bilder) — render each junction
-        # row by traversing to the file via file_fk.
+        # Alias on parent: use the dedicated `files` interface so the list
+        # renders thumbnails instead of bare filenames.
         http("POST", f"/fields/{parent}", token, body={
             "field": alias_p, "type": "alias",
-            "meta": {"interface": "list-m2m", "special": ["m2m"],
-                     "options": {"template": "{{ " + file_fk + ".filename_download }}"}},
+            "meta": {"interface": "files", "special": ["m2m"],
+                     "display": "related-values",
+                     "display_options": {"template": "{{ " + file_fk + ".$thumbnail }}"}},
         })
-        # Alias on directus_files (e.g. directus_files.haeuser) — render by
-        # traversing to the parent via parent_fk.
+        # Alias on directus_files: stay with list-m2m, the parents aren't
+        # files so a thumbnail picker isn't appropriate.
         http("POST", "/fields/directus_files", token, body={
             "field": alias_f, "type": "alias",
             "meta": {"interface": "list-m2m", "special": ["m2m"],
