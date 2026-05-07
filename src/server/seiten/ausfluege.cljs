@@ -15,7 +15,7 @@
     {:id (str "ausflug-" id)}
     (when bild
       [:div.column.is-one-third
-       [:img {:src (d/image-by-preset "1024" bild)}]])
+       [:img {:src (d/image-by-preset "1200" bild)}]])
     [:div.column
      [:div.textabschnitt
       [:h2.title.is-3 titel]
