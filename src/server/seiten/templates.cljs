@@ -193,7 +193,10 @@
      [:img {:src   "/imgs/nationalpark.png"
             :alt   "Nationalpark Bayerischer Wald"
             :style "max-width: 180px;"}]]
-    [:p [:a {:href "https://www.facebook.com/" :target "_blank"} "Facebook"]]]])
+    [:p [:a {:href "https://www.facebook.com/" :target "_blank"}
+         [:img {:src   "/imgs/icons/facebook-black.png"
+                :alt   "Facebook"
+                :style "width: 32px; height: 32px;"}]]]]])
 
 
 (defn head-and-foot-blank

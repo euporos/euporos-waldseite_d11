@@ -55,6 +55,12 @@ $waldseite-base-soft: rgba(222, 184, 135, 0.5);
   &::-webkit-scrollbar { display: none; }
 }
 
+body {
+  background: url("/imgs/hintergrund.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 .navbar { background-color: $waldseite-base; }
 
 .base-background  { background: $waldseite-base; }
