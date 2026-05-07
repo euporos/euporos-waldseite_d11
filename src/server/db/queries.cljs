@@ -81,3 +81,23 @@
   [locale musician-id]
   (-> (concerts-for-overview-current locale)
       (add-musician-filter musician-id)))
+
+;; ===========================
+;; Waldseite — Startseite
+;; ===========================
+
+(defn startseite-content [locale]
+  {:select [s/startseite-id
+            s/startseite-familienbild
+            (db/localized s/startseite-hauptueberschrift locale)
+            (db/localized s/startseite-haupttext locale)]
+   :from   [[s/startseite_t s/startseite]]
+   :limit  1})
+
+(defn haeuser-overview [locale]
+  {:select   [s/haeuser-id
+              s/haeuser-name
+              s/haeuser-hauptbild]
+   :from     [[s/haeuser_t s/haeuser]]
+   :where    [:= s/haeuser-status "published"]
+   :order-by [s/haeuser-name]})

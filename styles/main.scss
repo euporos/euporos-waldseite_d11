@@ -1,38 +1,22 @@
 @charset "utf-8";
 
 // ---------------------------------------------------------------------------
-// Bulma variable overrides (must precede the Bulma import)
-// Ported from src/common/style/variables.cljc `branded-dark-mode`.
+// Waldseite palette — burlywood accent on light Bulma defaults.
+// Source: scss/_common.scss in waldseite_alles ($basecolor: burlywood).
 // ---------------------------------------------------------------------------
 
-$grey-dark:                          #ffffff;
-$grey-darker:                        #a6a6a6;
-$blue:                               hsl(44, 100%, 77%);
-$widescreen-enabled:                 false;
-$fullhd-enabled:                     false;
-$white:                              #262626;
-$footer-background-color:            #262626;
-$input-color:                        #ffffff;
-$navbar-item-hover-background-color: #000000;
-$navbar-item-color:                  #ffe08a;
-$body-background-color:              #000000;
-$control-border-width:               2px;
-$input-border-color:                 transparent;
-$input-shadow:                       none;
+$widescreen-enabled: false;
+$fullhd-enabled:     false;
+$primary:            burlywood;
+
+$waldseite-base:      burlywood;
+$waldseite-base-soft: rgba(222, 184, 135, 0.5);
 
 @import '../node_modules/bulma/bulma.sass';
 
-// ---------------------------------------------------------------------------
-// Runtime color tokens exposed as CSS custom properties.
-// Only --link-color is read today (api/qr.cljs). The rest document intent.
-// ---------------------------------------------------------------------------
-
 :root {
-  --dark:             #000000;
-  --contrast-color:   #262626;
-  --text-color:       #ffffff;
-  --link-color:       #ffe08a;
-  --svg-color-light:  #ffe08a;
+  --link-color:      #8b5a2b;
+  --svg-color-light: #f5deb3;
 }
 
 // ---------------------------------------------------------------------------
@@ -71,7 +55,21 @@ $input-shadow:                       none;
   &::-webkit-scrollbar { display: none; }
 }
 
-.navbar { background-color: var(--contrast-color); }
+.navbar { background-color: $waldseite-base; }
+
+.base-background  { background: $waldseite-base; }
+.panel-background { background: $waldseite-base-soft; }
+
+.mainpanel {
+  background-color: $waldseite-base-soft;
+  width: 95%;
+  max-width: 60rem;
+  margin: 2rem auto;
+  overflow: hidden;
+  @media (max-width: 768px) { width: 100%; margin: 0; }
+}
+
+.constructionmessage { text-align: center; font-size: 2rem; }
 
 .modal-content {
   max-width: calc(100vw - 60px);
