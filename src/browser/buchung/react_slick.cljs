@@ -10,7 +10,10 @@
 (defn- carousel-card [{:keys [id name hauptbild-url haus-name wohnung-url]}]
   [:div.card.has-text-centered.carousel-card {:key (str id)}
    [:div.card-image
-    [:figure.image
+    ;; is-4by3 forces a uniform aspect across slides so slick's
+    ;; top:50% arrow positioning lands on the image instead of being
+    ;; pulled down by a portrait-orientation slide.
+    [:figure.image.is-4by3
      (when hauptbild-url
        [:img {:src hauptbild-url :alt name}])]]
    [:div.content.panel-background
