@@ -16,23 +16,34 @@
             [db.setup :as db]
             [db.queries :as q]
             [directus.core :as directus]
+            [serving.routing :as rt]
             [buchung.fetch :as fetch]
             [preise.cache :as cache]))
 
-(defn- with-image-url
-  "Resolve hauptbild → URL server-side so the browser never has to know
-   the Directus origin or preset name."
-  [w]
+(defn- with-derived
+  "Resolve hauptbild → URL, attach the apartment's permalink and the
+   parent house name. The browser never needs to know the Directus
+   origin or how the route is built."
+  [haeuser-by-id req w]
   (cond-> (dissoc w :hauptbild)
     (:hauptbild w) (assoc :hauptbild-url
-                          (directus/image-by-preset "600" (:hauptbild w)))))
+                          (directus/image-by-preset "600" (:hauptbild w)))
+    (:name w)      (assoc :wohnung-url
+                          (rt/path-wohnung req (:id w) (:name w)))
+    (:haus w)      (assoc :haus-name
+                          (get haeuser-by-id (:haus w)))))
 
-(defhandler handler [_req]
-  (p/let [rows         (db/query (q/wohnungen-with-ical))
+(defhandler handler [req]
+  (p/let [locale       (:locale req)
+          rows         (db/query (q/wohnungen-with-ical))
+          haeuser      (db/query (q/haeuser-overview locale))
+          haeuser-by-id (into {} (map (juxt (comp str :id) :name)) haeuser)
           ;; wohnungen.id arrives from the driver as a string; preise.edn
           ;; keys :basisdaten/:felder by integer id, so coerce here to
           ;; keep client-side lookups type-aligned.
-          wohnungen-in (mapv #(-> % (update :id js/parseInt) with-image-url) rows)
+          wohnungen-in (mapv #(-> % (update :id js/parseInt)
+                                  ((partial with-derived haeuser-by-id req)))
+                             rows)
           wohnungen    (fetch/fetch-ical-feeds wohnungen-in)]
     (-> (r/ok (pr-str {:wohnungen (vec (sort-by :id wohnungen))
                        :preise    (cache/read-prices)}))

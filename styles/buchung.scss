@@ -94,7 +94,28 @@ $day-height:        1.5rem;
 
 // ---------- Carousel card ----------
 
+// On wide layouts the slick-slider would otherwise stretch to fill the
+// Bulma container; cap it so the card sits at a sensible size like the
+// legacy site did. The horizontal padding leaves room for the prev/next
+// arrows that slick-theme.css positions just inside the slider edges.
+.slick-slider {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1.75rem;
+}
+
+.slick-prev { left: 0;  z-index: 1; }
+.slick-next { right: 0; z-index: 1; }
+.slick-prev:before,
+.slick-next:before { color: #555; opacity: .85; }
+
 .carousel-card {
+  position: relative;
+
+  // Bulma's .card already gives a white background + shadow; the
+  // wohnung image fills the card top.
+  .card-image .image img { width: 100%; height: auto; display: block; }
+
   &__hausicon {
     position: absolute;
     bottom: 0;
@@ -109,6 +130,12 @@ $day-height:        1.5rem;
     right:  0;
     width: 5rem;
     max-width: 30%;
+  }
+
+  // Caption strip under the image.
+  .content {
+    padding: .5rem;
+    a strong { color: mediumseagreen; }
   }
 }
 

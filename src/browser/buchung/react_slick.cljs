@@ -7,14 +7,18 @@
 (def ^:private slider
   (r/adapt-react-class (or (.-default react-slick-slider) react-slick-slider)))
 
-(defn- carousel-card [{:keys [id name hauptbild-url]}]
+(defn- carousel-card [{:keys [id name hauptbild-url haus-name wohnung-url]}]
   [:div.card.has-text-centered.carousel-card {:key (str id)}
    [:div.card-image
-    [:figure.image.is-4by3
+    [:figure.image
      (when hauptbild-url
        [:img {:src hauptbild-url :alt name}])]]
    [:div.content.panel-background
-    [:strong name]]])
+    (if wohnung-url
+      [:a {:href wohnung-url :target "_blank" :rel "noopener noreferrer"}
+       [:strong name]]
+      [:strong name])
+    (when haus-name [:<> [:br] haus-name])]])
 
 (defn- selected-slide-index [wohnungen ausgew-id]
   (or (some (fn [[i w]] (when (= ausgew-id (:id w)) i))
