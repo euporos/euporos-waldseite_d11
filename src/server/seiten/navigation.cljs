@@ -65,7 +65,7 @@
             :pathfn   (fn [req] (rt/path-ausfluege req "alle"))
             :name     {:de "Ausflugtips" :en "Hiking"}}
 
-           {:type     :insertpoint :id :main
+           {:type     :insertpoint :id :oben
             :defaults {:renderfn cnav/navbar-item}}]]
 
    :footer [{:type :headitem :renderfn cnav/footer-menu}
