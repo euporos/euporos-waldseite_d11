@@ -35,4 +35,9 @@
                     :output-dir "public/compiled/admin"
                     :asset-path "/compiled/admin"
                     :modules    {:preise {:init-fn preise.core/main}}
+                    :compiler-options {:infer-externs :auto}}
+          :buchung {:target     :browser
+                    :output-dir "public/compiled/buchung"
+                    :asset-path "/compiled/buchung"
+                    :modules    {:buchung {:init-fn buchung.core/main}}
                     :compiler-options {:infer-externs :auto}}}}

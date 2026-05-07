@@ -86,6 +86,15 @@
    :from   [:einstellungen]
    :limit  1})
 
+(defn wohnungen-with-ical []
+  {:select   [s/wohnungen-id
+              s/wohnungen-name
+              s/wohnungen-ical
+              s/wohnungen-hauptbild
+              s/wohnungen-haus]
+   :from     [s/wohnungen]
+   :order-by [s/wohnungen-name]})
+
 (defn wohnung-detail [locale wohnung-id]
   {:select [s/wohnungen-id
             s/wohnungen-name
