@@ -91,6 +91,9 @@ else
   echo "--- Skipping file import (directus/uploads/ is empty) ---"
 fi
 
+echo "--- Setting display templates ---"
+python3 scripts/track_display_templates.py http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
+
 cat <<'EOF'
 
 ==============================================================================
