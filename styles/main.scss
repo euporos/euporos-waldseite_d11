@@ -64,11 +64,20 @@ $waldseite-base-soft: rgba(235, 219, 199, 0.85);
   &::-webkit-scrollbar { display: none; }
 }
 
+html { height: 100%; }
+
 body {
   background: url("/imgs/hintergrund.jpg");
   background-attachment: fixed;
   background-size: cover;
+
+  // Sticky-footer layout: stretch body to viewport, push footer to bottom.
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+
+body > .footer { margin-top: auto; }
 
 .navbar { background-color: $waldseite-base; }
 
