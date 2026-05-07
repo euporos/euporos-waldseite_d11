@@ -1824,7 +1824,7 @@
         "interface": "list-m2m",
         "note": null,
         "options": {
-          "template": "{{haeuser_id}}"
+          "template": "{{ haeuser_id.name }}"
         },
         "readonly": false,
         "required": false,
@@ -2589,7 +2589,9 @@
         "hidden": false,
         "interface": "list-m2m",
         "note": null,
-        "options": null,
+        "options": {
+          "template": "{{ haeuser_id.name }}"
+        },
         "readonly": false,
         "required": false,
         "searchable": true,
@@ -2617,7 +2619,9 @@
         "hidden": false,
         "interface": "list-m2m",
         "note": null,
-        "options": null,
+        "options": {
+          "template": "{{ wohnungen_id.name }}"
+        },
         "readonly": false,
         "required": false,
         "searchable": true,
@@ -4939,7 +4943,7 @@
         "interface": "list-m2m",
         "note": null,
         "options": {
-          "template": "{{news_id}}"
+          "template": "{{ news_id.translations.titel }}"
         },
         "readonly": false,
         "required": false,
@@ -4969,7 +4973,7 @@
         "interface": "list-m2m",
         "note": null,
         "options": {
-          "template": "{{ausfluege_id}}"
+          "template": "{{ ausfluege_id.translations.titel }}"
         },
         "readonly": false,
         "required": false,
@@ -5401,7 +5405,9 @@
         "hidden": false,
         "interface": "list-m2m",
         "note": null,
-        "options": null,
+        "options": {
+          "template": "{{ directus_files_id.filename_download }}"
+        },
         "readonly": false,
         "required": false,
         "searchable": true,
@@ -6203,7 +6209,7 @@
         "interface": "list-m2m",
         "note": null,
         "options": {
-          "template": "{{haeuser_id}}"
+          "template": "{{ haeuser_id.name }}"
         },
         "readonly": false,
         "required": false,
@@ -7980,7 +7986,9 @@
         "hidden": false,
         "interface": "list-m2m",
         "note": null,
-        "options": null,
+        "options": {
+          "template": "{{ directus_files_id.filename_download }}"
+        },
         "readonly": false,
         "required": false,
         "searchable": true,

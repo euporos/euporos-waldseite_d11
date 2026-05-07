@@ -34,24 +34,28 @@ M2O = [
     ("galerie",     "haus",     "haeuser",   None),
 ]
 
-# M2M junctions: (junction_collection, side_a_field, side_a_target,
-#                 side_b_field, side_b_target,
-#                 alias_on_a, alias_on_b)
-# Each generates two relation rows + alias fields on both sides.
+# M2M junctions:
+#   (junction_collection,
+#    side_a_field, side_a_target, side_a_title_path,
+#    side_b_field, side_b_target, side_b_title_path,
+#    alias_on_a, alias_on_b)
+# Each generates two relation rows + alias fields on both sides. The
+# title_path for each side is the template fragment used when the OPPOSITE
+# side displays junction rows (so e.g. when haeuser shows its `news` alias,
+# we render `{{ news_id.translations.titel }}` per junction row).
 #
 # Excluded: `wohnungen_directus_files` and `haeuser_directus_files`. Their
-# `directus_files_id` columns are integer (D8 file IDs) but D11's
-# directus_files.id is UUID — the relation can't be wired until the file
-# migration assigns new UUIDs and rewrites these junctions. Leaving the
-# half-wired relations causes "relationship not configured properly" errors
-# in the UI, so we don't create them at all.
+# `directus_files_id` columns can only be wired after the file migration
+# runs (see scripts/import_d8_files.py).
 M2M = [
     ("news_haeuser",
-     "news_id", "news", "haeuser_id", "haeuser",
-     "haeuser", "news"),
+     "news_id",   "news",    "translations.titel",
+     "haeuser_id","haeuser", "name",
+     "haeuser",   "news"),
     ("ausfluege_haeuser",
-     "ausfluege_id", "ausfluege", "haeuser_id", "haeuser",
-     "haeuser", "ausfluege"),
+     "ausfluege_id", "ausfluege", "translations.titel",
+     "haeuser_id",   "haeuser",   "name",
+     "haeuser",      "ausfluege"),
 ]
 
 
@@ -133,11 +137,13 @@ def main():
         make_relation(token, coll, field, related, meta=meta or None)
 
     print("\n-- M2M junctions (metadata only) --")
-    for jc, fa, ta, fb, tb, alias_a, alias_b in M2M:
+    for jc, fa, ta, title_a, fb, tb, title_b, alias_a, alias_b in M2M:
+        # The alias on side A lists junction rows; each row should display
+        # the side-B item, traversed via fb. So template = {{ fb.title_b }}.
         make_alias(token, ta, alias_a, "list-m2m", ["m2m"],
-                   options={"template": "{{" + fb + "}}"})
+                   options={"template": "{{ " + fb + "." + title_b + " }}"})
         make_alias(token, tb, alias_b, "list-m2m", ["m2m"],
-                   options={"template": "{{" + fa + "}}"})
+                   options={"template": "{{ " + fa + "." + title_a + " }}"})
         make_relation(token, jc, fa, ta,
                       meta={"one_field": alias_a, "junction_field": fb})
         make_relation(token, jc, fb, tb,

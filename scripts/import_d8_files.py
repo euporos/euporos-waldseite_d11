@@ -293,15 +293,19 @@ def main():
 
     # M2M junctions: aliases on both sides + two relation rows each.
     for jc, parent, parent_fk, file_fk, alias_p, alias_f in JUNCTIONS:
-        # Alias on parent (e.g. haeuser.weitere_bilder)
+        # Alias on parent (e.g. haeuser.weitere_bilder) — render each junction
+        # row by traversing to the file via file_fk.
         http("POST", f"/fields/{parent}", token, body={
             "field": alias_p, "type": "alias",
-            "meta": {"interface": "list-m2m", "special": ["m2m"]},
+            "meta": {"interface": "list-m2m", "special": ["m2m"],
+                     "options": {"template": "{{ " + file_fk + ".filename_download }}"}},
         })
-        # Alias on directus_files (e.g. directus_files.haeuser)
+        # Alias on directus_files (e.g. directus_files.haeuser) — render by
+        # traversing to the parent via parent_fk.
         http("POST", "/fields/directus_files", token, body={
             "field": alias_f, "type": "alias",
-            "meta": {"interface": "list-m2m", "special": ["m2m"]},
+            "meta": {"interface": "list-m2m", "special": ["m2m"],
+                     "options": {"template": "{{ " + parent_fk + ".name }}"}},
         })
         # Junction → parent
         http("POST", "/relations", token, body={
