@@ -1,9 +1,43 @@
 @charset "utf-8";
 
 // ---------------------------------------------------------------------------
+// Self-hosted webfonts (replaces fonts.googleapis.com from waldseite_alles).
+// Files are in /public/fonts/ — fetched via google-webfonts-helper.
+// ---------------------------------------------------------------------------
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/quicksand-v37-latin-regular.woff2') format('woff2'),
+       url('/fonts/quicksand-v37-latin-regular.woff')  format('woff');
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/quicksand-v37-latin-700.woff2') format('woff2'),
+       url('/fonts/quicksand-v37-latin-700.woff')  format('woff');
+}
+
+@font-face {
+  font-family: 'Dancing Script';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dancing-script-v29-latin-regular.woff2') format('woff2'),
+       url('/fonts/dancing-script-v29-latin-regular.woff')  format('woff');
+}
+
+// ---------------------------------------------------------------------------
 // Waldseite palette — burlywood accent on light Bulma defaults.
 // Source: scss/_common.scss in waldseite_alles ($basecolor: burlywood).
 // ---------------------------------------------------------------------------
+
+$family-primary: 'Quicksand', sans-serif;
 
 $widescreen-enabled:        false;
 $fullhd-enabled:            false;
