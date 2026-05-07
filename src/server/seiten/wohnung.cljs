@@ -6,18 +6,9 @@
             [psite-hiccup.core :as ph]
             [db.setup :as db]
             [db.queries :as q]
+            [seiten.components.gallery :as gallery]
             [seiten.templates :as templates]
-            [serving.routing :as rt]
-            [directus.core :as d]))
-
-(defn- bilderkarussell [hauptbild bilder]
-  [:div.bildheader
-   [:div.columns.is-multiline.is-centered
-    (for [bild (cons hauptbild
-                     (remove #{hauptbild} (map :directus_files_id bilder)))]
-      [:div.column.is-half-tablet.is-one-third-desktop
-       [:figure.image
-        [:img {:src (d/image-by-preset "1200" bild)}]]])]])
+            [serving.routing :as rt]))
 
 (defn- ausstattung-table [tabelle-string dtvsterne]
   [:div.floating-img.floating-img--right
@@ -42,7 +33,10 @@
                 ausstattung_tabelle dtvsterne]} wohnung]
     [:section
      [:div.panel.mainpanel
-      [:div.block (bilderkarussell hauptbild bilder)]
+      [:div.block (gallery/bilder-gallery
+                   "gallery-wohnung"
+                   (cons hauptbild
+                         (remove #{hauptbild} (map :directus_files_id bilder))))]
 
       [:div.block.textabschnitt.py-4.px-4
        [:h1.title.is-2 "Wohnung " name]

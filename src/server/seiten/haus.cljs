@@ -6,18 +6,10 @@
             [psite-hiccup.core :as ph]
             [db.setup :as db]
             [db.queries :as q]
+            [seiten.components.gallery :as gallery]
             [seiten.templates :as templates]
             [serving.routing :as rt]
             [directus.core :as d]))
-
-(defn- bilderkarussell [hauptbild bilder]
-  [:div.bildheader
-   [:div.columns.is-multiline.is-centered
-    (for [bild (cons hauptbild
-                     (remove #{hauptbild} (map :directus_files_id bilder)))]
-      [:div.column.is-half-tablet.is-one-third-desktop
-       [:figure.image
-        [:img {:src (d/image-by-preset "1200" bild)}]]])]])
 
 (defn- ausstattung-row [cells]
   [:tr
@@ -66,7 +58,10 @@
         adresszeilen (when adresse (str/split adresse #"\n"))]
     [:section
      [:div.panel.is-primary.mainpanel
-      [:div.block (bilderkarussell hauptbild bilder)]
+      [:div.block (gallery/bilder-gallery
+                   "gallery-haus"
+                   (cons hauptbild
+                         (remove #{hauptbild} (map :directus_files_id bilder))))]
 
       [:div.block.textabschnitt.py-4.px-4
        [:h2.title.is-2.has-text-centered name]
