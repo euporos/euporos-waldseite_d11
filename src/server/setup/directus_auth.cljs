@@ -60,12 +60,20 @@
    Decodes the JWT to extract the session ID, validates it against the DB,
    and attaches :directus-user to the request when a valid session is found.
 
-   Captures the anti-forgery token onto :af-token before the async DB hop —
-   otherwise downstream handlers see nil because the dynamic binding from
-   wrap-anti-forgery does not survive the .then microtask."
+   Also snapshots the anti-forgery token onto :directus-af-token before the
+   async DB hop. Downstream form-rendering handlers that sit behind this
+   middleware should embed (:directus-af-token req), not (:af-token req) —
+   see comment inside the impl for why."
   [handler]
   (fn [req res raise]
-    (let [req (assoc req :af-token af/*anti-forgery-token*)]
+    ;; Snapshot the anti-forgery token onto a *non-colliding* key. We can't
+    ;; use :af-token here because macchiato-async/wrap-async (used by
+    ;; defhandler) re-snapshots :af-token from the dynamic var inside its
+    ;; own promise hop, by which time the wrap-anti-forgery binding has
+    ;; been popped — it would clobber our capture with nil. Handlers that
+    ;; need a working token after the auth middleware should read
+    ;; :directus-af-token instead of :af-token.
+    (let [req (assoc req :directus-af-token af/*anti-forgery-token*)]
       (if-let [jwt (get-in req [:cookies "directus_session_token" :value])]
         (if-let [session-token (:session (decode-jwt-payload jwt))]
           (-> (lookup-directus-user session-token)
