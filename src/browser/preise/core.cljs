@@ -50,3 +50,4 @@
 (defn ^:export main []
   (rdom/render loading-screen (js/document.getElementById "mainframe"))
   (ajx/get-data wohnungen daten start))
+

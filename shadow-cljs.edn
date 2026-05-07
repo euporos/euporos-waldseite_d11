@@ -5,9 +5,11 @@
                    :output-dir "server"
                    :main       serving.core/serve
                    :devtools   {:http-root "public"}
+                   ;; :optimizations :simple disables shadow-cljs's hot-reload
+                   ;; runtime injection — keep it release-only.
+                   :release {:compiler-options {:optimizations :simple}}
                    :compiler-options
-                   {:reader-features #{:node}
-                    :optimizations      :simple
+                   {:reader-features    #{:node}
                     :output-feature-set :es6
                     :infer-externs      false}}
           :browser {:target     :browser

@@ -29,11 +29,15 @@
         :verify-fail {:status 500 :headers {"Content-Type" "text/plain"} :body "fail"}))))
 
 (defhandler refdata [_req]
-  (p/let [wohnungen (db/query
-                     {:select   [s/wohnungen-id
-                                 s/wohnungen-name
-                                 s/wohnungen-hauptbild]
-                      :from     [s/wohnungen]
-                      :order-by [s/wohnungen-name]})]
-    (-> (r/ok (pr-str {:wohnungen (vec wohnungen)}))
+  (p/let [rows (db/query
+                {:select   [s/wohnungen-id
+                            s/wohnungen-name
+                            s/wohnungen-hauptbild]
+                 :from     [s/wohnungen]
+                 :order-by [s/wohnungen-name]})
+          ;; wohnungen.id is bigInteger → pg returns int8 as a string.
+          ;; preise.edn keys :felder/:basisdaten by integer wohnung-id,
+          ;; so coerce here to keep client-side lookups type-aligned.
+          wohnungen (mapv #(update % :id js/parseInt) rows)]
+    (-> (r/ok (pr-str {:wohnungen wohnungen}))
         (r/content-type "application/edn"))))
