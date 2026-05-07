@@ -94,28 +94,52 @@ $day-height:        1.5rem;
 
 // ---------- Carousel card ----------
 
-// On wide layouts the slick-slider would otherwise stretch to fill the
-// Bulma container; cap it so the card sits at a sensible size like the
-// legacy site did. The horizontal padding leaves room for the prev/next
-// arrows that slick-theme.css positions just inside the slider edges.
-.slick-slider {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 0 1.75rem;
+// Lifted near-verbatim from the legacy site's
+// scss/haupt/main.scss:188-228. The only deviation is that the legacy
+// `@include respond(phone)` mixin is replaced with a plain
+// `@media (max-width: 768px)` query (the Bulma mobile breakpoint that
+// `respond(phone)` resolves to) — porting the mixin module just for
+// two breakpoints isn't worth it. Color + opacity for the arrow glyph
+// are kept; slick-theme.css already supplies them, but we pin them
+// here so a future bundled version can't drift.
+
+.slick-slide {
+  height: auto;
+  margin-right: auto;
+  margin-left:  auto;
 }
 
-.slick-prev { left: 0;  z-index: 1; }
-.slick-next { right: 0; z-index: 1; }
-// Match the legacy site's bigger white arrow glyphs (slick defaults
-// are 20px gray, which all but disappear over a busy photo).
-.slick-prev:before,
-.slick-next:before {
-  color: white;
-  font-size: 48px;
-  opacity: .75;
+.slick-slider {
+  width: 80%;
+  max-width: 35rem;
+  margin-left:  auto;
+  margin-right: auto;
 }
-.slick-prev.slick-disabled:before,
-.slick-next.slick-disabled:before { opacity: .25; }
+
+.slick-arrow {
+  width:   2rem;
+  z-index: 100;
+}
+
+.slick-arrow:before {
+  font-size: 3rem;
+  color:     white;
+  opacity:   .75;
+  @media (max-width: 768px) { font-size: 1rem; }
+}
+.slick-arrow.slick-disabled:before { opacity: .25; }
+
+button.slick-prev.slick-arrow {
+  left:    0.5rem;
+  z-index: 1000;
+  @media (max-width: 768px) { left: 0; }
+}
+
+button.slick-next.slick-arrow {
+  right:   1.5rem;
+  z-index: 1000;
+  @media (max-width: 768px) { right: 0; }
+}
 
 .carousel-card {
   position: relative;
@@ -140,12 +164,14 @@ $day-height:        1.5rem;
     max-width: 30%;
   }
 
-  // Caption strip under the image. Apartment name in bordeaux to match
-  // the legacy site (#800000); house name underneath in body color.
+  // Caption strip under the image. Legacy relied on a global
+  // `a { color: maroon }` rule from scss/haupt/base/_base.scss; we
+  // scope it here so booking-page styling doesn't have to depend on
+  // global typography rules we haven't ported. `maroon` is the CSS
+  // keyword for #800000.
   .content {
     padding: .5rem;
-    a strong,
-    > strong { color: #800000; }
+    a, a strong, > strong { color: maroon; }
   }
 }
 
