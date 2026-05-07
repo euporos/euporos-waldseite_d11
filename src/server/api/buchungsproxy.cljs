@@ -25,7 +25,7 @@
   [w]
   (cond-> (dissoc w :hauptbild)
     (:hauptbild w) (assoc :hauptbild-url
-                          (directus/image-by-preset "wohnung512" (:hauptbild w)))))
+                          (directus/image-by-preset "600" (:hauptbild w)))))
 
 (defhandler handler [_req]
   (p/let [rows         (db/query (q/wohnungen-with-ical))

@@ -67,7 +67,12 @@
   [!preise !wohnungen done]
   (go
     (let [resp (<! (http/get "/api/buchungsproxy" {:with-credentials? false}))
-          {:keys [wohnungen preise]} (cljs.reader/read-string (:body resp))]
+          ;; cljs-http auto-decodes application/edn responses into Clojure
+          ;; data — only fall back to read-string if the server returned a raw string.
+          body (:body resp)
+          {:keys [wohnungen preise]} (if (string? body)
+                                       (cljs.reader/read-string body)
+                                       body)]
       (reset! !preise   (rework-preise preise))
       (reset! !wohnungen (rework-wohnungen wohnungen))
       (done))))

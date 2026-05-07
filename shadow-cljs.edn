@@ -23,7 +23,8 @@
                                                  app.book
                                                  app.admin
                                                  app.modal
-                                                 app.obfuscate]}}
+                                                 app.obfuscate
+                                                 buchung.core]}}
                     :dev {:compiler-options {:closure-defines {re-frame.trace.trace-enabled? true}}}
                     :devtools   {:watch-dir "public/compiled/bundle"
                                  :watch-path "/compiled/bundle"}
@@ -35,9 +36,4 @@
                     :output-dir "public/compiled/admin"
                     :asset-path "/compiled/admin"
                     :modules    {:preise {:init-fn preise.core/main}}
-                    :compiler-options {:infer-externs :auto}}
-          :buchung {:target     :browser
-                    :output-dir "public/compiled/buchung"
-                    :asset-path "/compiled/buchung"
-                    :modules    {:buchung {:init-fn buchung.core/main}}
                     :compiler-options {:infer-externs :auto}}}}

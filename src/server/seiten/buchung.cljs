@@ -7,21 +7,20 @@
             [macchiato.middleware.anti-forgery :as af]
             [seiten.templates :as templates]))
 
+(def ^:private slick-css
+  ;; slick-carousel CSS bundled by vite (see js-src/buchung.js). Loading
+  ;; from cdnjs would fail under our 'self'-only CSP for style-src.
+  ;; Wrapped in a list because templates.cljs splices :into-head onto
+  ;; the head vector via `into`.
+  (list [:link {:rel  "stylesheet" :type "text/css"
+                :href "/compiled/bundle/buchung.css"}]))
+
 (defn- page-body [af-token]
   [:section.section
-   ;; Anti-forgery token surfaced for the SPA's AJAX poster.
-   ;; Same convention as the old waldseite booking app and the preise
-   ;; admin SPA — the SPA reads the token off this element on submit.
+   ;; Anti-forgery token surfaced for the SPA's AJAX poster — the SPA
+   ;; reads the token off this element on submit.
    [:div.afg {:id "ifg" :token af-token}]
-   ;; react-slick ships with two stylesheets. The npm package is already
-   ;; in node_modules but isn't bundled, so we pull them from a CDN —
-   ;; same approach the old code used.
-   [:link {:rel  "stylesheet" :type "text/css" :charset "UTF-8"
-           :href "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"}]
-   [:link {:rel  "stylesheet" :type "text/css"
-           :href "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"}]
-   [:div#mainframe]
-   [:script {:src "/compiled/buchung/buchung.js"}]])
+   [:div#mainframe]])
 
 (defhandler handler [req]
   ;; Capture the anti-forgery token synchronously before any promise hop.
@@ -32,5 +31,12 @@
     (templates/render-page
      req
      {:titel        "Buchungsanfrage"
-      :beschreibung "Buchen Sie Ihren Aufenthalt in einer unserer Ferienwohnungen"}
+      :beschreibung "Buchen Sie Ihren Aufenthalt in einer unserer Ferienwohnungen"
+      :into-head    slick-css
+      ;; templates/blank_hiccup composes the app.js script tag with
+      ;; onload = "<onload-string>(app.core.readarg(<arg>))". Setting
+      ;; onload to the SPA entry name turns that into
+      ;; "buchung.core.main(app.core.readarg(...))", which fires our
+      ;; SPA after app.js has booted (so SHADOW_ENV is in place).
+      :cljs         {:onload "buchung.core.main"}}
      (page-body af-token))))

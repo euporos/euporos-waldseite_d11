@@ -235,7 +235,7 @@
 
 (defn- hauptform []
   [:section.section
-   [:h1.title.is-3 "Buchungsanfrage"]
+   [:h1.title.is-3.buchung_ueberschrift "Buchungsanfrage"]
    [:div.container
     [wohnungswahl]
     [reisedaten]

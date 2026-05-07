@@ -97,6 +97,10 @@
    :style-src       ["'self'" "'unsafe-inline'"]
    :img-src         (cond-> ["'self'" "data:"]
                       directus-origin (conj directus-origin))
+   ;; slick-carousel inlines its arrow-icon font as data: URIs; without
+   ;; an explicit font-src the directive falls back to default-src='self'
+   ;; and the browser refuses them.
+   :font-src        ["'self'" "data:"]
    :frame-src       (cond-> ["https://www.youtube.com"]
                       posthog-origin (conj posthog-origin))
    :object-src      ["'none'"]

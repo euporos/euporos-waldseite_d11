@@ -8,8 +8,9 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       input: {
-        main:   'js-src/index.js',
-        preise: 'js-src/preise.js',
+        main:    'js-src/index.js',
+        preise:  'js-src/preise.js',
+        buchung: 'js-src/buchung.js',
       },
       output: {
         entryFileNames: '[name].js',

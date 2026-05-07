@@ -38,6 +38,7 @@
     "react-obfuscate": "^3.6.8",
     "react-slick": "^0.26.1",
     "simple-encryptor": "1.2.0",
+    "slick-carousel": "^1.8.1",
     "source-map-support": "0.4.6",
     "url": "^0.11.0",
     "ws": "^5.2.3",

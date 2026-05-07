@@ -1,0 +1,119 @@
+// Booking SPA styles. Ported from waldseite_alles/scss/haupt/_datepicker.scss
+// and _buchungsapp.scss. Variables that referenced the old design system
+// (base-lighter etc.) are inlined here.
+
+$clr-free:          mediumseagreen;
+$clr-free-lighter:  desaturate(lighten($clr-free, 40%), 30%);
+$day-height:        1.5rem;
+
+// ---------- Datepicker ----------
+
+.picker {
+  user-select: none;
+  display: inline-block;
+  width: 45%;
+  min-width: 16rem;
+  max-width: 20rem;
+  background: white;
+  padding: .3rem;
+
+  &__head {
+    border-bottom: solid #999 1px;
+    padding-bottom: .3rem;
+    margin-bottom: .3rem;
+  }
+
+  &__indicators {
+    text-align: center !important;
+    width: 6rem;
+  }
+
+  &__indicator {
+    &--year  { font-size: 1.5rem; }
+    &--month { font-size: 1rem; }
+  }
+
+  &__button {
+    background: #ccc;
+    text-align: center;
+    padding: .2rem;
+    border: none;
+    border-radius: 1rem;
+    width: 2rem;
+    height: 2rem;
+
+    &:focus { outline: none; }
+    &:hover { background: #ddd; }
+  }
+
+  &__monthdays {
+    height: calc(7 * #{$day-height});
+  }
+
+  &__cell {
+    text-align: center !important; // override Bulma
+    vertical-align: middle;
+    width: 2.5rem;
+    transition: background-color .3s;
+    border-radius: .5rem;
+
+    &--day {
+      color:  $clr-free;
+      height: $day-height;
+    }
+
+    &--weekday  { font-style: italic; }
+    &--blocked  { color: salmon; }
+
+    &--free:hover {
+      color: white;
+      background-color: $clr-free;
+      border-radius: .5rem;
+      cursor: pointer;
+    }
+
+    &--selected {
+      color: white;
+      background-color: $clr-free;
+      border-radius: .5rem;
+    }
+
+    &--contained                       { background-color: $clr-free-lighter; }
+    &--selected.picker__cell--blocked  { background-color: salmon; }
+    &--selected.picker__cell--bad      { background-color: salmon; }
+    &--past                            { color: #000; }
+    &--outside                         { color: #ddd; }
+  }
+}
+
+.reisecard {
+  max-width: 20rem;
+  margin-left:  auto;
+  margin-right: auto;
+}
+
+// ---------- Carousel card ----------
+
+.carousel-card {
+  &__hausicon {
+    position: absolute;
+    bottom: 0;
+    left:   0;
+    width: 8rem;
+    max-width: 30%;
+  }
+
+  &__gaesteicon {
+    position: absolute;
+    bottom: 0;
+    right:  0;
+    width: 5rem;
+    max-width: 30%;
+  }
+}
+
+// Heading sat invisibly on top of the wood-texture background until we
+// brightened it. Old waldseite used $base-lighter (a light-cream tone).
+.buchung_ueberschrift {
+  color: #f7eddc;
+}
