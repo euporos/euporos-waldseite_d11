@@ -24,11 +24,11 @@
 
     ["/haeuser"   {:name :haeuser   :handler haeuser/handler}]
     ["/galerie"   {:name :galerie   :handler galerie/handler}]
-    ["/h/:hausid-:hausbez"
+    ["/h/{hausid}-{hausbez}"
      {:name       :haus
       :handler    haus/handler
       :parameters {:path [:map [:hausid :int] [:hausbez :string]]}}]
-    ["/w/:wohnungsid-:wohnungsbez"
+    ["/w/{wohnungsid}-{wohnungsbez}"
      {:name       :wohnung
       :handler    wohnung/handler
       :parameters {:path [:map [:wohnungsid :int] [:wohnungsbez :string]]}}]
@@ -46,7 +46,7 @@
           :name    :admin}]]
 
     ;; Catch-all einzelseite must come last so static names match first.
-    ["/:einzelseitid-:einzelseitbez"
+    ["/{einzelseitid}-{einzelseitbez}"
      {:name       :einzelseite
       :handler    einzelseite/handler
       :parameters {:path [:map [:einzelseitid :int] [:einzelseitbez :string]]}}]]))

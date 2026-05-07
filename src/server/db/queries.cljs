@@ -20,3 +20,11 @@
               s/haeuser-hauptbild]
    :from     [[s/haeuser_t s/haeuser]]
    :order-by [s/haeuser-name]})
+
+(defn einzelseiten-for-menus [locale]
+  {:select   [s/einzelseiten-id
+              s/einzelseiten-menue
+              (db/localized s/einzelseiten-titel locale)]
+   :from     [[s/einzelseiten_t s/einzelseiten]]
+   :where    [:is-not s/einzelseiten-menue nil]
+   :order-by [s/einzelseiten-id]})

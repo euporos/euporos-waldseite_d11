@@ -147,65 +147,14 @@
 ;; ###### Head & Footer ######
 ;; ###########################
 
-(defn locale-switcher [locale string req]
-  [:a.navbar-item {:href (rt/switch-locale-and-prepend-domain locale req)}
-   string])
-
-(let [switchers [[:de (partial locale-switcher :de "Deutsch")]
-                 [:uk (partial locale-switcher :uk "Українска")]
-                 [:en (partial locale-switcher :en "English")]]]
-  (defn locale-switchers [req]
-    (keep
-     (fn [[locale func]]
-       (when-not (= locale (:locale req)) (func req)))
-     switchers)))
-
-(defn alternate-locales  [current-locale])
-
-(defn navbar [{:keys [locale session] :as req}]
-  [:nav.navbar
-   [:div.navbar-brand
-    [:a.navbar-item
-     {:href (routing/reverse-match req :home {})
-      :style (garden/style {:position "relative"})}
-     [:div
-      {:style (garden/style {:width "55px"
-                             :height "28px"
-                             :background-size "cover"
-                             :background (str "url('" (m/cache-bust "/imgs/logo.svg") "') no-repeat left")})}]
-     (locale-switchers req)]
-    [:div.navbar-burger.burger
-     {:data-target "navbarExampleTransparentExample"}
-     [:span]
-     [:span]
-     [:span]]]
-   [:div#navbarExampleTransparentExample.navbar-menu
-    [:div.navbar-start
-     [:a.navbar-item {:href (routing/reverse-match req :home {})} "Home"]
-     ;; TODO: Häuser dropdown — populate from (:dresponses req) once a fetcher is wired.
-     ;; TODO: Buchung / Aktuelles / Galerie / Ausflüge once those routes land.
-     ]
-    [:div.navbar-end.mr-3]]])
-(defn footer [{:keys [locale] :as _req}]
-  [:footer.footer
-   [:div.content.has-text-centered
-    [:p
-     [:img {:src   "/imgs/nationalpark.png"
-            :alt   "Nationalpark Bayerischer Wald"
-            :style "max-width: 180px;"}]]
-    [:p [:a {:href "https://www.facebook.com/" :target "_blank"}
-         [:img {:src   "/imgs/icons/facebook-black.png"
-                :alt   "Facebook"
-                :style "width: 32px; height: 32px;"}]]]]])
-
-
 (defn head-and-foot-blank
-  [req head-data dynamic-menus & comps]
-  (blank req head-data
-         (navbar req)
-         [:div#modal]
-         comps
-         (footer req)))
+  [req head-data menu-inputs & comps]
+  (let [composed (nav/compose-menus req menu-inputs)]
+    (blank req head-data
+           (nav/make-menu req (:main composed))
+           [:div#modal]
+           comps
+           (nav/make-menu req (:footer composed)))))
 
 (defn router-free
   [req head-data & comps]

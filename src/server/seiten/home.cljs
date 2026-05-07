@@ -60,11 +60,13 @@
 (defhandler handler [req]
   (p/let [locale     (:locale req)
           startseite (-> (db/query (q/startseite-content locale)) (.then first))
-          haeuser    (db/query (q/haeuser-overview locale))]
+          haeuser    (db/query (q/haeuser-overview locale))
+          einzel     (db/query (q/einzelseiten-for-menus locale))]
     (-> (r/ok (templates/head-and-foot-blank
                req
                {:titel        "Bickels Ferienwohnungen — Bayerischer Wald"
                 :beschreibung "Ferienwohnungen in Falkenstein, Bayerischer Wald."}
-               {}
+               {:haeuser                haeuser
+                :einzelseiten-for-menus einzel}
                (page-body req startseite haeuser)))
         (r/content-type "text/html; charset=utf-8"))))

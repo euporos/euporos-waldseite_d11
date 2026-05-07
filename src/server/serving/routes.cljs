@@ -14,7 +14,9 @@
    [seiten.test-page :as test-page]))
 
 (def routes
-  [["/" {:coercion   reitit.coercion.malli/coercion
+  [api/routes
+
+   ["/" {:coercion   reitit.coercion.malli/coercion
          :parameters {:query [:map
                               [:debug {:optional true} :boolean]]}}
     ["" home/blankhome]
@@ -25,9 +27,7 @@
      ;; routing/wrap-locale, and a parent path schema would force reitit
      ;; to merge with each leaf's path schema (needs malli.util).
 
-     seiten/routes
-
-     api/routes]]])
+     seiten/routes]]])
 
 (def router
   (ring/router
