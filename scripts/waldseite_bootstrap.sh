@@ -48,6 +48,12 @@ export ADMIN_PASSWORD="${ADMIN_PASSWORD:-admin}"
 # 4. Pump waldseite user tables MariaDB → PG (creates tables + indexes + data)
 pgloader pg_migration/waldseite.first.load
 
+# 4a. Align FK column types to bigint (matches the parent PKs). pgloader maps
+# MySQL `int unsigned` auto-increment PKs to bigint but plain `int unsigned`
+# FK columns to integer, and Directus's REST resolver returns null for
+# cross-type FKs even when the relation is registered.
+python3 scripts/align_fk_types.py "$DUMP_ZIP"
+
 # 5. Bring Directus back up so it auto-detects the new collections.
 if pc_running; then
   process-compose process start directus >/dev/null 2>&1 || true

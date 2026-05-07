@@ -1072,7 +1072,7 @@
     {
       "collection": "allgemeines_translations",
       "field": "allgemeines_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "allgemeines_translations",
         "conditions": null,
@@ -1099,10 +1099,10 @@
       "schema": {
         "name": "allgemeines_id",
         "table": "allgemeines_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -1361,7 +1361,7 @@
     {
       "collection": "article_translations",
       "field": "article",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "article_translations",
         "conditions": null,
@@ -1388,10 +1388,10 @@
       "schema": {
         "name": "article",
         "table": "article_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -2010,7 +2010,7 @@
         "searchable": true,
         "sort": null,
         "special": [
-          "file"
+          "m2o"
         ],
         "translations": null,
         "validation": null,
@@ -2157,7 +2157,7 @@
     {
       "collection": "ausfluege_haeuser",
       "field": "ausfluege_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "ausfluege_haeuser",
         "conditions": null,
@@ -2166,14 +2166,16 @@
         "field": "ausfluege_id",
         "group": null,
         "hidden": false,
-        "interface": null,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -2182,10 +2184,10 @@
       "schema": {
         "name": "ausfluege_id",
         "table": "ausfluege_haeuser",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": false,
         "is_unique": false,
@@ -2201,7 +2203,7 @@
     {
       "collection": "ausfluege_haeuser",
       "field": "haeuser_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "ausfluege_haeuser",
         "conditions": null,
@@ -2210,14 +2212,16 @@
         "field": "haeuser_id",
         "group": null,
         "hidden": false,
-        "interface": null,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -2226,10 +2230,10 @@
       "schema": {
         "name": "haeuser_id",
         "table": "ausfluege_haeuser",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": false,
         "is_unique": false,
@@ -2532,7 +2536,7 @@
     {
       "collection": "ausfluege_translations",
       "field": "ausflug_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "ausfluege_translations",
         "conditions": null,
@@ -2559,10 +2563,10 @@
       "schema": {
         "name": "ausflug_id",
         "table": "ausfluege_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -2839,7 +2843,7 @@
         "searchable": true,
         "sort": null,
         "special": [
-          "file"
+          "m2o"
         ],
         "translations": null,
         "validation": null,
@@ -3372,7 +3376,7 @@
     {
       "collection": "einzelseiten_translations",
       "field": "einzelseite_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "einzelseiten_translations",
         "conditions": null,
@@ -3399,10 +3403,10 @@
       "schema": {
         "name": "einzelseite_id",
         "table": "einzelseiten_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -4259,7 +4263,7 @@
     {
       "collection": "gaestebuch",
       "field": "wohnung",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "gaestebuch",
         "conditions": null,
@@ -4275,7 +4279,9 @@
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -4284,10 +4290,10 @@
       "schema": {
         "name": "wohnung",
         "table": "gaestebuch",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -4303,7 +4309,7 @@
     {
       "collection": "gaestebuch",
       "field": "haus",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "gaestebuch",
         "conditions": null,
@@ -4319,7 +4325,9 @@
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -4328,10 +4336,10 @@
       "schema": {
         "name": "haus",
         "table": "gaestebuch",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -4559,7 +4567,7 @@
         "searchable": true,
         "sort": null,
         "special": [
-          "file"
+          "m2o"
         ],
         "translations": null,
         "validation": null,
@@ -4588,7 +4596,7 @@
     {
       "collection": "galerie",
       "field": "haus",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "galerie",
         "conditions": null,
@@ -4604,7 +4612,9 @@
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -4613,10 +4623,10 @@
       "schema": {
         "name": "haus",
         "table": "galerie",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -4765,7 +4775,7 @@
     {
       "collection": "galerie_translations",
       "field": "galerie_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "galerie_translations",
         "conditions": null,
@@ -4792,10 +4802,10 @@
       "schema": {
         "name": "galerie_id",
         "table": "galerie_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -5291,7 +5301,7 @@
         "searchable": true,
         "sort": null,
         "special": [
-          "file"
+          "m2o"
         ],
         "translations": null,
         "validation": null,
@@ -5477,14 +5487,16 @@
         "field": "haeuser_id",
         "group": null,
         "hidden": false,
-        "interface": null,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -5528,7 +5540,9 @@
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -5751,7 +5765,7 @@
     {
       "collection": "haeuser_translations",
       "field": "haus_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "haeuser_translations",
         "conditions": null,
@@ -5778,10 +5792,10 @@
       "schema": {
         "name": "haus_id",
         "table": "haeuser_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -6395,7 +6409,7 @@
         "searchable": true,
         "sort": null,
         "special": [
-          "file"
+          "m2o"
         ],
         "translations": null,
         "validation": null,
@@ -6544,7 +6558,7 @@
     {
       "collection": "news_haeuser",
       "field": "news_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "news_haeuser",
         "conditions": null,
@@ -6553,14 +6567,16 @@
         "field": "news_id",
         "group": null,
         "hidden": false,
-        "interface": null,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -6569,10 +6585,10 @@
       "schema": {
         "name": "news_id",
         "table": "news_haeuser",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": false,
         "is_unique": false,
@@ -6588,7 +6604,7 @@
     {
       "collection": "news_haeuser",
       "field": "haeuser_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "news_haeuser",
         "conditions": null,
@@ -6597,14 +6613,16 @@
         "field": "haeuser_id",
         "group": null,
         "hidden": false,
-        "interface": null,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -6613,10 +6631,10 @@
       "schema": {
         "name": "haeuser_id",
         "table": "news_haeuser",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": false,
         "is_unique": false,
@@ -6871,7 +6889,7 @@
     {
       "collection": "news_translations",
       "field": "news_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "news_translations",
         "conditions": null,
@@ -6898,10 +6916,10 @@
       "schema": {
         "name": "news_id",
         "table": "news_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -7228,7 +7246,7 @@
         "searchable": true,
         "sort": null,
         "special": [
-          "file"
+          "m2o"
         ],
         "translations": null,
         "validation": null,
@@ -7438,7 +7456,7 @@
     {
       "collection": "startseite_translations",
       "field": "startseite_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "startseite_translations",
         "conditions": null,
@@ -7465,10 +7483,10 @@
       "schema": {
         "name": "startseite_id",
         "table": "startseite_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -7723,7 +7741,7 @@
     {
       "collection": "wohnungen",
       "field": "haus",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "wohnungen",
         "conditions": null,
@@ -7739,7 +7757,9 @@
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -7748,10 +7768,10 @@
       "schema": {
         "name": "haus",
         "table": "wohnungen",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
@@ -7784,7 +7804,7 @@
         "searchable": true,
         "sort": null,
         "special": [
-          "file"
+          "m2o"
         ],
         "translations": null,
         "validation": null,
@@ -8058,14 +8078,16 @@
         "field": "wohnungen_id",
         "group": null,
         "hidden": false,
-        "interface": null,
+        "interface": "select-dropdown-m2o",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -8109,7 +8131,9 @@
         "required": false,
         "searchable": true,
         "sort": null,
-        "special": null,
+        "special": [
+          "m2o"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -8284,7 +8308,7 @@
     {
       "collection": "wohnungen_translations",
       "field": "wohnung_id",
-      "type": "integer",
+      "type": "bigInteger",
       "meta": {
         "collection": "wohnungen_translations",
         "conditions": null,
@@ -8311,10 +8335,10 @@
       "schema": {
         "name": "wohnung_id",
         "table": "wohnungen_translations",
-        "data_type": "integer",
+        "data_type": "bigint",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
+        "numeric_precision": 64,
         "numeric_scale": 0,
         "is_nullable": true,
         "is_unique": false,
