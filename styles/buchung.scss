@@ -106,8 +106,16 @@ $day-height:        1.5rem;
 
 .slick-prev { left: 0;  z-index: 1; }
 .slick-next { right: 0; z-index: 1; }
+// Match the legacy site's bigger white arrow glyphs (slick defaults
+// are 20px gray, which all but disappear over a busy photo).
 .slick-prev:before,
-.slick-next:before { color: #555; opacity: .85; }
+.slick-next:before {
+  color: white;
+  font-size: 48px;
+  opacity: .75;
+}
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before { opacity: .25; }
 
 .carousel-card {
   position: relative;
@@ -132,10 +140,12 @@ $day-height:        1.5rem;
     max-width: 30%;
   }
 
-  // Caption strip under the image.
+  // Caption strip under the image. Apartment name in bordeaux to match
+  // the legacy site (#800000); house name underneath in body color.
   .content {
     padding: .5rem;
-    a strong { color: mediumseagreen; }
+    a strong,
+    > strong { color: #800000; }
   }
 }
 
