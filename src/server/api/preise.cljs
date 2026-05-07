@@ -5,6 +5,7 @@
             [macchiato.util.response :as r]
             [db.setup :as db]
             [db.schema :as s]
+            [preise.cache :as cache]
             [preise.persistence :as persist]))
 
 (defhandler data [_req]
@@ -23,8 +24,9 @@
        :headers {"Content-Type" "text/plain"}
        :body    "fail"}
       (case (persist/write-edn-string! s)
-        :ok          (-> (r/ok (persist/read-edn-string))
-                         (r/content-type "application/edn"))
+        :ok          (do (cache/refresh!)
+                         (-> (r/ok (persist/read-edn-string))
+                             (r/content-type "application/edn")))
         :parse-fail  {:status 400 :headers {"Content-Type" "text/plain"} :body "fail"}
         :verify-fail {:status 500 :headers {"Content-Type" "text/plain"} :body "fail"}))))
 
