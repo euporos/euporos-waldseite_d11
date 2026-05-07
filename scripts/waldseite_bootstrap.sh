@@ -54,6 +54,11 @@ pgloader pg_migration/waldseite.first.load
 # cross-type FKs even when the relation is registered.
 python3 scripts/align_fk_types.py "$DUMP_ZIP"
 
+# 4b. Rename legacy D8 names to D11 standard (sprachen→languages,
+# language→languages_code, parent FKs to <parent>_id, etc.) so the
+# translations interface needs zero custom config.
+python3 scripts/rename_to_d11_standard.py
+
 # 5. Bring Directus back up so it auto-detects the new collections.
 if pc_running; then
   process-compose process start directus >/dev/null 2>&1 || true

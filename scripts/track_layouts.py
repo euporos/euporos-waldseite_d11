@@ -34,7 +34,7 @@ LAYOUTS = [
     ("einzelseiten", ["translations", "status"]),
     ("fixe_seiten",  ["id", "translations", "status"]),
     ("gaestebuch",   ["name", "haus", "wohnung", "status", "text"]),
-    ("sprachen",     ["code", "kurzname", "langname", "status"]),
+    ("languages",    ["code", "kurzname", "langname", "status"]),
 ]
 
 

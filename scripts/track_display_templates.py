@@ -36,20 +36,20 @@ TEMPLATES = [
     ("gaestebuch",   "{{ name }}"),
     ("haeuser",      "{{ name }}"),
     ("wohnungen",    "{{ name }}"),
-    ("sprachen",     "{{ langname }} ({{ code }})"),
+    ("languages",    "{{ langname }} ({{ code }})"),
 
     # Translation rows themselves: language tag + the title-ish field.
     # Useful when D11 lists them flat (rare, but tidy).
-    ("article_translations",      "{{ language }}: {{ title }}"),
-    ("ausfluege_translations",    "{{ language }}: {{ titel }}"),
-    ("einzelseiten_translations", "{{ language }}: {{ titel }}"),
-    ("fixe_seiten_translations",  "{{ language }}: {{ titel }}"),
-    ("news_translations",         "{{ language }}: {{ titel }}"),
-    ("galerie_translations",      "{{ language }}: {{ beschreibung }}"),
-    ("haeuser_translations",      "{{ language }}: {{ haus_id.name }}"),
-    ("wohnungen_translations",    "{{ language }}: {{ wohnung_id.name }}"),
-    ("startseite_translations",   "{{ language }}"),
-    ("allgemeines_translations",  "{{ language }}"),
+    ("articles_translations",     "{{ languages_code }}: {{ title }}"),
+    ("ausfluege_translations",    "{{ languages_code }}: {{ titel }}"),
+    ("einzelseiten_translations", "{{ languages_code }}: {{ titel }}"),
+    ("fixe_seiten_translations",  "{{ languages_code }}: {{ titel }}"),
+    ("news_translations",         "{{ languages_code }}: {{ titel }}"),
+    ("galerie_translations",      "{{ languages_code }}: {{ beschreibung }}"),
+    ("haeuser_translations",      "{{ languages_code }}: {{ haeuser_id.name }}"),
+    ("wohnungen_translations",    "{{ languages_code }}: {{ wohnungen_id.name }}"),
+    ("startseite_translations",   "{{ languages_code }}"),
+    ("allgemeines_translations",  "{{ languages_code }}"),
 
     # Singletons — display_template doesn't really show, but tidy anyway.
     ("startseite",   "Startseite"),

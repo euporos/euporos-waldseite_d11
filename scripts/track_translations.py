@@ -24,23 +24,23 @@ URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8055"
 EMAIL = sys.argv[2] if len(sys.argv) > 2 else "admin@example.com"
 PASSWORD = sys.argv[3] if len(sys.argv) > 3 else "admin"
 
-# (junction_collection, parent_fk_field, parent_collection)
-# Source: D8 directus_relations rows where field_one == 'translations'.
+# (junction_collection, parent_fk_field, parent_collection) — using D11
+# standard names after scripts/rename_to_d11_standard.py runs.
 TRANSLATIONS = [
     ("allgemeines_translations",  "allgemeines_id",  "allgemeines"),
-    ("article_translations",      "article",         "articles"),
-    ("ausfluege_translations",    "ausflug_id",      "ausfluege"),
-    ("einzelseiten_translations", "einzelseite_id",  "einzelseiten"),
-    ("fixe_seiten_translations",  "fixed_seite_id",  "fixe_seiten"),
+    ("articles_translations",     "articles_id",     "articles"),
+    ("ausfluege_translations",    "ausfluege_id",    "ausfluege"),
+    ("einzelseiten_translations", "einzelseiten_id", "einzelseiten"),
+    ("fixe_seiten_translations",  "fixe_seiten_id",  "fixe_seiten"),
     ("galerie_translations",      "galerie_id",      "galerie"),
-    ("haeuser_translations",      "haus_id",         "haeuser"),
+    ("haeuser_translations",      "haeuser_id",      "haeuser"),
     ("news_translations",         "news_id",         "news"),
     ("startseite_translations",   "startseite_id",   "startseite"),
-    ("wohnungen_translations",    "wohnung_id",      "wohnungen"),
+    ("wohnungen_translations",    "wohnungen_id",    "wohnungen"),
 ]
 
-LANGUAGE_COLLECTION = "sprachen"
-LANGUAGE_FIELD = "language"
+LANGUAGE_COLLECTION = "languages"
+LANGUAGE_FIELD = "languages_code"
 
 
 def req(method, path, token=None, body=None):
@@ -111,7 +111,7 @@ def main():
                 "options": {"languageField": "code"},
                 "display": "translations",
                 "display_options": {"defaultLanguage": "de",
-                                    "languageField": "language",
+                                    "languageField": LANGUAGE_FIELD,
                                     "userLanguage": True},
             },
         }
@@ -124,12 +124,14 @@ def main():
                     {"interface": "select-dropdown-m2o", "special": ["m2o"], "hidden": True})
         print(f"  field {junction}.{parent_fk} marked m2o (hidden)")
 
-        # 4. Mark language field on junction as M2O to sprachen
+        # 4. Mark languages_code field on junction as M2O to languages.
+        # display=related-values renders {{ code }} from the language collection;
+        # display=translations would (incorrectly) re-walk languages.translations.
         patch_field(token, junction, LANGUAGE_FIELD,
                     {"interface": "select-dropdown-m2o", "special": ["m2o"], "hidden": True,
-                     "display": "translations",
+                     "display": "related-values",
                      "display_options": {"template": "{{ code }}"}})
-        print(f"  field {junction}.language marked m2o (hidden)")
+        print(f"  field {junction}.{LANGUAGE_FIELD} marked m2o (hidden)")
 
         # 5. Create the two relations
         res = post_relation(token, junction, parent_fk, parent,
@@ -145,12 +147,13 @@ def main():
 
         res = post_relation(token, junction, LANGUAGE_FIELD, LANGUAGE_COLLECTION,
                             {"junction_field": parent_fk})
+        rel = f"{junction}.{LANGUAGE_FIELD} -> {LANGUAGE_COLLECTION}"
         if res and res.get("_already"):
-            print(f"  relation {junction}.language -> sprachen (exists)")
+            print(f"  relation {rel} (exists)")
         elif res and res.get("_fk_type_mismatch"):
-            print(f"  relation {junction}.language -> sprachen SKIPPED (FK type mismatch)")
+            print(f"  relation {rel} SKIPPED (FK type mismatch)")
         else:
-            print(f"  relation {junction}.language -> sprachen created")
+            print(f"  relation {rel} created")
 
     print("\nDone.")
 
