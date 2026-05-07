@@ -25,21 +25,23 @@
    [:div.galerie-grid {:data-photoswipe-gallery true}
     (map thumb bilder)]])
 
-(defn- page-body [bilder]
+(defn- page-body [haus-by-id bilder]
   [:section
    [:div.panel.is-primary.mainpanel
     [:div.block.py-4.px-4
      [:h1.title.is-2.has-text-centered "Galerie"]
      (->> bilder
-          (group-by :haus_name)
+          (group-by (fn [{:keys [haus]}] (get haus-by-id haus)))
           (sort-by (fn [[k _]] (or k "")))
           (map gruppe))]]])
 
 (defhandler handler [req]
-  (p/let [locale (:locale req)
-          bilder (db/query (q/galerie-overview locale))]
+  (p/let [locale     (:locale req)
+          bilder     (db/query (q/galerie-overview locale))
+          haeuser    (db/query (q/haeuser-overview locale))
+          haus-by-id (into {} (map (juxt :id :name)) haeuser)]
     (templates/render-page
      req
      {:titel        "Galerie — Bickels Ferienwohnungen"
       :beschreibung "Bildergalerie unserer Ferienhäuser im Bayerischen Wald."}
-     (page-body bilder))))
+     (page-body haus-by-id bilder))))

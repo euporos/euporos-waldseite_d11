@@ -116,14 +116,10 @@
                s/galerie-haus
                (db/localized s/galerie-beschreibung locale)
                [:directus_files.width :width]
-               [:directus_files.height :height]
-               [s/haeuser-name :haus_name]]
+               [:directus_files.height :height]]
    :from      [[s/galerie_t s/galerie]]
-   :left-join [:directus_files     [:= :directus_files.id s/galerie-bild]
-               [s/haeuser_t s/haeuser] [:= s/galerie-haus s/haeuser-id]]
-   :where     [:and
-               [:= s/galerie-status "published"]
-               [:is-not s/galerie-bild nil]]
+   :left-join [:directus_files [:= :directus_files.id s/galerie-bild]]
+   :where     [:is-not s/galerie-bild nil]
    :order-by  [s/galerie-haus s/galerie-id]})
 
 (defn einzelseite-detail [locale einzelseite-id]
