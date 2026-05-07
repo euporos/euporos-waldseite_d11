@@ -144,6 +144,14 @@ def main():
                    options={"template": "{{ " + fb + "." + title_b + " }}"})
         make_alias(token, tb, alias_b, "list-m2m", ["m2m"],
                    options={"template": "{{ " + fa + "." + title_a + " }}"})
+        # Mark the junction's M2O fields as such so Directus's REST resolver
+        # actually traverses them. Without special:[m2o] + interface, deep
+        # field queries return null for these columns even when the relation
+        # row exists in directus_relations.
+        for f, t in ((fa, ta), (fb, tb)):
+            req("PATCH", f"/fields/{jc}/{f}", token=token, body={"meta": {
+                "special": ["m2o"], "interface": "select-dropdown-m2o",
+            }})
         make_relation(token, jc, fa, ta,
                       meta={"one_field": alias_a, "junction_field": fb})
         make_relation(token, jc, fb, tb,
