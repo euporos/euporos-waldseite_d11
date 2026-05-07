@@ -23,12 +23,11 @@
         (js/alert "Daten konnten nicht geladen werden.")
 
         :else
-        (let [refmap (cljs.reader/read-string (:body refdata))]
-          (reset! datenatom (-> (:body preise)
-                                (cljs.reader/read-string)
-                                (u/timify-daten)))
+        ;; cljs-http auto-parses application/edn — :body is already data.
+        (do
+          (reset! datenatom (u/timify-daten (:body preise)))
           (reset! wohnungsatom (into (sorted-map)
-                                     (u/mapify-single :id (:wohnungen refmap))))
+                                     (u/mapify-single :id (:wohnungen (:body refdata)))))
           (callback))))))
 
 (defn post-preise!

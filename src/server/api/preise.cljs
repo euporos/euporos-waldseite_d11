@@ -20,13 +20,13 @@
               (get-in req [:form-params "preisstruktur"]))]
     (if (or (nil? s) (= "" s))
       {:status  400
-       :headers {"Content-Type" "application/edn"}
+       :headers {"Content-Type" "text/plain"}
        :body    "fail"}
       (case (persist/write-edn-string! s)
         :ok          (-> (r/ok (persist/read-edn-string))
                          (r/content-type "application/edn"))
-        :parse-fail  {:status 400 :headers {"Content-Type" "application/edn"} :body "fail"}
-        :verify-fail {:status 500 :headers {"Content-Type" "application/edn"} :body "fail"}))))
+        :parse-fail  {:status 400 :headers {"Content-Type" "text/plain"} :body "fail"}
+        :verify-fail {:status 500 :headers {"Content-Type" "text/plain"} :body "fail"}))))
 
 (defhandler refdata [_req]
   (p/let [wohnungen (db/query
