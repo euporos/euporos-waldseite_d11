@@ -1,0 +1,22 @@
+// Stylesheet for the /admin/preise SPA. Ported verbatim from
+// waldseite_alles. Loaded only on /admin/preise — the page has its
+// own dedicated HTML shell, so the global resets in base/_base.scss
+// do not affect any other view.
+
+$ppadding: 1rem;
+
+$basecolor: hsl(193.8, 100%, 25.5%);
+$basecolor: #dfc;
+
+$base-lighter: desaturate(lighten($basecolor, 50%), 30%);
+$base-lighter: adjust-hue(desaturate(lighten($basecolor, 55%), 30%), 35%);
+
+$base-transparent:         rgba($base-lighter, .75);
+$base-transparent-lighter: rgba(lighten($base-lighter, 10%), .75);
+
+$textcolor: white;
+
+@import "_mixins";
+@import "base/_base";
+@import "_icons";
+@import "_various";

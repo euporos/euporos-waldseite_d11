@@ -8,6 +8,7 @@
     "@xmldom/xmldom": "^0.9.9",
     "atob": "^2.1.2",
     "bcrypt": "^6.0.0",
+    "bootstrap": "^3.4.1",
     "btoa": "^1.2.1",
     "bulma": "^0.9.4",
     "concat-stream": "1.6.2",

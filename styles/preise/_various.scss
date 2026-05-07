@@ -1,0 +1,285 @@
+
+$smalltext: .9rem;
+
+
+
+// .trashbin {
+//     &:hover {
+// 	transform: scale(1.1);
+//     }
+// }
+
+
+
+
+
+
+.datepickers {
+    display: inline-block;
+}
+
+
+.datumszelle {
+    white-space: nowrap;
+}
+
+
+.saisonzeile{
+
+&:nth-child(even) input {
+    background-color: $basecolor;
+}
+
+&:nth-child(odd) input {
+    background-color: #eee;
+}
+
+// &:nth-child(odd) input {
+//     // transform: scale(2);
+
+//     background-color: #a9e68a;b
+// }
+}
+
+
+.loadscreen {
+    text-align: center;
+    @include absCenter;
+}
+
+.loadmessage {
+    margin-top: 3rem;
+}
+
+
+table {
+    width: 97%;
+    margin: auto;
+}
+
+.preislabels {
+    text-align: right;
+    vertical-align: middle;
+
+    
+}
+
+
+.einheit {
+    font-size: .7rem;
+    margin-left: -3.5rem;
+    display: inline;
+    color: #aaa;
+}
+
+.preisinput {
+    display: inline;
+}
+
+
+
+.speicherbericht {
+    font-weight: bold;
+    // margin-left: auto;
+    // margin-right: auto;
+    padding: .4rem;
+    display: inline-block;
+    text-align: center;
+    font-size: 1rem;
+    border: 2px solid;
+
+    &--erfolgreich {
+	color: green;
+	border-color: green;
+    }
+
+    &--fehlgeschlagen {
+	color: tomato;
+	border-color: tomato;
+    }
+
+    &--ungespeichert {
+	visibility: hidden;
+    }
+    
+}
+
+
+.centerinline {
+    text-align: center;
+    display: block;
+}
+
+
+.speichervorgang {
+    
+}
+
+
+// th {
+//     min-width: 5.5rem;
+// }
+
+
+// .passwortfeld {
+//     width: 30%;
+// }
+
+// table {
+//     width: 400px;
+//     table-layout: fixed;
+//     border-collapse: collapse;
+// }
+
+.zusatzzeile  {
+
+    input {
+	background-color: // #cac7fc
+	    #cce2ff
+	;
+    }
+
+    &:nth-child(even) input {
+	background-color: // #cfccff
+	    #cce2ff
+	;
+    }
+    
+}
+
+.zusatzlabel {
+    text-align: right;
+    padding-right: 1rem;
+    font-size: $smalltext;
+}
+
+.einzelfelder {
+    // margin-bottom: 2rem;
+}
+
+.einzelfeld {
+    max-width: 4rem;
+    align: center;
+    
+    &__label {
+	font-size: $smalltext;
+	    // margin-left: .5rem;
+	    // margin-right: .5rem;
+	    margin-bottom: .25rem;
+    }
+    
+}
+
+
+.einzelinput {
+
+    max-width: 10rem;
+    // margin-left: .5rem;
+    // margin-right: .5rem;
+}
+
+.dpreisfeld {
+    text-align: center;
+    font-size: $smalltext;
+
+}
+
+
+
+.panelgruppe {
+    margin-right: 1%;
+    margin-left: 1%;
+}
+ 
+
+tbody {
+    font-size: $smalltext;
+    border-top: .5rem solid white;
+    border-bottom: .5rem solid white;
+}
+
+
+
+.wohnungsname {
+    text-align: center;
+    background-color: white;
+    padding-top: .5rem;
+
+    &--sticky {
+	    position: sticky;
+    top: 0;
+    }
+}
+
+
+
+
+.actionicons {
+    padding: .4rem;
+    text-align: center;
+    // cursor: pointer;
+    vertical-align: middle;
+    
+    
+}
+
+.actionicon {
+    margin: .4rem;
+    display: inline-block;
+
+    &--select {
+//	margin-top: .6rem !important;
+	width: 1rem ;
+	height: 1rem ;
+	
+    }
+    
+}
+
+.iconzelle {
+    width: 3rem;
+    text-align: center;
+}
+
+
+.addsaison {
+    display: inline-block;
+}
+
+
+
+// [:div.saison-error
+//      [:div.warningicon
+//       (if dates-bad? [:span "daterror"])
+//       (if overlaps? [:span "overlaps!"]
+//           )
+//       ]]
+
+.ttip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: red;
+
+}
+
+.ttip .ttiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: salmon;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: $smalltext;
+
+  /* Position the ttip */
+  position: absolute;
+  z-index: 1;
+}
+
+.ttip:hover .ttiptext {
+  visibility: visible;
+}

@@ -7,10 +7,13 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
-      input: 'js-src/index.js',
+      input: {
+        main:   'js-src/index.js',
+        preise: 'js-src/preise.js',
+      },
       output: {
-        entryFileNames: 'main.js',
-        assetFileNames: 'main.[ext]',
+        entryFileNames: '[name].js',
+        assetFileNames: '[name].[ext]',
       },
     },
   },
