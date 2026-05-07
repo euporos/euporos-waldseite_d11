@@ -125,17 +125,19 @@ def main():
         psql(f"UPDATE directus_relations SET many_field='{new}' WHERE many_collection='{table}' AND many_field='{old}';")
         psql(f"UPDATE directus_relations SET junction_field='{new}' WHERE junction_field='{old}';")
 
-    # directus_fields.options / display_options carry JSON references to
-    # field names too — the translations interface stores
-    # `languageField: "language"` which becomes a stale lookup after the
-    # rename. Rewrite those references in-place.
-    for json_col in ("options", "display_options"):
+    # The translations alias's display_options.languageField should hold
+    # the field on the LANGUAGES collection that stores the locale code,
+    # i.e. `code`. The user's D8 setup stored `language` there (the field
+    # name on the junction, which is the wrong layer of indirection).
+    # Rewrite to `code` so D11's translations display walks
+    # translations.languages_code.code instead of .language.
+    for stale in ('"language"', '"languages_code"'):
         psql(f"""
         UPDATE directus_fields
-           SET {json_col} = replace({json_col}::text,
-               '"languageField":"language"',
-               '"languageField":"languages_code"')::json
-         WHERE {json_col}::text LIKE '%"languageField":"language"%';
+           SET display_options = replace(display_options::text,
+               '"languageField":{stale}',
+               '"languageField":"code"')::json
+         WHERE display_options::text LIKE '%"languageField":{stale}%';
         """)
 
     print("\nDone.")

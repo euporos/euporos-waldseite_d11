@@ -110,8 +110,13 @@ def main():
                 "special": ["translations"],
                 "options": {"languageField": "code"},
                 "display": "translations",
+                # languageField in display_options is the field on the
+                # languages collection that holds the locale code (`code`),
+                # NOT the FK column on the junction. Getting this wrong
+                # makes Directus walk translations.languages_code.<wrong>
+                # and 404 the field.
                 "display_options": {"defaultLanguage": "de",
-                                    "languageField": LANGUAGE_FIELD,
+                                    "languageField": "code",
                                     "userLanguage": True},
             },
         }

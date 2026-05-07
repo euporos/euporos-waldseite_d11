@@ -1412,7 +1412,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ title }}"
         },
         "field": "translations",
@@ -2094,7 +2094,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ titel }}"
         },
         "field": "translations",
@@ -3170,7 +3170,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ titel }}"
         },
         "field": "translations",
@@ -3636,7 +3636,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ titel }}"
         },
         "field": "translations",
@@ -4665,7 +4665,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ beschreibung }}"
         },
         "field": "translations",
@@ -5401,7 +5401,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ beschreibung }}",
           "userLanguage": true
         },
@@ -6709,7 +6709,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ titel }}"
         },
         "field": "translations",
@@ -8003,7 +8003,7 @@
         "display": "translations",
         "display_options": {
           "defaultLanguage": "de",
-          "languageField": "languages_code",
+          "languageField": "code",
           "template": "{{ beschreibung }}",
           "userLanguage": true
         },
