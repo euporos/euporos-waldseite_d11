@@ -12,6 +12,7 @@
             [seiten.home :as home]
             [seiten.kontakt :as kontakt]
             [seiten.kontaktform :as kontaktform]
+            [seiten.preise :as preise]
             [seiten.wohnung :as wohnung]
             [setup.directus-auth :as directus-auth]))
   #?(:clj  (:require      [psite-routing.macros :as prm])
@@ -43,7 +44,10 @@
 
     ["/admin" {:middleware [directus-auth/wrap-directus-user]}
      ["" {:handler admin/handler
-          :name    :admin}]]
+          :name    :admin}]
+     ["/preise" {:middleware [directus-auth/require-directus-user]
+                 :handler    preise/handler
+                 :name       :admin-preise}]]
 
     ;; Catch-all einzelseite must come last so static names match first.
     ["/{einzelseitid}-{einzelseitbez}"

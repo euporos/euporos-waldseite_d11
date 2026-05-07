@@ -58,7 +58,7 @@ processes:
   shadow-cljs:
     command: |
       rm -f server/server.js
-      exec npx shadow-cljs watch browser server
+      exec npx shadow-cljs watch browser admin server
     depends_on:
       mariadb:
         condition: process_healthy

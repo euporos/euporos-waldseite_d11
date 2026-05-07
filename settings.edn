@@ -15,6 +15,7 @@
                        :noindex
                        :show-errors?]
  :noindex true
+ :preise-edn-path "../preise.edn"
  :show-errors? true ;false
  :mail-on-errors? false
  :rate-limit-trust-proxy? nil ; explicit nil — psite-rate-limit defaults apply

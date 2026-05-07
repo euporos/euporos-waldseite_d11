@@ -49,7 +49,7 @@ in
     clj -X:process-reservoir
     bash scripts/resize_images.sh reservoir/imgs/*.JPG
     npx vite build
-    npx shadow-cljs release browser server
+    npx shadow-cljs release browser admin server
   '';
 
   # Create deployable export directory
@@ -67,7 +67,7 @@ in
     cp -r resources export/resources
     cp package.json export/
     cp package-lock.json export/
-    npx shadow-cljs release browser server
+    npx shadow-cljs release browser admin server
     cp -r public export/public
     rm -rf export/public/js/compiled/cljs-runtime
     cp server/server.js export/
@@ -91,7 +91,7 @@ in
     cp -r resources export/resources
     cp package.json export/
     cp package-lock.json export/
-    npx shadow-cljs release browser server
+    npx shadow-cljs release browser admin server
     cp -r public export/public
     rm -rf export/public/js/compiled/cljs-runtime
     cp server/server.js export/
@@ -108,7 +108,7 @@ in
   # Run tests (expects MariaDB already running, e.g. via `nix run .#dev`)
   test = mkApp "festival-test" ''
     export CHROME_BINARY_PATH=${pkgs.chromium}/bin/chromium
-    npx shadow-cljs release server browser
+    npx shadow-cljs release server browser admin
     clj -M:test -m cognitect.test-runner
   '';
 

@@ -28,4 +28,9 @@
                     :compiler-options
                     {:infer-externs :auto}
                     ;; :dev        {:closure-defines {re-frame.trace.trace-enabled? true}}
-                    }}}
+                    }
+          :admin   {:target     :browser
+                    :output-dir "public/compiled/admin"
+                    :asset-path "/compiled/admin"
+                    :modules    {:preise {:init-fn preise.core/main}}
+                    :compiler-options {:infer-externs :auto}}}}

@@ -34,6 +34,26 @@
   [_req]
   (r/found (str (env/setting :directus-url) "admin/login")))
 
+(defn require-directus-user
+  "Page-route middleware: if wrap-directus-user did not attach :directus-user,
+   redirect to the Directus login page."
+  [handler]
+  (fn [req res raise]
+    (if (:directus-user req)
+      (handler req res raise)
+      (res (directus-login-redirect req)))))
+
+(defn require-directus-user-401
+  "API-route middleware: if wrap-directus-user did not attach :directus-user,
+   respond 401 with an EDN body. Use after wrap-directus-user."
+  [handler]
+  (fn [req res raise]
+    (if (:directus-user req)
+      (handler req res raise)
+      (res {:status  401
+            :headers {"Content-Type" "application/edn"}
+            :body    (pr-str {:error :unauthenticated})}))))
+
 (defn wrap-directus-user
   "Ring middleware that detects Directus login via the session token cookie.
    Decodes the JWT to extract the session ID, validates it against the DB,
