@@ -164,11 +164,11 @@
       (if @hot?
         [:div.actionicon
          [:span {:on-click #(reset! hot? false)} "X"]
-         [:img {:src     "/compiled/admin/imgs/trash.png"
+         [:img {:src     "/imgs/preise/trash.png"
                 :height  "30px"
                 :onClick (fn [] (trash-seasons! saisonen-a saison))}]]
         [:img.actionicon
-         {:src      "/compiled/admin/imgs/trash.png"
+         {:src      "/imgs/preise/trash.png"
           :height   "30px"
           :on-click #(swap! hot? not)}]))))
 
