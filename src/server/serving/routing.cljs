@@ -21,6 +21,9 @@
 (defn path-haus [req id name]
   (routing/reverse-match req :haus {:hausid id :hausbez (slugify name)}))
 
+(defn path-wohnung [req id name]
+  (routing/reverse-match req :wohnung {:wohnungsid id :wohnungsbez (slugify name)}))
+
 (defn path-ausfluege [req hausid]
   (routing/reverse-match req :ausfluege {:hausid hausid}))
 

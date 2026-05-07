@@ -21,6 +21,98 @@
    :from     [[s/haeuser_t s/haeuser]]
    :order-by [s/haeuser-name]})
 
+(defn haus-detail [locale haus-id]
+  {:select [s/haeuser-id
+            s/haeuser-name
+            s/haeuser-adresse
+            s/haeuser-hauptbild
+            s/haeuser-google_maplink
+            (db/localized s/haeuser-beschreibung locale)
+            (db/localized s/haeuser-ausstattung locale)
+            (db/localized s/haeuser-anreisetext locale)
+            (db/localized s/haeuser-buchungstext locale)
+            (db/localized s/haeuser-meta_description locale)
+            (db/localized s/haeuser-ausstattung_tabelle locale)]
+   :from   [[s/haeuser_t s/haeuser]]
+   :where  [:= s/haeuser-id haus-id]
+   :limit  1})
+
+(defn haus-bilder [haus-id]
+  {:select   [:haeuser_directus_files.directus_files_id]
+   :from     [:haeuser_directus_files]
+   :where    [:= :haeuser_directus_files.haeuser_id haus-id]
+   :order-by [:haeuser_directus_files.id]})
+
+(defn wohnungen-by-haus [locale haus-id]
+  {:select   [s/wohnungen-id
+              s/wohnungen-name
+              s/wohnungen-hauptbild
+              s/wohnungen-dtvsterne
+              (db/localized s/wohnungen-beschreibung locale)]
+   :from     [[s/wohnungen_t s/wohnungen]]
+   :where    [:= s/wohnungen-haus haus-id]
+   :order-by [s/wohnungen-name]})
+
+(defn ausfluege-by-haus [locale haus-id]
+  {:select   [s/ausfluege-id
+              s/ausfluege-bild
+              (db/localized s/ausfluege-titel locale)
+              (db/localized s/ausfluege-beschreibung locale)]
+   :from     [[s/ausfluege_t s/ausfluege]]
+   :join     [:ausfluege_haeuser
+              [:= :ausfluege_haeuser.ausfluege_id s/ausfluege-id]]
+   :where    [:= :ausfluege_haeuser.haeuser_id haus-id]
+   :order-by [s/ausfluege-id]})
+
+(defn ausfluege-overview [locale]
+  {:select   [s/ausfluege-id
+              s/ausfluege-bild
+              (db/localized s/ausfluege-titel locale)
+              (db/localized s/ausfluege-beschreibung locale)]
+   :from     [[s/ausfluege_t s/ausfluege]]
+   :order-by [s/ausfluege-id]})
+
+(defn allgemeines-content [locale]
+  {:select [s/allgemeines-id
+            (db/localized s/allgemeines-ausstattung_tabelle locale)]
+   :from   [[s/allgemeines_t s/allgemeines]]
+   :limit  1})
+
+(defn einstellungen-content []
+  {:select [:einstellungen.id
+            :einstellungen.email_buchung_empfang
+            :einstellungen.default_bild_ausfluege
+            :einstellungen.anzahl_newsitems_haus]
+   :from   [:einstellungen]
+   :limit  1})
+
+(defn wohnung-detail [locale wohnung-id]
+  {:select [s/wohnungen-id
+            s/wohnungen-name
+            s/wohnungen-hauptbild
+            s/wohnungen-dtvsterne
+            s/wohnungen-haus
+            (db/localized s/wohnungen-beschreibung locale)
+            (db/localized s/wohnungen-ausstattung_tabelle locale)]
+   :from   [[s/wohnungen_t s/wohnungen]]
+   :where  [:= s/wohnungen-id wohnung-id]
+   :limit  1})
+
+(defn wohnung-bilder [wohnung-id]
+  {:select   [:wohnungen_directus_files.directus_files_id]
+   :from     [:wohnungen_directus_files]
+   :where    [:= :wohnungen_directus_files.wohnungen_id wohnung-id]
+   :order-by [:wohnungen_directus_files.id]})
+
+(defn einzelseite-detail [locale einzelseite-id]
+  {:select [s/einzelseiten-id
+            (db/localized s/einzelseiten-titel locale)
+            (db/localized s/einzelseiten-text locale)
+            (db/localized s/einzelseiten-meta_description locale)]
+   :from   [[s/einzelseiten_t s/einzelseiten]]
+   :where  [:= s/einzelseiten-id einzelseite-id]
+   :limit  1})
+
 (defn news-overview [locale]
   {:select   [s/news-id
               s/news-bild
