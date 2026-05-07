@@ -16,10 +16,10 @@
      (for [bild bilder
            :when bild]
        [:li.splide__slide
-        [:a {:href             (d/image-by-preset "1600" bild)
-             :data-pswp-width  1600
-             :data-pswp-height 1067
+        [:a {:href             (d/image-by-preset "1200" bild)
+             :data-pswp-width  1200
+             :data-pswp-height 800
              :target           "_blank"
              :rel              "noreferrer"}
-         [:img {:data-splide-lazy (d/image-by-preset "1024" bild)
-                :alt              ""}]]])]]])
+         [:img {:src (d/image-by-preset "1200" bild)
+                :alt ""}]]])]]])

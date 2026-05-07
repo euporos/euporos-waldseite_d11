@@ -14,7 +14,8 @@ addEventListener('DOMContentLoaded', () => {
       gap: '1rem',
       pagination: false,
       arrows: true,
-      lazyLoad: 'nearby',
+      heightRatio: 0.6667,
+      cover: true,
       keyboard: 'global',
     }).mount();
 
