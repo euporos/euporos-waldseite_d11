@@ -112,8 +112,16 @@
               #_(assoc-in [:session :cookie-attrs] {:max-age (* 2 psite.track/rotation-interval)})
               (assoc-in [:session :store] (session.memory/memory-store setup.session/session-map))
               #_(assoc-in [:security :anti-forgery] false)))
-    true (middleware/wrap-cache {:default "private, max-age=1800" ;; "private, max-age=2592000"
-                                "text/html" "private, no-cache"})
+    true (middleware/wrap-cache
+          (if (= :dev (env/setting :mode))
+            ;; Dev: never cache. Otherwise rebuilt bundles / freshly-saved
+            ;; data would be masked by 30-minute browser entries.
+            {:default "private, no-cache"}
+            {:default            "private, max-age=1800"
+             "text/html"         "private, no-cache"
+             ;; Data endpoints (api.preise/data, …) must reflect disk/DB
+             ;; state on every load.
+             "application/edn"   "private, no-store"}))
     true (middleware/wrap-csp csp-directives)
     true wrap-config))
 

@@ -12,8 +12,14 @@
    `callback`. On 401 the operator is sent to the Directus login page."
   [wohnungsatom datenatom callback]
   (go
-    (let [refdata (<! (http/get (str base "/api/preise/refdata")))
-          preise  (<! (http/get (str base "/api/preise/data")))]
+    ;; Cache-bust: until every browser has cycled past the previous
+    ;; max-age=1800 entry, an in-flight cached EDN payload would mask
+    ;; freshly saved prices. Server now sends no-store (see wrap-cache
+    ;; config in serving.core), but a request-side ?t= keeps the cycle
+    ;; safe across upgrades.
+    (let [t       (.now js/Date)
+          refdata (<! (http/get (str base "/api/preise/refdata?t=" t)))
+          preise  (<! (http/get (str base "/api/preise/data?t=" t)))]
       (cond
         (= 401 (:status refdata))
         (set! js/window.location (or (get-in refdata [:headers "location"])
