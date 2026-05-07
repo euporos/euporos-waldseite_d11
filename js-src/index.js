@@ -17,6 +17,10 @@ addEventListener('DOMContentLoaded', () => {
       heightRatio: 0.6667,
       cover: true,
       keyboard: 'global',
+      autoplay: true,
+      interval: 4000,
+      pauseOnHover: true,
+      pauseOnFocus: true,
     }).mount();
 
     // Click-to-fullscreen lightbox disabled — slide <a> falls back to
