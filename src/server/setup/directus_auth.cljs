@@ -3,6 +3,7 @@
    [config.env :as env]
    [db.setup :as db]
    [kitchen-async.promise :as p]
+   [macchiato.middleware.anti-forgery :as af]
    [macchiato.util.response :as r]))
 
 (defn- decode-jwt-payload
@@ -57,15 +58,20 @@
 (defn wrap-directus-user
   "Ring middleware that detects Directus login via the session token cookie.
    Decodes the JWT to extract the session ID, validates it against the DB,
-   and attaches :directus-user to the request when a valid session is found."
+   and attaches :directus-user to the request when a valid session is found.
+
+   Captures the anti-forgery token onto :af-token before the async DB hop —
+   otherwise downstream handlers see nil because the dynamic binding from
+   wrap-anti-forgery does not survive the .then microtask."
   [handler]
   (fn [req res raise]
-    (if-let [jwt (get-in req [:cookies "directus_session_token" :value])]
-      (if-let [session-token (:session (decode-jwt-payload jwt))]
-        (-> (lookup-directus-user session-token)
-            (.then (fn [user]
-                     (handler (cond-> req user (assoc :directus-user user)) res raise)))
-            (.catch (fn [_err]
-                      (handler req res raise))))
-        (handler req res raise))
-      (handler req res raise))))
+    (let [req (assoc req :af-token af/*anti-forgery-token*)]
+      (if-let [jwt (get-in req [:cookies "directus_session_token" :value])]
+        (if-let [session-token (:session (decode-jwt-payload jwt))]
+          (-> (lookup-directus-user session-token)
+              (.then (fn [user]
+                       (handler (cond-> req user (assoc :directus-user user)) res raise)))
+              (.catch (fn [_err]
+                        (handler req res raise))))
+          (handler req res raise))
+        (handler req res raise)))))
