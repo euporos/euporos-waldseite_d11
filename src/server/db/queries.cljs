@@ -98,6 +98,12 @@
    :where  [:= s/wohnungen-id wohnung-id]
    :limit  1})
 
+(defn haus-ausstattung-tabelle [locale haus-id]
+  {:select [(db/localized s/haeuser-ausstattung_tabelle locale)]
+   :from   [[s/haeuser_t s/haeuser]]
+   :where  [:= s/haeuser-id haus-id]
+   :limit  1})
+
 (defn wohnung-bilder [wohnung-id]
   {:select   [:wohnungen_directus_files.directus_files_id]
    :from     [:wohnungen_directus_files]

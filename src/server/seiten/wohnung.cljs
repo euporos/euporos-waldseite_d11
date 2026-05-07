@@ -10,8 +10,14 @@
             [seiten.templates :as templates]
             [serving.routing :as rt]))
 
+(defn- combine-tables [& tabelle-strings]
+  (->> tabelle-strings
+       (remove (fn [s] (or (nil? s) (str/blank? s))))
+       (str/join "\n")
+       not-empty))
+
 (defn- ausstattung-table [tabelle-string dtvsterne]
-  [:div.floating-img.floating-img--right
+  [:div.ausstattung-table
    [:div.card
     [:table.table
      [:tbody
@@ -28,9 +34,8 @@
            [:td.has-text-centered {:colspan 2} (first cells)]
            (for [c cells] [:td c]))])]]]])
 
-(defn- page-body [req wohnung bilder]
-  (let [{:keys [id name beschreibung hauptbild
-                ausstattung_tabelle dtvsterne]} wohnung]
+(defn- page-body [req wohnung bilder ausstattung-string]
+  (let [{:keys [id name beschreibung hauptbild dtvsterne]} wohnung]
     [:section
      [:div.panel.mainpanel
       [:div.block (gallery/bilder-gallery
@@ -42,11 +47,10 @@
        [:h1.title.is-2 "Wohnung " name]
        [:div.content
         [:div.wohnungbeschreibung
-         [:div.is-hidden-mobile
-          (ausstattung-table ausstattung_tabelle dtvsterne)]
-         (ph/dangerous-html (or beschreibung ""))
-         [:div.is-hidden-tablet
-          (ausstattung-table ausstattung_tabelle dtvsterne)]]]]
+         [:div.wohnungbeschreibung__text
+          (ph/dangerous-html (or beschreibung ""))]
+         [:div.wohnungbeschreibung__ausstattung
+          (ausstattung-table ausstattung-string dtvsterne)]]]]
 
       [:div.mb-4.has-text-centered.pb-4
        [:a {:href (str (rt/path-fixed :buchung req)
@@ -56,13 +60,19 @@
          "Jetzt Anfragen"]]]]]))
 
 (defhandler handler [req]
-  (p/let [locale     (:locale req)
-          wohnung-id (-> req :path-params :wohnungsid)
-          wohnung-id (if (string? wohnung-id) (js/parseInt wohnung-id 10) wohnung-id)
-          wohnung    (-> (db/query (q/wohnung-detail locale wohnung-id)) (.then first))
-          bilder     (db/query (q/wohnung-bilder wohnung-id))]
+  (p/let [locale       (:locale req)
+          wohnung-id   (-> req :path-params :wohnungsid)
+          wohnung-id   (if (string? wohnung-id) (js/parseInt wohnung-id 10) wohnung-id)
+          wohnung      (-> (db/query (q/wohnung-detail locale wohnung-id)) (.then first))
+          bilder       (db/query (q/wohnung-bilder wohnung-id))
+          haus-tabelle (when (:haus wohnung)
+                         (-> (db/query (q/haus-ausstattung-tabelle locale (:haus wohnung)))
+                             (.then (comp :ausstattung_tabelle first))))
+          allg         (-> (db/query (q/allgemeines-content locale))
+                           (.then (comp :ausstattung_tabelle first)))
+          ausstattung  (combine-tables (:ausstattung_tabelle wohnung) haus-tabelle allg)]
     (templates/render-page
      req
      {:titel        (str "Wohnung " (:name wohnung))
       :beschreibung ""}
-     (page-body req wohnung bilder))))
+     (page-body req wohnung bilder ausstattung))))

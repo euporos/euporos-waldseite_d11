@@ -110,6 +110,12 @@
                          (str "?default=" (:id w))))}
         [:button.button.is-link "Jetzt Anfragen"]]]]]))
 
+(defn- combine-tables [& tabelle-strings]
+  (->> tabelle-strings
+       (remove (fn [s] (or (nil? s) (str/blank? s))))
+       (str/join "\n")
+       not-empty))
+
 (defhandler handler [req]
   (p/let [locale    (:locale req)
           haus-id   (-> req :path-params :hausid)
@@ -117,7 +123,11 @@
           haus      (-> (db/query (q/haus-detail locale haus-id)) (.then first))
           bilder    (db/query (q/haus-bilder haus-id))
           wohnungen (db/query (q/wohnungen-by-haus locale haus-id))
-          ausfluege (db/query (q/ausfluege-by-haus locale haus-id))]
+          ausfluege (db/query (q/ausfluege-by-haus locale haus-id))
+          allg      (-> (db/query (q/allgemeines-content locale))
+                        (.then (comp :ausstattung_tabelle first)))
+          haus      (assoc haus :ausstattung_tabelle
+                           (combine-tables (:ausstattung_tabelle haus) allg))]
     (templates/render-page
      req
      {:titel        (:name haus)

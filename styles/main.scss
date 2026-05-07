@@ -129,6 +129,53 @@ body > .footer { margin-top: auto; }
 
 .constructionmessage { text-align: center; font-size: 2rem; }
 
+// ---------------------------------------------------------------------------
+// Wohnung / Haus — Ausstattung table (DTV stars + floating side card)
+// ---------------------------------------------------------------------------
+
+.dtvstern {
+  display: inline-block;
+  background-image: url("/imgs/icons/dtv_stern.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.ausstattung-table {
+  .card { background: white; }
+  .table { background: white; }
+}
+
+// Wohnung: text and amenities side-by-side on tablet+, stacked on mobile.
+.wohnungbeschreibung {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media (min-width: 769px) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  &__text   { flex: 1 1 auto; min-width: 0; }
+  &__ausstattung {
+    flex: 0 0 auto;
+    @media (min-width: 769px) { width: 40%; min-width: 18rem; }
+  }
+}
+
+// Legacy (haus page): keep the old float-based class working.
+.floating-img {
+  width: 100%;
+  margin-bottom: 1rem;
+  @media (min-width: 769px) {
+    width: 40%;
+    min-width: 18rem;
+    &--right { float: right; margin-left: 1rem; }
+  }
+}
+
 .modal-content {
   max-width: calc(100vw - 60px);
   max-height: calc(100vh - 60px);
