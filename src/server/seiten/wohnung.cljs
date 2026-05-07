@@ -6,9 +6,16 @@
             [psite-hiccup.core :as ph]
             [db.setup :as db]
             [db.queries :as q]
+            [preise.lookup :as plookup]
             [seiten.components.gallery :as gallery]
             [seiten.templates :as templates]
             [serving.routing :as rt]))
+
+(defn- fmt-eur [n]
+  (when n
+    (if (= n (js/Math.floor n))
+      (str (int n))
+      (-> n (.toFixed 2)))))
 
 (defn- combine-tables [& tabelle-strings]
   (->> tabelle-strings
@@ -16,11 +23,31 @@
        (str/join "\n")
        not-empty))
 
-(defn- ausstattung-table [tabelle-string dtvsterne]
+(defn- preis-rows [{:keys [maximalbelegung mindestaufenthalt_standard
+                           tag-min woche-min]}]
+  (list
+   (when maximalbelegung
+     [:tr
+      [:td "Platz für bis zu"]
+      [:td (int maximalbelegung) " Personen"]])
+   (when (or tag-min woche-min)
+     [:tr
+      [:td "Preise ab"]
+      [:td
+       (when tag-min   [:span (fmt-eur tag-min) " €/Nacht"])
+       (when (and tag-min woche-min) [:br])
+       (when woche-min [:span (fmt-eur woche-min) " €/Woche"])]])
+   (when mindestaufenthalt_standard
+     [:tr
+      [:td "Mindestaufenthalt"]
+      [:td "ab " (int mindestaufenthalt_standard) " Nächte"]])))
+
+(defn- ausstattung-table [tabelle-string dtvsterne preise]
   [:div.ausstattung-table
    [:div.card
     [:table.table
      [:tbody
+      (preis-rows preise)
       (when (and dtvsterne (pos? dtvsterne))
         [:tr
          [:td [:a {:target "_blank" :rel "noopener"
@@ -34,7 +61,7 @@
            [:td.has-text-centered {:colspan 2} (first cells)]
            (for [c cells] [:td c]))])]]]])
 
-(defn- page-body [req wohnung bilder ausstattung-string]
+(defn- page-body [req wohnung bilder ausstattung-string preise]
   (let [{:keys [id name beschreibung hauptbild dtvsterne]} wohnung]
     [:section
      [:div.panel.mainpanel
@@ -50,7 +77,7 @@
          [:div.wohnungbeschreibung__text
           (ph/dangerous-html (or beschreibung ""))]
          [:div.wohnungbeschreibung__ausstattung
-          (ausstattung-table ausstattung-string dtvsterne)]]]]
+          (ausstattung-table ausstattung-string dtvsterne preise)]]]]
 
       [:div.mb-4.has-text-centered.pb-4
        [:a {:href (str (rt/path-fixed :buchung req)
@@ -70,9 +97,10 @@
                              (.then (comp :ausstattung_tabelle first))))
           allg         (-> (db/query (q/allgemeines-content locale))
                            (.then (comp :ausstattung_tabelle first)))
-          ausstattung  (combine-tables (:ausstattung_tabelle wohnung) haus-tabelle allg)]
+          ausstattung  (combine-tables (:ausstattung_tabelle wohnung) haus-tabelle allg)
+          preise       (plookup/wohnung-summary wohnung-id)]
     (templates/render-page
      req
      {:titel        (str "Wohnung " (:name wohnung))
       :beschreibung ""}
-     (page-body req wohnung bilder ausstattung))))
+     (page-body req wohnung bilder ausstattung preise))))

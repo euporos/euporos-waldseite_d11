@@ -31,12 +31,14 @@
            a))
 
 (defn read-prices
-  "Returns the current cached price map, or nil if the cache is empty."
+  "Returns the current cached price map, or nil if the cache is empty.
+   Two derefs: the outer unwraps mount's DerefableState to the atom set
+   up in :start, the inner reads the atom's current value."
   []
-  (some-> prices deref))
+  (some-> prices deref deref))
 
 (defn refresh!
   "Re-reads preise.edn and replaces the cache. Called after successful
    saves through /api/preise/save."
   []
-  (reset! prices (load-from-disk)))
+  (some-> prices deref (reset! (load-from-disk))))
