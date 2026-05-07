@@ -1,7 +1,7 @@
-import 'photoswipe/style.css';
+// import 'photoswipe/style.css';
 import '@splidejs/splide/css';
 import '../styles/main.scss';
-import PhotoSwipeLightbox from 'photoswipe/lightbox';
+// import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import Splide from '@splidejs/splide';
 
 addEventListener('DOMContentLoaded', () => {
@@ -19,10 +19,12 @@ addEventListener('DOMContentLoaded', () => {
       keyboard: 'global',
     }).mount();
 
-    new PhotoSwipeLightbox({
-      gallery: '#' + el.id,
-      children: '.splide__slide:not(.splide__slide--clone) a',
-      pswpModule: () => import('photoswipe'),
-    }).init();
+    // Click-to-fullscreen lightbox disabled — slide <a> falls back to
+    // opening the full-res image in a new tab via target="_blank".
+    // new PhotoSwipeLightbox({
+    //   gallery: '#' + el.id,
+    //   children: '.splide__slide:not(.splide__slide--clone) a',
+    //   pswpModule: () => import('photoswipe'),
+    // }).init();
   });
 });
