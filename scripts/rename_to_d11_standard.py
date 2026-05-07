@@ -125,6 +125,19 @@ def main():
         psql(f"UPDATE directus_relations SET many_field='{new}' WHERE many_collection='{table}' AND many_field='{old}';")
         psql(f"UPDATE directus_relations SET junction_field='{new}' WHERE junction_field='{old}';")
 
+    # directus_fields.options / display_options carry JSON references to
+    # field names too — the translations interface stores
+    # `languageField: "language"` which becomes a stale lookup after the
+    # rename. Rewrite those references in-place.
+    for json_col in ("options", "display_options"):
+        psql(f"""
+        UPDATE directus_fields
+           SET {json_col} = replace({json_col}::text,
+               '"languageField":"language"',
+               '"languageField":"languages_code"')::json
+         WHERE {json_col}::text LIKE '%"languageField":"language"%';
+        """)
+
     print("\nDone.")
 
 
