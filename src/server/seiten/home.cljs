@@ -8,6 +8,7 @@
             [db.setup :as db]
             [db.queries :as q]
             [seiten.templates :as templates]
+            [serving.routing :as rt]
             [directus.core :as d]))
 
 (defhandler blankhome [req]
@@ -24,8 +25,7 @@
     [:div.card.base-background
      [:div.card-image.card-image--hoverable
       [:figure.image.is-4by3
-       ;; TODO: route :haus once added; link is a no-op anchor for now.
-       [:a {:href "#"}
+       [:a {:href (rt/path-haus req id name)}
         [:img {:width "100%"
                :src   (d/image-by-preset "600" hauptbild)}]]]]
      [:div.is-size-3 name]]]])
