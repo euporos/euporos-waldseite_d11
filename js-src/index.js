@@ -12,7 +12,7 @@ addEventListener('DOMContentLoaded', () => {
       type: 'loop',
       perPage: 1,
       gap: '1rem',
-      pagination: false,
+      pagination: true,
       arrows: true,
       heightRatio: 0.6667,
       cover: true,
