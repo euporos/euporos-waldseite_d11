@@ -48,6 +48,9 @@ nix run .#pull-db-from-prod   # pull production database to local dev
 nix run .#schema-export       # export Directus schema snapshot to schema/snapshot.json
 nix run .#schema-apply        # apply schema snapshot to current Directus instance
 
+# Waldseite D8 → D11 content import (see doc/d8-to-d11-import.md)
+nix run .#waldseite-bootstrap # full re-import from a D8 dump zip + uploads/ folder
+
 # Deployment
 nix run .#deploy-prod         # deploy to production (pulls main on server, runs redeploy.sh)
 ```
