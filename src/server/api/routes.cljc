@@ -7,15 +7,13 @@
             [api.qr :as qr]
             [api.wohnungen-voll :as wohnungen-voll]
             [config.env :as env]
-            [psite-middleware.core :as middleware]
-            [reitit.coercion.malli :as malli-coercion]))
+            [psite-middleware.core :as middleware]))
   #?(:clj  (:require      [psite-routing.macros :as prm])
      :cljs (:require-macros [psite-routing.macros :as prm])))
 
 (def routes
   (#?(:node identity :default prm/routes-reduced-for-matching)
-   ["/api/" {:coercion   malli-coercion/coercion
-             :middleware [(when (env/setting :hide-errors?)
+   ["/api/" {:middleware [(when (env/setting :hide-errors?)
                             (partial middleware/wrap-error-response-for-user
                                      (middleware/json-converter)))
                           middleware/wrap-edn-params]}
