@@ -37,7 +37,7 @@
     ["/ausfluege/:hausid"
      {:name       :ausfluege
       :handler    ausfluege/handler
-      :parameters {:path [:map [:hausid :int]]}}]
+      :parameters {:path [:map [:hausid :string]]}}]
     ["/kontakt"     {:name :kontakt     :handler kontakt/handler}]
     ["/kontaktform" {:name :api_kontakt :handler kontaktform/handler}]
 
