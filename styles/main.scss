@@ -5,12 +5,14 @@
 // Source: scss/_common.scss in waldseite_alles ($basecolor: burlywood).
 // ---------------------------------------------------------------------------
 
-$widescreen-enabled: false;
-$fullhd-enabled:     false;
-$primary:            burlywood;
+$widescreen-enabled:        false;
+$fullhd-enabled:            false;
+$primary:                   burlywood;
+$footer-background-color:   burlywood;
 
 $waldseite-base:      burlywood;
-$waldseite-base-soft: rgba(222, 184, 135, 0.5);
+// Same warm off-white the prod site uses for .mainpanel / .panel-background.
+$waldseite-base-soft: rgba(235, 219, 199, 0.85);
 
 @import '../node_modules/bulma/bulma.sass';
 
