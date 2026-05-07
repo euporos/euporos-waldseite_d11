@@ -46,6 +46,7 @@
   },
   "main": "target/out/shadowman.js",
   "devDependencies": {
+    "@splidejs/splide": "^4.1.4",
     "photoswipe": "^5.4.3",
     "sass": "^1.50.1",
     "shadow-cljs": "^2.18.0",

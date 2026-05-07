@@ -39,6 +39,22 @@ $waldseite-base-soft: rgba(235, 219, 199, 0.85);
 
 .card-image { overflow: hidden; }
 
+.gallery.splide {
+  margin: 0 auto;
+  max-width: 100%;
+  .splide__slide { display: flex; justify-content: center; align-items: center; }
+  .splide__slide img {
+    max-height: 32rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+  }
+  @media (max-width: 768px) {
+    .splide__slide img { max-height: 18rem; }
+  }
+}
+
 .card {
   hyphens: auto;
   &.is-fullheight { height: 100%; }
