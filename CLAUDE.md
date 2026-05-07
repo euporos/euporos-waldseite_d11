@@ -104,7 +104,7 @@ scripts/
 
 ### Key Patterns
 
-**URL structure:** `/:locale/...` where locale is one of `:de`, `:en`, `:uk`. Locale fallback order is `[:de :en :uk]`.
+**URL structure:** `/:locale/...` where locale is one of `:de`, `:en`, `:nl`. Locale fallback order is `[:de :en :nl]`. Must match the `code` column of the live `languages` table; `db.schema/:locales` and `db.setup/fallback-order` are kept in sync by hand.
 
 **Server handlers** use the `def-go-handler` macro with `go-try` for async operations:
 ```clojure

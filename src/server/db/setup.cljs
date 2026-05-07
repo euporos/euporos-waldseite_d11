@@ -37,7 +37,7 @@
                                  (println "\n" sql "\n" params))))]
      (pg/query @pool opts honeysql))))
 
-(def ^:private fallback-order [:de :en :uk])
+(def ^:private fallback-order [:de :en :nl])
 
 (defn localized
   "Selects a translated field with locale fallback via COALESCE.
