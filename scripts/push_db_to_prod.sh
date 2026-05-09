@@ -41,7 +41,9 @@ echo "--- Uploading dump ---"
 scp "$DUMP_LOCAL" "$SERVER:$DUMP_REMOTE"
 
 echo "--- Restoring on production ---"
-ssh "$SERVER" bash -s "$DUMP_REMOTE" "$REMOTE_SECRET_ENV" "$PROD_HOST" "$PROD_PORT" "$PROD_USER" "$PROD_DB" <<'REMOTE'
+# -t allocates a tty so sudo can prompt instead of hanging silently if
+# NOPASSWD isn't configured for waldseite-directus.service.
+ssh -t "$SERVER" bash -s "$DUMP_REMOTE" "$REMOTE_SECRET_ENV" "$PROD_HOST" "$PROD_PORT" "$PROD_USER" "$PROD_DB" <<'REMOTE'
 set -euo pipefail
 DUMP="$1"
 ENV_FILE="$2"
@@ -69,7 +71,16 @@ GRANT USAGE ON SCHEMA public TO PUBLIC;
 SQL
 
 echo "    Restoring dump"
-psql -v ON_ERROR_STOP=1 -d "$TARGET_DB" -f "$DUMP" >/dev/null
+psql -v ON_ERROR_STOP=1 -d "$TARGET_DB" -f "$DUMP"
+
+echo "    Verifying restore"
+COUNT=$(psql -tAq -d "$TARGET_DB" -c "SELECT count(*) FROM directus_migrations")
+if ! [[ "$COUNT" =~ ^[0-9]+$ && "$COUNT" -gt 0 ]]; then
+  echo "ERROR: directus_migrations is empty or missing after restore" >&2
+  echo "       Leaving waldseite-directus.service stopped." >&2
+  exit 1
+fi
+echo "    directus_migrations: $COUNT rows"
 
 rm -f "$DUMP"
 
