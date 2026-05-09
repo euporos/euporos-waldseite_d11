@@ -8,8 +8,8 @@ set -euo pipefail
 # Prod connection: read DB_* vars from the prod directus_config env file.
 
 SERVER="phylax@netcup-vps-2-arm"
-REMOTE_ENV="/home/phylax/projects/festival_pg/directus_config"
-DUMP_REMOTE="/tmp/festival-directus-clone-$(date -u +%Y%m%dT%H%M%SZ).sql"
+REMOTE_ENV="/home/phylax/projects/waldseite/directus_config"
+DUMP_REMOTE="/tmp/waldseite-directus-clone-$(date -u +%Y%m%dT%H%M%SZ).sql"
 DUMP_LOCAL="/tmp/$(basename "$DUMP_REMOTE")"
 
 LOCAL_DB="${PGDATABASE:-directus}"

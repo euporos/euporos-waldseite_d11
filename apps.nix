@@ -16,6 +16,17 @@ in
     '';
   };
 
+  # Run just the Macchiato app server in prod mode (NODE_ENV=production from
+  # the prod devShell). Mirrors what waldseite.service does on the VPS — useful
+  # for monkey-patching prod behavior locally without launching as a service.
+  # Assumes a build has already happened (`nix run .#build`); reads settings.edn
+  # the same way the systemd unit does.
+  prod = flake-utils.lib.mkApp {
+    drv = pkgs.writeShellScriptBin "waldseite-prod" ''
+      exec nix develop .#prod --command node server/server.js
+    '';
+  };
+
   # Build all Directus extensions
   build-directus-extensions = mkApp "festival-build-directus-extensions" ''
     for ext in directus/extensions/directus-extension-*/; do
@@ -146,6 +157,16 @@ in
     '';
   };
 
+  # Rewrite absolute Directus URLs in WYSIWYG fields to path-only
+  # `/directus/assets/<uuid>`. Idempotent. Also runs as a step inside
+  # `waldseite-bootstrap`, but exposed standalone for re-runs after a
+  # `pull-db-from-prod` if any new absolute URLs slipped in.
+  normalize-wysiwyg = flake-utils.lib.mkApp {
+    drv = pkgs.writeShellScriptBin "waldseite-normalize-wysiwyg" ''
+      exec nix develop .#default --command bash scripts/normalize_wysiwyg_urls.sh
+    '';
+  };
+
   # Pull production Postgres directus DB → local devShell Postgres.
   # Wrapped in `nix develop` so PGHOST/PGPORT/... from pgEnvHook are in scope.
   pull-db-from-prod = flake-utils.lib.mkApp {
@@ -155,8 +176,13 @@ in
   };
 
   # Pull uploaded files from production
-  pull-files = mkApp "festival-pull-files" ''
+  pull-files = mkApp "waldseite-pull-files" ''
     bash scripts/pull_files.sh
+  '';
+
+  # Push local uploaded files to production
+  push-files = mkApp "waldseite-push-files" ''
+    bash scripts/push_files.sh
   '';
 
   # Push local Postgres directus DB to production (destructive: replaces prod DB).
@@ -243,19 +269,22 @@ in
     };
   };
 
-  # Deploy to production from dev machine.
-  # Server checkout lives at festival_pg/ (the directory name was kept after the
-  # MariaDB→PG migration); systemd units are festival / festival-directus on :7002/:7003.
+  # Deploy waldseite from dev machine.
+  # Server checkout lives at /home/phylax/projects/waldseite/app; systemd units
+  # are waldseite / waldseite-directus on :7202/:7203. Currently deploys to the
+  # staging domain waldseite.olivermotz.net (nginx adds noindex headers); when
+  # the migration is judged complete, the server-side nginx vhost is flipped to
+  # the real waldseite.de domain — checkout, services, and this app stay put.
   deploy-prod = flake-utils.lib.mkApp {
     drv = pkgs.writeShellApplication {
-      name = "festival-deploy-prod";
+      name = "waldseite-deploy-prod";
       text = ''
         SERVER="phylax@netcup-vps-2-arm"
-        echo "=== Deploying to production ==="
+        echo "=== Deploying waldseite ==="
         DEPLOYED_SHA=$(ssh "$SERVER" '
           set -euo pipefail
           cd /home/phylax/projects/libs && git pull >&2
-          cd /home/phylax/projects/festival_pg/app
+          cd /home/phylax/projects/waldseite/app
           PREV_HEAD=$(git rev-parse HEAD)
           git fetch >&2 && git reset --hard origin/main >&2
           bash scripts/redeploy.sh "$PREV_HEAD" >&2
@@ -265,7 +294,7 @@ in
         TAG="deployed-$(date -u +%Y%m%dT%H%M%SZ)"
         git tag "$TAG" "$DEPLOYED_SHA"
         git push origin "$TAG"
-        echo "=== Done ($TAG) ==="
+        echo "=== Done ($TAG) — https://waldseite.olivermotz.net ==="
       '';
       runtimeInputs = [ pkgs.openssh pkgs.git pkgs.coreutils ];
     };

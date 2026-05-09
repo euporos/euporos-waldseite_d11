@@ -8,8 +8,8 @@ set -euo pipefail
 # Prod connection: read DB_* vars from the directus env file on the server.
 
 SERVER="phylax@netcup-vps-2-arm"
-REMOTE_ENV="/home/phylax/projects/festival_pg/directus_config"
-DUMP_LOCAL="/tmp/festival-directus-push-$(date -u +%Y%m%dT%H%M%SZ).sql"
+REMOTE_ENV="/home/phylax/projects/waldseite/directus_config"
+DUMP_LOCAL="/tmp/waldseite-directus-push-$(date -u +%Y%m%dT%H%M%SZ).sql"
 DUMP_REMOTE="/tmp/$(basename "$DUMP_LOCAL")"
 
 LOCAL_DB="${PGDATABASE:-directus}"
@@ -55,8 +55,8 @@ TARGET_DB="$(get_env DB_DATABASE)"
 [[ -n "$PGUSER" && -n "$PGPASSWORD" && -n "$TARGET_DB" ]] || {
   echo "Missing DB_USER / DB_PASSWORD / DB_DATABASE in $ENV_FILE" >&2; exit 1; }
 
-echo "    Stopping festival-directus.service"
-sudo systemctl stop festival-directus.service
+echo "    Stopping waldseite-directus.service"
+sudo systemctl stop waldseite-directus.service
 
 echo "    Resetting schema 'public' in $TARGET_DB"
 # Drop and recreate the schema rather than the DB, since the directus role
@@ -73,8 +73,8 @@ psql -v ON_ERROR_STOP=1 -d "$TARGET_DB" -f "$DUMP" >/dev/null
 
 rm -f "$DUMP"
 
-echo "    Starting festival-directus.service"
-sudo systemctl start festival-directus.service
+echo "    Starting waldseite-directus.service"
+sudo systemctl start waldseite-directus.service
 REMOTE
 
 rm -f "$DUMP_LOCAL"
