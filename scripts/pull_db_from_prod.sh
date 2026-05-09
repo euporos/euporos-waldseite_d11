@@ -5,10 +5,17 @@ set -euo pipefail
 # Destructive on local: resets the `public` schema in $PGDATABASE.
 #
 # Local connection: PGHOST/PGPORT/PGUSER/PGDATABASE from the devShell pgEnvHook.
-# Prod connection: read DB_* vars from the prod directus_config env file.
+# Prod connection: host/port/db/user are tracked in the server flake at
+# netcup-vps-2/waldseite/directus.env (so we hardcode them here to match);
+# DB_PASSWORD is the only secret and is read from the untracked .env on the VPS.
 
 SERVER="phylax@netcup-vps-2-arm"
-REMOTE_ENV="/home/phylax/projects/waldseite/directus_config"
+REMOTE_SECRET_ENV="/home/phylax/projects/waldseite/directus_config"
+PROD_HOST="127.0.0.1"
+PROD_PORT="5432"
+PROD_DB="waldseite_directus"
+PROD_USER="directus"
+
 DUMP_REMOTE="/tmp/waldseite-directus-clone-$(date -u +%Y%m%dT%H%M%SZ).sql"
 DUMP_LOCAL="/tmp/$(basename "$DUMP_REMOTE")"
 
@@ -16,7 +23,7 @@ LOCAL_DB="${PGDATABASE:-directus}"
 LOCAL_USER="${PGUSER:-directus}"
 
 echo "=== Pull production DB → local ==="
-echo "  Source: $SERVER → (DB_DATABASE from $REMOTE_ENV)"
+echo "  Source: $SERVER → $PROD_USER@$PROD_HOST:$PROD_PORT/$PROD_DB"
 echo "  Target: ${PGUSER:-?}@${PGHOST:-?}:${PGPORT:-?}/$LOCAL_DB"
 echo ""
 echo "This will DROP schema 'public' in your local '$LOCAL_DB' DB and replace"
@@ -26,23 +33,18 @@ read -r -p "Type 'yes' to continue: " confirm
 [[ "$confirm" == "yes" ]] || { echo "Aborted."; exit 1; }
 
 echo "--- Dumping production DB on $SERVER → $DUMP_REMOTE ---"
-ssh "$SERVER" bash -s "$REMOTE_ENV" "$DUMP_REMOTE" <<'REMOTE'
+ssh "$SERVER" bash -s "$REMOTE_SECRET_ENV" "$DUMP_REMOTE" "$PROD_HOST" "$PROD_PORT" "$PROD_USER" "$PROD_DB" <<'REMOTE'
 set -euo pipefail
 ENV_FILE="$1"
 DUMP="$2"
+export PGHOST="$3"
+export PGPORT="$4"
+export PGUSER="$5"
+SOURCE_DB="$6"
 
-get_env() {
-  local key="$1"
-  grep -E "^${key}=" "$ENV_FILE" | head -n1 | cut -d= -f2- | sed -e 's/^"\(.*\)"$/\1/' -e "s/^'\(.*\)'$/\1/"
-}
-
-export PGHOST="$(get_env DB_HOST)";     PGHOST="${PGHOST:-127.0.0.1}"
-export PGPORT="$(get_env DB_PORT)";     PGPORT="${PGPORT:-5432}"
-export PGUSER="$(get_env DB_USER)"
-export PGPASSWORD="$(get_env DB_PASSWORD)"
-SOURCE_DB="$(get_env DB_DATABASE)"
-[[ -n "$PGUSER" && -n "$PGPASSWORD" && -n "$SOURCE_DB" ]] || {
-  echo "Missing DB_USER / DB_PASSWORD / DB_DATABASE in $ENV_FILE" >&2; exit 1; }
+PGPASSWORD="$(grep -E "^DB_PASSWORD=" "$ENV_FILE" | head -n1 | cut -d= -f2- | sed -e 's/^"\(.*\)"$/\1/' -e "s/^'\(.*\)'$/\1/")"
+[[ -n "$PGPASSWORD" ]] || { echo "Missing DB_PASSWORD in $ENV_FILE" >&2; exit 1; }
+export PGPASSWORD
 
 pg_dump --no-owner --no-privileges --clean --if-exists \
         --dbname="$SOURCE_DB" \

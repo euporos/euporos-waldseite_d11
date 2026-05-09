@@ -5,20 +5,25 @@ set -euo pipefail
 # Destructive on prod: replaces all data in the prod directus database.
 #
 # Local connection: PGHOST/PGPORT/PGUSER/PGDATABASE from the devShell pgEnvHook.
-# Prod connection: read DB_* vars from the directus env file on the server.
+# Prod connection: host/port/db/user are tracked in the server flake at
+# netcup-vps-2/waldseite/directus.env (so we hardcode them here to match);
+# DB_PASSWORD is the only secret and is read from the untracked .env on the VPS.
 
 SERVER="phylax@netcup-vps-2-arm"
-REMOTE_ENV="/home/phylax/projects/waldseite/directus_config"
+REMOTE_SECRET_ENV="/home/phylax/projects/waldseite/directus_config"
+PROD_HOST="127.0.0.1"
+PROD_PORT="5432"
+PROD_DB="waldseite_directus"
+PROD_USER="directus"
+
 DUMP_LOCAL="/tmp/waldseite-directus-push-$(date -u +%Y%m%dT%H%M%SZ).sql"
 DUMP_REMOTE="/tmp/$(basename "$DUMP_LOCAL")"
 
 LOCAL_DB="${PGDATABASE:-directus}"
-PROD_DB="$(ssh "$SERVER" "grep -E '^DB_DATABASE=' '$REMOTE_ENV' | cut -d= -f2- | tr -d '\"'" )"
-[[ -n "$PROD_DB" ]] || { echo "Could not read DB_DATABASE from $REMOTE_ENV on $SERVER"; exit 1; }
 
 echo "=== Push local DB → production ==="
 echo "  Source: ${PGUSER:-?}@${PGHOST:-?}:${PGPORT:-?}/$LOCAL_DB"
-echo "  Target: $SERVER → $PROD_DB"
+echo "  Target: $SERVER → $PROD_USER@$PROD_HOST:$PROD_PORT/$PROD_DB"
 echo ""
 echo "This will WIPE the production database '$PROD_DB' on $SERVER and replace"
 echo "its contents with your local '$LOCAL_DB' DB. Production Directus will be"
@@ -36,24 +41,19 @@ echo "--- Uploading dump ---"
 scp "$DUMP_LOCAL" "$SERVER:$DUMP_REMOTE"
 
 echo "--- Restoring on production ---"
-ssh "$SERVER" bash -s "$DUMP_REMOTE" "$REMOTE_ENV" <<'REMOTE'
+ssh "$SERVER" bash -s "$DUMP_REMOTE" "$REMOTE_SECRET_ENV" "$PROD_HOST" "$PROD_PORT" "$PROD_USER" "$PROD_DB" <<'REMOTE'
 set -euo pipefail
 DUMP="$1"
 ENV_FILE="$2"
+export PGHOST="$3"
+export PGPORT="$4"
+export PGUSER="$5"
+TARGET_DB="$6"
 
-# Pull DB_* values out without sourcing (the env file may not be shell-safe).
-get_env() {
-  local key="$1"
-  grep -E "^${key}=" "$ENV_FILE" | head -n1 | cut -d= -f2- | sed -e 's/^"\(.*\)"$/\1/' -e "s/^'\(.*\)'$/\1/"
-}
-
-export PGHOST="$(get_env DB_HOST)";     PGHOST="${PGHOST:-localhost}"
-export PGPORT="$(get_env DB_PORT)";     PGPORT="${PGPORT:-5432}"
-export PGUSER="$(get_env DB_USER)"
-export PGPASSWORD="$(get_env DB_PASSWORD)"
-TARGET_DB="$(get_env DB_DATABASE)"
-[[ -n "$PGUSER" && -n "$PGPASSWORD" && -n "$TARGET_DB" ]] || {
-  echo "Missing DB_USER / DB_PASSWORD / DB_DATABASE in $ENV_FILE" >&2; exit 1; }
+# Read only the password from the secret-only env file.
+PGPASSWORD="$(grep -E "^DB_PASSWORD=" "$ENV_FILE" | head -n1 | cut -d= -f2- | sed -e 's/^"\(.*\)"$/\1/' -e "s/^'\(.*\)'$/\1/")"
+[[ -n "$PGPASSWORD" ]] || { echo "Missing DB_PASSWORD in $ENV_FILE" >&2; exit 1; }
+export PGPASSWORD
 
 echo "    Stopping waldseite-directus.service"
 sudo systemctl stop waldseite-directus.service
