@@ -233,8 +233,11 @@ in
   # redeploy.sh.
   schema-apply = mkApp "festival-schema-apply" ''
     set -a
+    # shellcheck disable=SC1091
     [ -f directus/.env.public ] && . directus/.env.public
+    # shellcheck disable=SC1091
     [ -f /etc/nixos/waldseite/directus.env ] && . /etc/nixos/waldseite/directus.env
+    # shellcheck disable=SC1091
     [ -f /home/phylax/projects/waldseite/directus_config ] && . /home/phylax/projects/waldseite/directus_config
     set +a
     cd directus && npx directus schema apply --yes ../schema/snapshot.json
