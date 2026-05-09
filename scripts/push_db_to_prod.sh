@@ -55,8 +55,11 @@ PGPASSWORD="$(grep -E "^DB_PASSWORD=" "$ENV_FILE" | head -n1 | cut -d= -f2- | se
 [[ -n "$PGPASSWORD" ]] || { echo "Missing DB_PASSWORD in $ENV_FILE" >&2; exit 1; }
 export PGPASSWORD
 
-echo "    Stopping waldseite-directus.service"
+echo "    Stopping waldseite-directus.service + waldseite.service"
+# Both services hold connections to $TARGET_DB; either one would block
+# DROP SCHEMA public CASCADE.
 sudo systemctl stop waldseite-directus.service
+sudo systemctl stop waldseite.service
 
 echo "    Resetting schema 'public' in $TARGET_DB"
 # Drop and recreate the schema rather than the DB, since the directus role
@@ -82,8 +85,10 @@ echo "    directus_migrations: $COUNT rows"
 
 rm -f "$DUMP"
 
-echo "    Starting waldseite-directus.service"
+echo "    Starting waldseite-directus.service + waldseite.service"
 sudo systemctl start waldseite-directus.service
+sleep 3
+sudo systemctl start waldseite.service
 REMOTE
 
 rm -f "$DUMP_LOCAL"
