@@ -102,6 +102,9 @@ else
   echo "--- Skipping file import (directus/uploads/ is empty) ---"
 fi
 
+echo "--- Normalizing WYSIWYG URLs (D8 absolute → /directus/assets/<uuid>) ---"
+bash scripts/normalize_wysiwyg_urls.sh
+
 echo "--- Setting display templates ---"
 python3 scripts/track_display_templates.py http://localhost:8055 "$ADMIN_EMAIL" "$ADMIN_PASSWORD"
 echo "--- Configuring default list-view layouts ---"
