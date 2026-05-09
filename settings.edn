@@ -1,5 +1,6 @@
 {:merge-config "../settings.edn"
  :directus-url    "/directus/"
+ :directus-proxy-upstream "http://localhost:8055" ; presence enables /directus/* reverse proxy in macchiato; leave unset in prod
  :canonical-domain "bickels-ferienwohnungen.de"
  :site-name      "Bickels Ferienwohnungen"
  :google-site-verfication ""
