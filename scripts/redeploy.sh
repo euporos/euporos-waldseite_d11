@@ -73,8 +73,22 @@ sudo systemctl stop waldseite.service
 sudo systemctl stop waldseite-directus.service
 
 # Step 6: Apply Directus schema (idempotent, database is quiescent)
+# Schema apply runs outside the systemd unit, so source the same three-layer
+# env chain (app-invariant → server-tracked → secrets) the unit gets via
+# EnvironmentFile. The server-tracked file lives in the netcup-vps-2 flake
+# checkout at /etc/nixos/.
 echo "--- Schema apply ---"
-(cd directus && npx directus schema apply --yes ../schema/snapshot.json)
+(
+  set -a
+  # shellcheck disable=SC1091
+  . directus/.env.public
+  # shellcheck disable=SC1091
+  . /etc/nixos/waldseite/directus.env
+  # shellcheck disable=SC1091
+  . /home/phylax/projects/waldseite/directus_config
+  set +a
+  cd directus && npx directus schema apply --yes ../schema/snapshot.json
+)
 
 # Step 7: Start services (downtime ends)
 echo "--- Starting services ---"
