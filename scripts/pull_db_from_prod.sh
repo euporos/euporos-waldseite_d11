@@ -5,9 +5,9 @@ set -euo pipefail
 # Destructive on local: resets the `public` schema in $PGDATABASE.
 #
 # Local connection: PGHOST/PGPORT/PGUSER/PGDATABASE from the devShell pgEnvHook.
-# Prod connection: host/port/db/user are tracked in the server flake at
-# netcup-vps-2/waldseite/directus.env (so we hardcode them here to match);
-# DB_PASSWORD is the only secret and is read from the untracked .env on the VPS.
+# Prod connection: host/port/db/user are hardcoded here to the values that
+# also live in the per-server file at $REMOTE_SECRET_ENV (which we source on
+# the VPS to pick up DB_PASSWORD).
 
 SERVER="phylax@netcup-vps-2-arm"
 REMOTE_SECRET_ENV="/home/phylax/projects/waldseite/directus_config"
@@ -42,9 +42,13 @@ export PGPORT="$4"
 export PGUSER="$5"
 SOURCE_DB="$6"
 
-PGPASSWORD="$(grep -E "^DB_PASSWORD=" "$ENV_FILE" | head -n1 | cut -d= -f2- | sed -e 's/^"\(.*\)"$/\1/' -e "s/^'\(.*\)'$/\1/")"
-[[ -n "$PGPASSWORD" ]] || { echo "Missing DB_PASSWORD in $ENV_FILE" >&2; exit 1; }
-export PGPASSWORD
+[ -f "$ENV_FILE" ] || { echo "Missing env file: $ENV_FILE" >&2; exit 1; }
+set -a
+# shellcheck disable=SC1090
+. "$ENV_FILE"
+set +a
+[[ -n "${DB_PASSWORD:-}" ]] || { echo "DB_PASSWORD not set after sourcing $ENV_FILE" >&2; exit 1; }
+export PGPASSWORD="$DB_PASSWORD"
 
 pg_dump --no-owner --no-privileges --clean --if-exists \
         --dbname="$SOURCE_DB" \

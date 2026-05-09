@@ -227,16 +227,13 @@ in
 
   # Apply schema snapshot to current Directus instance.
   # In dev, Directus auto-loads directus/.env from cwd. In prod, env comes
-  # from the same three-layer chain (app-invariant → server-tracked →
-  # secrets) the systemd unit gets via EnvironmentFile — sourced here so
-  # this app works whether invoked manually on the server or from
-  # redeploy.sh.
+  # from the same two-layer chain (app-invariant + per-server file) the
+  # systemd unit gets via EnvironmentFile — sourced here so this app works
+  # whether invoked manually on the server or from redeploy.sh.
   schema-apply = mkApp "festival-schema-apply" ''
     set -a
     # shellcheck disable=SC1091
     [ -f directus/.env.public ] && . directus/.env.public
-    # shellcheck disable=SC1091
-    [ -f /etc/nixos/waldseite/directus.env ] && . /etc/nixos/waldseite/directus.env
     # shellcheck disable=SC1091
     [ -f /home/phylax/projects/waldseite/directus_config ] && . /home/phylax/projects/waldseite/directus_config
     set +a
