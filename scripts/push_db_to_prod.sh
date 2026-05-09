@@ -41,9 +41,7 @@ echo "--- Uploading dump ---"
 scp "$DUMP_LOCAL" "$SERVER:$DUMP_REMOTE"
 
 echo "--- Restoring on production ---"
-# -t allocates a tty so sudo can prompt instead of hanging silently if
-# NOPASSWD isn't configured for waldseite-directus.service.
-ssh -t "$SERVER" bash -s "$DUMP_REMOTE" "$REMOTE_SECRET_ENV" "$PROD_HOST" "$PROD_PORT" "$PROD_USER" "$PROD_DB" <<'REMOTE'
+ssh "$SERVER" bash -s "$DUMP_REMOTE" "$REMOTE_SECRET_ENV" "$PROD_HOST" "$PROD_PORT" "$PROD_USER" "$PROD_DB" <<'REMOTE'
 set -euo pipefail
 DUMP="$1"
 ENV_FILE="$2"
