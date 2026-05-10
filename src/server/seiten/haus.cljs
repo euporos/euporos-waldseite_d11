@@ -4,6 +4,8 @@
             [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
             [psite-hiccup.core :as ph]
+            [psite-routing.core :as routing]
+            [psite-seo.json-ld :as ld]
             [db.setup :as db]
             [db.queries :as q]
             [seiten.components.dates :refer [fmt-datum]]
@@ -151,5 +153,21 @@
      {:titel        (:name haus)
       :beschreibung (:meta_description haus)
       :og-image     (when-let [img (:hauptbild haus)]
-                      (d/image-by-preset "og" img))}
+                      (d/image-by-preset "og" img))
+      :breadcrumbs  [{:name "Bickels"        :url (routing/reverse-match req :home {})}
+                     {:name "Ferienhäuser"   :url (routing/reverse-match req :haeuser {})}
+                     {:name (:name haus)     :url (:url req)}]
+      :json-ld      (ld/entity
+                     :LodgingBusiness
+                     {:name        (:name haus)
+                      :description (:meta_description haus)
+                      :url         (routing/make-path-absolute req (:url req))
+                      :image       (when-let [img (:hauptbild haus)]
+                                     (d/image-by-preset "og" img))
+                      :address     (when-let [adr (:adresse haus)]
+                                     (ld/entity
+                                      :PostalAddress
+                                      {:streetAddress  adr
+                                       :addressCountry "DE"}))
+                      :hasMap      (:google_maplink haus)})}
      (page-body req locale haus bilder wohnungen ausfluege gaestestimmen))))

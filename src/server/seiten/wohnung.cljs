@@ -4,6 +4,8 @@
             [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
             [psite-hiccup.core :as ph]
+            [psite-routing.core :as routing]
+            [psite-seo.json-ld :as ld]
             [db.setup :as db]
             [db.queries :as q]
             [preise.lookup :as plookup]
@@ -105,5 +107,15 @@
      {:titel        (str "Wohnung " (:name wohnung))
       :beschreibung ""
       :og-image     (when-let [img (:hauptbild wohnung)]
-                      (d/image-by-preset "og" img))}
+                      (d/image-by-preset "og" img))
+      :breadcrumbs  [{:name "Bickels"      :url (routing/reverse-match req :home {})}
+                     {:name "Ferienhäuser" :url (routing/reverse-match req :haeuser {})}
+                     {:name (str "Wohnung " (:name wohnung))
+                      :url  (:url req)}]
+      :json-ld      (ld/entity
+                     :Apartment
+                     {:name  (str "Wohnung " (:name wohnung))
+                      :url   (routing/make-path-absolute req (:url req))
+                      :image (when-let [img (:hauptbild wohnung)]
+                               (d/image-by-preset "og" img))})}
      (page-body req wohnung bilder ausstattung preise))))

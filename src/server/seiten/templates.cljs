@@ -47,7 +47,7 @@
   "Empty page… "
   [req head-data & comps]
   (let [{:keys [titel beschreibung into-head
-                og-image breadcrumbs cljs raw-title
+                og-image breadcrumbs json-ld cljs raw-title
                 noindex? notrack?]
          :or   {head-data []}} head-data
         locale                 (keyword (-> req :path-params :locale))
@@ -67,9 +67,12 @@
                             (get-in req [:config :noindex]))
                     :noindex))
 
-                 #_(seo/ld
-                    (seo/breadcrumb-list
-                     (or breadcrumbs [{:name titel :url (:url req)}])))
+                 (seo/ld
+                  (seo/breadcrumb-list
+                   (or breadcrumbs [{:name titel :url (:url req)}])))
+
+                 (when json-ld
+                   (seo/ld json-ld))
 
                  [:script {:src (m/cache-bust "/js/pedestrian.js")}]
 

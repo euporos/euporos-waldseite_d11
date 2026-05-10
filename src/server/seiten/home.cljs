@@ -5,6 +5,7 @@
             [kitchen-async.promise :as p]
             [psite-hiccup.core :as ph]
             [psite-routing.core :as routing]
+            [psite-seo.json-ld :as ld]
             [db.setup :as db]
             [db.queries :as q]
             [seiten.templates :as templates]
@@ -65,5 +66,16 @@
      req
      {:titel        "Bickels Ferienwohnungen — Bayerischer Wald"
       :beschreibung "Ferienwohnungen in Falkenstein, Bayerischer Wald."
-      :og-image     "/imgs/zwei_daecher.png"}
+      :og-image     "/imgs/zwei_daecher.png"
+      :json-ld      (ld/entity
+                     :LodgingBusiness
+                     {:name        "Bickels Ferienwohnungen"
+                      :description "Ferienwohnungen in Falkenstein, Bayerischer Wald."
+                      :url         (routing/make-path-absolute req (:url req))
+                      :image       (routing/make-path-absolute req "/imgs/zwei_daecher.png")
+                      :address     (ld/entity
+                                    :PostalAddress
+                                    {:addressLocality "Falkenstein"
+                                     :addressRegion   "Bayern"
+                                     :addressCountry  "DE"})})}
      (page-body req startseite haeuser))))
