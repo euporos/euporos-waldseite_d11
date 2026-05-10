@@ -17,7 +17,7 @@
 
 (def ^:private hop-by-hop
   #{"connection" "keep-alive" "proxy-authenticate" "proxy-authorization"
-    "te" "trailers" "transfer-encoding" "upgrade" "host" "content-length"})
+    "te" "trailers" "transfer-encoding" "upgrade" "content-length"})
 
 (defn- forward-req-headers [headers]
   (clj->js
