@@ -64,12 +64,21 @@
 ;; ### Footer ###
 ;; ##############
 
-(defn fb-button [url]
-  [:div.solid-icon.social-media-icon
-   [:a {:rel    "noopener noreferrer"
-        :target "_blank"
-        :href   (str "https://www.facebook.com/sharer/sharer.php?u=" url)}
-    [:img {:src "/imgs/icons/facebook-black.png"}]]])
+(defn- social-icon [{:keys [href name src]}]
+  [:a.socialmedia__item {:rel    "noopener noreferrer"
+                         :target "_blank"
+                         :href   href
+                         :aria-label name}
+   [:img.socialmedia__icon {:src src :alt name}]])
+
+(defn social-icons []
+  [:div.socialmedia
+   (social-icon {:name "Facebook"
+                 :href "TODO-facebook-url"
+                 :src  "/imgs/icons/facebook.png"})
+   (social-icon {:name "Instagram"
+                 :href "TODO-instagram-url"
+                 :src  "/imgs/icons/instagram.png"})])
 
 (defn footer-menuitem
   [req item]
@@ -91,4 +100,4 @@
      (interpose [:div.is-divider-vertical {:data-content "OR"}]
                 items)]]
    [:div.column.is-one-quarter.has-text-centered
-    (fb-button "https://bickels-ferienwohnungen.de")]])
+    (social-icons)]])
