@@ -36,7 +36,7 @@
 (defn- send-mail! [{:keys [name email kontaktnachricht]}]
   (mail/send-from-info
    {:replyTo email
-    :to      (env/setting :admin-email)
+    :to      (env/setting :contact-email)
     :subject (str "neue Kontaktanfrage von " name)
     :text    (str kontaktnachricht
                   "\n\n--------\ngesendet von " name " <" email ">")}))

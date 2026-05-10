@@ -78,14 +78,6 @@
    :from   [[s/allgemeines_t s/allgemeines]]
    :limit  1})
 
-(defn einstellungen-content []
-  {:select [:einstellungen.id
-            :einstellungen.email_buchung_empfang
-            :einstellungen.default_bild_ausfluege
-            :einstellungen.anzahl_newsitems_haus]
-   :from   [:einstellungen]
-   :limit  1})
-
 (defn wohnungen-with-ical []
   {:select   [s/wohnungen-id
               s/wohnungen-name

@@ -50,14 +50,13 @@
      "→ Tel.:  " (:telefonnummer gast) "\n")))
 
 (defn send!
-  "Sends the booking-request email. Returns the underlying send promise.
-   `recipient` is the address to receive the request; falls back to the
-   admin email if not provided."
-  [anfrage & {:keys [recipient]}]
-  (info "buchung.mailer: sending request for"
-        (-> anfrage :gast :email) "→" recipient)
-  (mail/send-from-info
-   {:to      (or recipient (env/setting :admin-email))
-    :replyTo (-> anfrage :gast :email)
-    :subject (subject anfrage)
-    :text    (body anfrage)}))
+  "Sends the booking-request email. Returns the underlying send promise."
+  [anfrage]
+  (let [recipient (env/setting :contact-email)]
+    (info "buchung.mailer: sending request for"
+          (-> anfrage :gast :email) "→" recipient)
+    (mail/send-from-info
+     {:to      recipient
+      :replyTo (-> anfrage :gast :email)
+      :subject (subject anfrage)
+      :text    (body anfrage)})))
