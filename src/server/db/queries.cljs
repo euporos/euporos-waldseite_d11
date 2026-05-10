@@ -166,6 +166,14 @@
    :where    [:= :news_haeuser.haeuser_id haus-id]
    :order-by [[s/news-datum :desc]]})
 
+(defn einzelseiten-for-sitemap [locale]
+  ;; All published einzelseiten with localized title for slug generation.
+  ;; einzelseiten-for-menus filters by :menue, which is too narrow for the sitemap.
+  {:select   [s/einzelseiten-id
+              (db/localized s/einzelseiten-titel locale)]
+   :from     [[s/einzelseiten_t s/einzelseiten]]
+   :order-by [s/einzelseiten-id]})
+
 (defn einzelseiten-for-menus [locale]
   {:select   [s/einzelseiten-id
               s/einzelseiten-menue

@@ -1,6 +1,7 @@
 (ns ^:dev/always serving.routes
   (:require
    [api.routes :as api]
+   [api.sitemap :as sitemap]
    [db.setup]
    [macchiato.middleware.params :as params]
    [macchiato.middleware.restful-format :as rf]
@@ -23,6 +24,7 @@
          :parameters {:query [:map
                               [:debug {:optional true} :boolean]]}}
     ["" home/blankhome]
+    ["sitemap.xml" {:name :sitemap :handler sitemap/handler}]
     ["test" {:name :test :handler test-page/handler}]
 
     [":locale" {:middleware []}
