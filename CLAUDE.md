@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Festival Macchiato is the web application for **Sounds of Ukraine** (sounds-of-ukraine.de), a music festival site. It's a full-stack ClojureScript application running on Node.js via the Macchiato framework, with a Directus headless CMS for content management.
+This is the web application for **Bickels Ferienwohnungen Waldseite** — a vacation rental site for holiday apartments in the Bayerischer Wald. It is the D11 migration target for the legacy Drupal 8 "waldseite" site (see `doc/d8-to-d11-import.md` and the memory notes); a future full rewrite onto the crow-framework is planned but out of scope here.
+
+The codebase was forked from the Sounds of Ukraine festival site ("Festival Macchiato"), so some library names and helpers still carry that lineage. It's a full-stack ClojureScript application running on Node.js via the Macchiato framework, with a Directus headless CMS for content management. Pages cover the home page, houses (`haus`), apartments (`wohnung`), gallery, prices, contact/booking, excursions, news, and CMS-driven single pages.
 
 ## First-time dev setup
 
@@ -74,8 +76,8 @@ nix run .#deploy-prod         # deploy to production (pulls main on server, runs
 src/
   server/
     serving/        # HTTP server, router, middleware (entry: serving.core/serve)
-    seiten/         # Page handlers: home, concerts, musician, admin, page
-    api/            # API endpoints: book, ical, qr, proxy
+    seiten/         # Page handlers: home, haus, wohnung, haeuser, galerie, preise, kontakt, buchung, ausfluege, aktuelles, einzelseite, admin
+    api/            # API endpoints: book, ical, qr, directus_proxy
     db/             # Database setup (mount), HoneySQL queries, schema defs
     directus/       # Directus CMS data fetching
     mail/           # Email via nodemailer
@@ -115,13 +117,13 @@ scripts/
 
 **Routing** is split between `seiten/routes.cljs` (pages) and `api/routes.cljs` (API endpoints), composed in `serving/routes.cljs`.
 
-**Database queries** are composed with HoneySQL in `db/queries.cljs`, using compile-time validated symbols from `db/schema` (e.g., `s/concerts-id` for `:concerts.id`). Translated collections query `_v` views (e.g., `concerts_v`) with `db/localized` for locale-aware COALESCE fallback. Views are generated at compile time by `dschema.views` and created on server startup in `db/setup.cljs`.
+**Database queries** are composed with HoneySQL in `db/queries.cljs`, using compile-time validated symbols from `db/schema` (e.g., `s/haus-id` for `:haus.id`). Translated collections query `_v` views (e.g., `haus_v`) with `db/localized` for locale-aware COALESCE fallback. Views are generated at compile time by `dschema.views` and created on server startup in `db/setup.cljs`.
 
 **Schema system (dschema):** The `defschema` macro in `src/dschema/dschema/core.clj` reads `schema/snapshot.json` at shadow-cljs compile time and emits into `db.schema`:
-- A `def` per collection (e.g., `(def concerts :concerts)`)
-- A `def` per field (e.g., `(def concerts-id :concerts.id)`)
-- Translation fields appear on the parent collection (e.g., `concerts-title` for a field from `concerts_translations`)
-- View name defs for translated collections (e.g., `(def concerts_v :concerts_v)`)
+- A `def` per collection (e.g., `(def haus :haus)`)
+- A `def` per field (e.g., `(def haus-id :haus.id)`)
+- Translation fields appear on the parent collection (e.g., `haus-meta_description` for a field from `haus_translations`)
+- View name defs for translated collections (e.g., `(def haus_v :haus_v)`)
 - `view-defs` — HoneySQL maps executed at server startup to CREATE OR REPLACE VIEW
 - `schema-meta` — full schema metadata for downstream tooling
 - `as` helper for HoneySQL SELECT aliasing
