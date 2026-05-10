@@ -9,7 +9,8 @@
             [preise.lookup :as plookup]
             [seiten.components.gallery :as gallery]
             [seiten.templates :as templates]
-            [serving.routing :as rt]))
+            [serving.routing :as rt]
+            [directus.core :as d]))
 
 (defn- fmt-eur [n]
   (when n
@@ -102,5 +103,7 @@
     (templates/render-page
      req
      {:titel        (str "Wohnung " (:name wohnung))
-      :beschreibung ""}
+      :beschreibung ""
+      :og-image     (when-let [img (:hauptbild wohnung)]
+                      (d/image-by-preset "og" img))}
      (page-body req wohnung bilder ausstattung preise))))

@@ -149,5 +149,7 @@
     (templates/render-page
      req
      {:titel        (:name haus)
-      :beschreibung (:meta_description haus)}
+      :beschreibung (:meta_description haus)
+      :og-image     (when-let [img (:hauptbild haus)]
+                      (d/image-by-preset "og" img))}
      (page-body req locale haus bilder wohnungen ausfluege gaestestimmen))))
