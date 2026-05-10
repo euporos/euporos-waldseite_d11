@@ -247,9 +247,11 @@
 (defn ^:dev/after-load start []
   (rdom/render [hauptform] (.getElementById js/document "mainframe")))
 
+(def loading-screen
+  [:div.loadscreen
+   [:div.lds-dual-ring__msg "Lade Buchungsdaten…"]
+   [:div.lds-dual-ring [:div]]])
+
 (defn ^:export main []
-  (rdom/render
-   [:div.container.has-text-centered
-    [:p "Lade Buchungsdaten…"]]
-   (.getElementById js/document "mainframe"))
+  (rdom/render loading-screen (.getElementById js/document "mainframe"))
   (ajx/fetch-data! preise wohnungen start))

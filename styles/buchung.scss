@@ -188,3 +188,42 @@ button.slick-next.slick-arrow {
 .buchung_ueberschrift {
   color: #f7eddc;
 }
+
+// ---------- Loading spinner (shown while booking data is fetched) ----------
+// Mirrors the .lds-dual-ring loader used by the admin preise SPA. Duplicated
+// here rather than imported — the buchung bundle is independent of the
+// preise stylesheet.
+
+.loadscreen {
+  text-align: center;
+  margin: 4rem auto;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 96px;
+  height: 96px;
+
+  &__msg {
+    color: #f7eddc;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 4px;
+  border-radius: 50%;
+  border: 6px solid #f7eddc;
+  border-color: #f7eddc transparent #f7eddc transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
