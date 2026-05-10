@@ -113,6 +113,35 @@ body {
 
 body > .footer { margin-top: auto; }
 
+.socialmedia {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+
+  &__item {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__icon {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    background-color: maroon;
+    -webkit-mask: var(--icon-url) center / contain no-repeat;
+    mask: var(--icon-url) center / contain no-repeat;
+  }
+
+  &__item[aria-label="Facebook"] .socialmedia__icon {
+    --icon-url: url("/imgs/icons/facebook.png");
+  }
+
+  &__item[aria-label="Instagram"] .socialmedia__icon {
+    --icon-url: url("/imgs/icons/instagram.png");
+  }
+}
+
 .navbar { background-color: $waldseite-base; }
 
 .base-background  { background: $waldseite-base; }
