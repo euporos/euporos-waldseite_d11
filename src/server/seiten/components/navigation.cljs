@@ -52,20 +52,6 @@
   [:nav.navbar
    {:role       "navigation"
     :aria-label "main navigation"}
-   [:div.navbar-brand
-    [:a.navbar-item.nationalpark-partner-top
-     {:rel    "noopener noreferrer"
-      :target "_blank"
-      :href   "https://www.nationalpark-partner.com/"}
-     [:img {:src "/imgs/nationalpark.png"}]]
-    [:a.navbar-burger.burger
-     {:role          "button"
-      :aria-label    "menu"
-      :aria-expanded "false"
-      :data-target   (:menuid headitem)}
-     [:span {:aria-hidden "true"}]
-     [:span {:aria-hidden "true"}]
-     [:span {:aria-hidden "true"}]]]
    [:div.navbar-menu {:id (:menuid headitem)} items]])
 
 ;; ##############
