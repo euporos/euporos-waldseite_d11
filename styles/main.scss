@@ -32,31 +32,6 @@
        url('/fonts/dancing-script-v29-latin-regular.woff')  format('woff');
 }
 
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/material-icons.woff2') format('woff2');
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-}
-
 // ---------------------------------------------------------------------------
 // Waldseite palette — burlywood accent on light Bulma defaults.
 // Source: scss/_common.scss in waldseite_alles ($basecolor: burlywood).
@@ -67,23 +42,11 @@ $family-primary: 'Quicksand', sans-serif;
 $widescreen-enabled:        false;
 $fullhd-enabled:            false;
 $primary:                   burlywood;
-$link:                      maroon;
 $footer-background-color:   burlywood;
 
 $waldseite-base:      burlywood;
 // Same warm off-white the prod site uses for .mainpanel / .panel-background.
 $waldseite-base-soft: rgba(235, 219, 199, 0.85);
-
-// Lightened burlywood — same value the legacy compiled CSS lands on for
-// navbar/dropdown hover (waldseite_alles/public_haupt/css/bulma_custom.css).
-$waldseite-base-hover: rgb(234.675, 219.0163793103, 198.825);
-
-$navbar-background-color:                    $waldseite-base;
-$navbar-item-hover-background-color:         $waldseite-base-hover;
-$navbar-item-hover-color:                    maroon;
-$navbar-dropdown-background-color:           $waldseite-base;
-$navbar-dropdown-item-hover-background-color: $waldseite-base-hover;
-$navbar-dropdown-item-hover-color:           maroon;
 
 @import '../node_modules/bulma/bulma.sass';
 
@@ -149,35 +112,6 @@ body {
 }
 
 body > .footer { margin-top: auto; }
-
-.socialmedia {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-
-  &__item {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
-  }
-
-  &__icon {
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    background-color: var(--link-color);
-    -webkit-mask: var(--icon-url) center / contain no-repeat;
-    mask: var(--icon-url) center / contain no-repeat;
-  }
-
-  &__item[aria-label="Facebook"] .socialmedia__icon {
-    --icon-url: url("/imgs/icons/facebook.png");
-  }
-
-  &__item[aria-label="Instagram"] .socialmedia__icon {
-    --icon-url: url("/imgs/icons/instagram.png");
-  }
-}
 
 .navbar { background-color: $waldseite-base; }
 
