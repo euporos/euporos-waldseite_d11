@@ -11,7 +11,7 @@
 (defn send-from-info [message]
   (mail/send! transporter
               (merge
-               {:from {:name "Sounds of Ukraine"
+               {:from {:name "Bickels Ferienwohnungen"
                        :address (env/setting [:email-transporter :auth :user])}}
                message)))
 
