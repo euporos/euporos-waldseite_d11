@@ -52,6 +52,15 @@
   [:nav.navbar
    {:role       "navigation"
     :aria-label "main navigation"}
+   [:div.navbar-brand
+    [:a.navbar-burger.burger
+     {:role          "button"
+      :aria-label    "menu"
+      :aria-expanded "false"
+      :data-target   (:menuid headitem)}
+     [:span {:aria-hidden "true"}]
+     [:span {:aria-hidden "true"}]
+     [:span {:aria-hidden "true"}]]]
    [:div.navbar-menu {:id (:menuid headitem)} items]])
 
 ;; ##############
