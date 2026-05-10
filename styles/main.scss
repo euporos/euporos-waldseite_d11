@@ -96,6 +96,11 @@ $navbar-dropdown-item-hover-color:           maroon;
 // Site-specific rules (ported from style/toplevel.clj)
 // ---------------------------------------------------------------------------
 
+p {
+  text-align: justify;
+  hyphens: auto;
+}
+
 .hyphenate { hyphens: auto; }
 
 .test { color: tomato; }
