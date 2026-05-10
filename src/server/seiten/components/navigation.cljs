@@ -68,9 +68,9 @@
 (defn social-icons []
   [:div.socialmedia
    (social-icon {:name "Facebook"
-                 :href "TODO-facebook-url"})
-   (social-icon {:name "Instagram"
-                 :href "TODO-instagram-url"})])
+                 :href "https://www.facebook.com/DasAlteZollhaus"})
+   #_(social-icon {:name "Instagram"
+                   :href "TODO-instagram-url"})])
 
 (defn footer-menuitem
   [req item]
