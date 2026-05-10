@@ -6,6 +6,7 @@
             [psite-hiccup.core :as ph]
             [db.setup :as db]
             [db.queries :as q]
+            [seiten.components.dates :refer [fmt-datum]]
             [seiten.components.gallery :as gallery]
             [seiten.templates :as templates]
             [serving.routing :as rt]
@@ -48,11 +49,21 @@
      [:div.content.has-text-centered
       [:strong titel]]]]])
 
+(defn- gaestestimme [locale {:keys [id name datum alter text]}]
+  [:blockquote.testimonial
+   {:id (str "gaestestimme-" id)}
+   [:div.testimonial-quote.content (ph/dangerous-html (or text ""))]
+   [:footer.testimonial-attribution
+    [:span.testimonial-name name]
+    (when alter [:span ", " alter " Jahre"])
+    (when-let [s (fmt-datum datum locale)]
+      [:span.testimonial-date " — " s])]])
+
 (defn- maplink [href]
   [:a {:href href :target "_blank" :rel "noreferrer noopener"}
    [:i.fa.material-icons.is-size-1 "location_on"]])
 
-(defn- page-body [req haus bilder wohnungen ausfluege]
+(defn- page-body [req locale haus bilder wohnungen ausfluege gaestestimmen]
   (let [{:keys [id name beschreibung ausstattung anreisetext buchungstext
                 google_maplink adresse hauptbild ausstattung_tabelle]} haus
         adresszeilen (when adresse (str/split adresse #"\n"))]
@@ -100,6 +111,12 @@
        [:div.columns.is-multiline.is-centered
         (map (partial ausflugsvorschau req id) ausfluege)]]
 
+      (when (seq gaestestimmen)
+        [:div.block.textabschnitt.px-4
+         [:h2.title.is-3.has-text-centered {:id "gaestestimmen"} "Gästestimmen"]
+         [:div.testimonials
+          (map (partial gaestestimme locale) gaestestimmen)]])
+
       [:div.block.textabschnitt.px-4
        [:h2.title.is-3.has-text-centered {:id "buchung"} "Buchungsanfrage"]
        [:div.content (ph/dangerous-html (or buchungstext ""))]]
@@ -124,6 +141,7 @@
           bilder    (db/query (q/haus-bilder haus-id))
           wohnungen (db/query (q/wohnungen-by-haus locale haus-id))
           ausfluege (db/query (q/ausfluege-by-haus locale haus-id))
+          gaestestimmen (db/query (q/gaestestimmen-by-haus locale haus-id))
           allg      (-> (db/query (q/allgemeines-content locale))
                         (.then (comp :ausstattung_tabelle first)))
           haus      (assoc haus :ausstattung_tabelle
@@ -132,4 +150,4 @@
      req
      {:titel        (:name haus)
       :beschreibung (:meta_description haus)}
-     (page-body req haus bilder wohnungen ausfluege))))
+     (page-body req locale haus bilder wohnungen ausfluege gaestestimmen))))

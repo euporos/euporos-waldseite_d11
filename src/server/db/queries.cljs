@@ -132,6 +132,20 @@
    :where  [:= s/einzelseiten-id einzelseite-id]
    :limit  1})
 
+(defn gaestestimmen-by-haus [locale haus-id]
+  {:select   [s/gaestebuch-id
+              s/gaestebuch-name
+              s/gaestebuch-datum
+              s/gaestebuch-alter
+              s/gaestebuch-text]
+   :from     [s/gaestebuch]
+   :where    [:and
+              [:= s/gaestebuch-status "published"]
+              [:= s/gaestebuch-haus haus-id]
+              [:= s/gaestebuch-sprache (name locale)]]
+   :order-by [[s/gaestebuch-datum :desc]
+              [s/gaestebuch-id :desc]]})
+
 (defn news-overview [locale]
   {:select   [s/news-id
               s/news-bild
