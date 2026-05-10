@@ -290,37 +290,47 @@ body > .footer { margin-top: auto; }
 .testimonials {
   max-width: 44rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 }
 
 .testimonial {
-  margin: 0 0 2.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
+  position: relative;
+  margin: 0;
+  padding: 1.5rem 1.75rem 1.25rem;
+  background: #fffdf6;
+  color: #2b2b2b;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.06),
+    0 6px 14px -8px rgba(0, 0, 0, 0.25);
 
-  & + .testimonial {
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    padding-top: 2rem;
-  }
+  // Slight, alternating tilt — every other card leans the other way.
+  transform: rotate(-0.4deg);
+  &:nth-child(even) { transform: rotate(0.5deg); background: #fffaf0; }
+  &:nth-child(3n)   { transform: rotate(-0.2deg); }
 }
 
 .testimonial-quote {
   font-style: italic;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.6;
 
   & > :first-child { margin-top: 0; }
-  & > :last-child  { margin-bottom: 0.4rem; }
+  & > :last-child  { margin-bottom: 0.5rem; }
 }
 
 .testimonial-attribution {
   font-style: normal;
-  font-size: 0.95rem;
-  opacity: 0.75;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.6);
   text-align: right;
+  margin-top: 0.25rem;
 }
 
-.testimonial-name { font-weight: 600; }
+.testimonial-name { font-weight: 600; color: rgba(0, 0, 0, 0.75); }
 
 // ---------------------------------------------------------------------------
 // Floating-note animation (ported from style/notes.clj)
