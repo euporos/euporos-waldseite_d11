@@ -64,5 +64,6 @@
     (templates/render-page
      req
      {:titel        "Bickels Ferienwohnungen — Bayerischer Wald"
-      :beschreibung "Ferienwohnungen in Falkenstein, Bayerischer Wald."}
+      :beschreibung "Ferienwohnungen in Falkenstein, Bayerischer Wald."
+      :og-image     "/imgs/zwei_daecher.png"}
      (page-body req startseite haeuser))))

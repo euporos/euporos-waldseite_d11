@@ -33,6 +33,14 @@
   (let [item (statify-navitem req item)]
     [:a.navbar-item {:href (:href item)} (:name item)]))
 
+(defn navbar-item-icon
+  "Like navbar-item but renders an image (with :name as alt text) instead of text."
+  [req item]
+  (let [item (statify-navitem req item)]
+    [:a.navbar-item.navbar-item--icon {:href (:href item)
+                                       :aria-label (:name item)}
+     [:img {:src (:icon item) :alt (:name item)}]]))
+
 (defn navbar-dropdown
   [_req headitem items]
   [:div.navbar-item.has-dropdown.is-hoverable
@@ -64,21 +72,19 @@
 ;; ### Footer ###
 ;; ##############
 
-(defn- social-icon [{:keys [href name src]}]
-  [:a.socialmedia__item {:rel    "noopener noreferrer"
-                         :target "_blank"
-                         :href   href
+(defn- social-icon [{:keys [href name]}]
+  [:a.socialmedia__item {:rel        "noopener noreferrer"
+                         :target     "_blank"
+                         :href       href
                          :aria-label name}
-   [:img.socialmedia__icon {:src src :alt name}]])
+   [:span.socialmedia__icon]])
 
 (defn social-icons []
   [:div.socialmedia
    (social-icon {:name "Facebook"
-                 :href "TODO-facebook-url"
-                 :src  "/imgs/icons/facebook.png"})
+                 :href "TODO-facebook-url"})
    (social-icon {:name "Instagram"
-                 :href "TODO-instagram-url"
-                 :src  "/imgs/icons/instagram.png"})])
+                 :href "TODO-instagram-url"})])
 
 (defn footer-menuitem
   [req item]

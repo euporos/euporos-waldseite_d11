@@ -37,8 +37,9 @@
           [{:type :headitem :renderfn cnav/navbar-section :class "navbar-start"}
 
            {:type     :menuitem :id :home
-            :renderfn cnav/navbar-item
+            :renderfn cnav/navbar-item-icon
             :pathfn   (fn [req] (rt/path-fixed :home req))
+            :icon     "/imgs/zwei_daecher.png"
             :name     {:de "Startseite" :en "Home"}}
 
            {:type     :insertpoint :id :haeuser
