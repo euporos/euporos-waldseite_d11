@@ -20,7 +20,11 @@ DUMP_REMOTE="/tmp/waldseite-directus-clone-$(date -u +%Y%m%dT%H%M%SZ).sql"
 DUMP_LOCAL="/tmp/$(basename "$DUMP_REMOTE")"
 
 LOCAL_DB="${PGDATABASE:-directus}"
-LOCAL_USER="${PGUSER:-directus}"
+# The role Directus connects as locally (DB_USER in directus/.env). This is
+# distinct from PGUSER, which is the devShell superuser ('postgres') used to
+# administer the cluster. Restored objects must be owned by — and grants made
+# to — the directus role, otherwise Directus hits "permission denied".
+LOCAL_USER="directus"
 
 echo "=== Pull production DB → local ==="
 echo "  Source: $SERVER → $PROD_USER@$PROD_HOST:$PROD_PORT/$PROD_DB"
