@@ -1,8 +1,6 @@
 (ns ^:dev/always serving.routes
   (:require
-   [api.directus-proxy :as directus-proxy]
    [api.routes :as api]
-   [config.env :as env]
    [db.setup]
    [macchiato.middleware.params :as params]
    [macchiato.middleware.restful-format :as rf]
@@ -16,23 +14,23 @@
    [seiten.test-page :as test-page]))
 
 (def routes
-  (cond-> [api/routes
+  ;; The /directus/* reverse proxy is dispatched in serving.core/app, before
+  ;; the macchiato middleware stack runs, so request bodies survive for POST
+  ;; login etc. It is therefore not registered here.
+  [api/routes
 
-           ["/" {:coercion   reitit.coercion.malli/coercion
-                 :parameters {:query [:map
-                                      [:debug {:optional true} :boolean]]}}
-            ["" home/blankhome]
-            ["test" {:name :test :handler test-page/handler}]
+   ["/" {:coercion   reitit.coercion.malli/coercion
+         :parameters {:query [:map
+                              [:debug {:optional true} :boolean]]}}
+    ["" home/blankhome]
+    ["test" {:name :test :handler test-page/handler}]
 
-            [":locale" {:middleware []}
-             ;; No :parameters {:path …} here — locale is keywordized by
-             ;; routing/wrap-locale, and a parent path schema would force reitit
-             ;; to merge with each leaf's path schema (needs malli.util).
+    [":locale" {:middleware []}
+     ;; No :parameters {:path …} here — locale is keywordized by
+     ;; routing/wrap-locale, and a parent path schema would force reitit
+     ;; to merge with each leaf's path schema (needs malli.util).
 
-             seiten/routes]]]
-    (env/setting :directus-proxy-upstream)
-    (conj ["/directus/*path" {:name    :directus-proxy
-                              :handler directus-proxy/handler}])))
+     seiten/routes]]])
 
 (def router
   (ring/router

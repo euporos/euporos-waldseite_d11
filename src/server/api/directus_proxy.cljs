@@ -1,14 +1,12 @@
 (ns api.directus-proxy
-  "Reverse-proxies /directus/* to a local Directus upstream so that
-   stored URLs like /directus/assets/<uuid> resolve in dev the way they
-   do in prod (where the edge web server fronts Directus on the same
-   path). Enabled by setting :directus-proxy-upstream; intended for dev.
+  "Reverse-proxies /directus/* to a local Directus upstream so that the dev
+   environment looks like prod, where edge nginx fronts Directus on the same
+   path. Enabled by setting :directus-proxy-upstream.
 
-   Request bodies are not forwarded — the surrounding macchiato stack
-   (wrap-restful-format, wrap-params) consumes them before the handler
-   runs. GET is the only method this proxy supports in practice, which
-   covers WYSIWYG asset rendering. Editors hit the Directus admin
-   directly on its own port."
+   Dispatched directly from serving.core/app before the macchiato middleware
+   stack runs, so the raw Node request stream is still readable here. That
+   matters for non-GET methods (login POST, schema PATCH, asset PUT) whose
+   bodies wrap-params/wrap-restful-format would otherwise consume."
   {:clj-kondo/config '{:lint-as {macchiato-async.core/defhandler clojure.core/defn}}}
   (:require [macchiato-async.core :refer-macros [defhandler]]
             [clojure.string :as str]
@@ -36,16 +34,39 @@
       (cond-> m
         (seq set-cookies) (assoc "set-cookie" set-cookies)))))
 
+(defn- read-body
+  "Buffer the Node IncomingMessage stream into a single Buffer."
+  [stream]
+  (js/Promise.
+   (fn [resolve reject]
+     (let [chunks #js []]
+       (.on stream "data" (fn [chunk] (.push chunks chunk)))
+       (.on stream "end"  (fn [] (resolve (.concat js/Buffer chunks))))
+       (.on stream "error" reject)))))
+
 (defhandler handler [req]
+  ;; Strip the /directus prefix before forwarding: Directus's PUBLIC_URL
+  ;; affects emitted URLs (admin SPA <base href>, emails) but NOT where its
+  ;; routes are mounted — those always live at /. Prod nginx does the same.
   (let [upstream (str/replace (env/setting :directus-proxy-upstream) #"/+$" "")
-        path     (or (-> req :path-params :path) "")
+        uri      (or (:uri req) "/")
+        path     (str/replace-first uri #"^/directus" "")
+        path     (if (str/blank? path) "/" path)
         qs       (:query-string req)
-        url      (str upstream "/" path (when (seq qs) (str "?" qs)))
+        url      (str upstream path (when (seq qs) (str "?" qs)))
         method   (str/upper-case (name (:request-method req)))
-        opts     #js {:method   method
-                      :headers  (forward-req-headers (:headers req))
-                      :redirect "manual"}]
-    (-> (js/fetch url opts)
+        body-method? (not (#{"GET" "HEAD"} method))]
+    (-> (if body-method?
+          (read-body (:body req))
+          (js/Promise.resolve nil))
+        (.then (fn [body-buf]
+                 (let [opts #js {:method   method
+                                 :headers  (forward-req-headers (:headers req))
+                                 :redirect "manual"}]
+                   (when body-buf
+                     (set! (.-body opts) body-buf)
+                     (set! (.-duplex opts) "half"))
+                   (js/fetch url opts))))
         (.then (fn [resp]
                  (.then (.arrayBuffer resp)
                         (fn [buf]
