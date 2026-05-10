@@ -14,7 +14,7 @@ Secrets are not committed. After cloning:
 cp directus/.env.example directus/.env  # fill in DB_PASSWORD, KEY, SECRET
 ```
 
-`settings.edn` uses `#psite/secret "name"` tags to mark required secret positions. The parent `../settings.edn` (outside this repo, untracked) must supply values at the matching key paths: `:admin-email`, `:admin-password`, `:email-transporter {:auth {:user ... :pass ...}}`, `:db-config {:password ...}`. The app refuses to start if any remain unresolved — the error names exactly which tags are missing.
+`settings.edn` uses `#psite/secret "name"` tags to mark required secret positions. The parent `../settings.edn` (outside this repo, untracked) must supply values at the matching key paths: `:admin-email`, `:email-transporter {:auth {:user ... :pass ...}}`, `:db-config {:password ...}`. The app refuses to start if any remain unresolved — the error names exactly which tags are missing.
 
 **NixOS hosts:** Directus depends transitively on `sharp`, which ships unpatched prebuilt binaries (linked against `/lib64/ld-linux-x86-64.so.2`). The `flake.nix` does not set this up — it relies on `programs.nix-ld.enable = true` being set on the host. Without it, `npx directus start` fails to load `libstdc++.so.6` at runtime even though `nix run .#dev` boots fine.
 

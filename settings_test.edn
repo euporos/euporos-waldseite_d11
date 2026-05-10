@@ -18,7 +18,6 @@
                            :auth   {:user "technical@olivermotz.com"}}
  :violinas-email "technical@olivermotz.com"; "piano@violina-petrychenko.de"
  :violinas-phone "+49 176/615 25 86 8"
- :admin-password "$2b$11$k3QxJiTBUuYY6Q8n8gmQueBJTeKOkdhoxp0WWU/W4xWoCOKQY2p0a"
  :email-transporter {:host   "mx2ff9.netcup.net"
                      :port   465
                      :secure true
