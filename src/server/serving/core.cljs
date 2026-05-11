@@ -96,7 +96,7 @@
    :script-src      (cond-> ["'self'" "'unsafe-inline'"]
                       (= :dev (env/setting :mode)) (conj "'unsafe-eval'"))
    :style-src       ["'self'" "'unsafe-inline'"]
-   :img-src         (cond-> ["'self'" "data:"]
+   :img-src         (cond-> ["'self'" "data:" "https:"]
                       directus-origin (conj directus-origin))
    ;; slick-carousel inlines its arrow-icon font as data: URIs; without
    ;; an explicit font-src the directive falls back to default-src='self'
