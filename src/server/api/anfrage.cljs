@@ -7,6 +7,7 @@
             [cljs.reader :as reader]
             [buchung.mailer :as mailer]
             [specs.anfrage :as specs]
+            [analytics.posthog :as ph]
             [taoensso.timbre :refer [warn warnf]]))
 
 (defn- read-payload
@@ -35,7 +36,14 @@
 
       :else
       (-> (mailer/send! data)
-          (.then (fn [_] (-> (r/ok "ok") (r/content-type "text/plain"))))
+          (.then (fn [_]
+                   (ph/capture! req "Buchungsanfrage gesendet"
+                                {:wohnung (:wohnungsname data)
+                                 :locale  (name (:locale req))})
+                   (-> (r/ok "ok") (r/content-type "text/plain"))))
           (.catch (fn [e]
                     (warnf "buchung anfrage mail failed: %s" (.-message e))
+                    (ph/capture! req "Buchungsanfrage fehlgeschlagen"
+                                 {:wohnung (:wohnungsname data)
+                                  :error   (.-message e)})
                     {:status 500 :headers {"Content-Type" "text/plain"} :body "send-failed"}))))))

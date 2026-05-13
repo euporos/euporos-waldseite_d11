@@ -29,6 +29,7 @@
     "nodemailer": "^8.0.4",
     "path": "^0.12.7",
     "pg": "^8.20.0",
+    "posthog-node": "^5.34.1",
     "qrcode-svg": "^1.1.0",
     "qs": "^6.15.0",
     "querystring": "^0.2.0",

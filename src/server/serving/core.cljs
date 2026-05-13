@@ -2,6 +2,7 @@
   (:require [api.directus-proxy :as directus-proxy]
             [clojure.string :as str]
             [config.env :as env]
+            [analytics.posthog :as ph]
             [db.setup]
             [macchiato.middleware.defaults :as defaults]
             [macchiato.middleware.session.memory :as session.memory]
@@ -152,6 +153,7 @@
       (macchiato-app req res raise))
     (catch js/Error e
       (println "Caught exception: %s" (.-stack e))
+      (ph/capture-exception! e req)
       (res (err/error->response e req)))))
 
 (defn ^:dev/after-load load-state []
@@ -169,6 +171,5 @@
       :cookies    {:signed? false}
       :on-success #(info "Server started on" host ":" port "\n"
                          #_#_"running build" settings/build-id)})))
-
 
 

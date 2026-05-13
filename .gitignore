@@ -52,3 +52,4 @@ preise.edn
 /pre_directus_upgrade_*.sql
 /k*_waldseite_*.sql.zip
 /.playwright-mcp
+.env

@@ -5,6 +5,7 @@
             [kitchen-async.promise :as p]
             [setup.mail :as mail]
             [config.env :as env]
+            [analytics.posthog :as ph]
             [seiten.templates :as templates]))
 
 (defn- result-page [req heading body]
@@ -60,6 +61,8 @@
 
       :else
       (-> (p/let [_ (send-mail! form)]
+            (ph/capture! req "Kontaktanfrage gesendet"
+                         {:locale (name (:locale req))})
             (result-page req "Nachricht verschickt"
                          [:p "Vielen Dank für Ihre Nachricht! "
                           "Sie erhalten in Kürze eine Antwort."]))
