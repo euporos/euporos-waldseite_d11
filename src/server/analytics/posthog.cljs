@@ -6,7 +6,7 @@
 
    Identity: visitors are identified by a salted-hash tracking-id stored on
    the macchiato session (`[:session :tracking :id]`), populated by
-   setup.tracking/wrap-tracking-id. The browser snippet bootstraps
+   psite-tracking.core/wrap-tracking-id. The browser snippet bootstraps
    posthog-js with the same value and runs with disable_cookie: true, so
    client and server events share an identity without an analytics cookie."
   (:require ["posthog-node" :refer [PostHog]]

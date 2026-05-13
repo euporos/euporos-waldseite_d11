@@ -18,8 +18,8 @@
             [reitit.ring :as ring]
             [seiten.generics :as generics]
             [psite-rate-limit.core :as rate-limit]
+            [psite-tracking.core :as tracking]
             [serving.routes :refer [router]]
-            [setup.tracking :as tracking]
             [setup.config-check]
             [setup.session]
             [taoensso.timbre :refer [info]]))
