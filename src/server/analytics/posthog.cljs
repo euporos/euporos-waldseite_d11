@@ -43,15 +43,11 @@
         (catch :default _ nil)))))
 
 (defn- distinct-id
-  "Match the distinct_id the browser snippet uses. The snippet bootstraps
-   posthog-js with `[:session :tracking :id]` (rotating SHA256 from
-   psite.admin-auth/wrap-tracking-id) and runs with disable_cookie: true,
-   so the ph_<token>_posthog cookie is never set. We read the same session
-   value here; the cookie path is kept as a fallback in case the snippet
-   later switches to cookie-based identity."
+  "Match the distinct_id the browser snippet uses. posthog-js stores its
+   anonymous id in `ph_<project-id>_posthog`; we read the same cookie so
+   server-side events land on the same person as client pageviews."
   [req]
-  (or (get-in req [:session :tracking :id])
-      (get (parse-ph-cookie req) "distinct_id")
+  (or (get (parse-ph-cookie req) "distinct_id")
       "anonymous"))
 
 (defn- session-id [req]
