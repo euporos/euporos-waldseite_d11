@@ -2,5 +2,7 @@
 
 posthog.init('{{project-id}}',
              {api_host: '{{host}}'
+              ,bootstrap: {distinctID: '{{tracking-id}}'}
+              ,disable_cookie: true
               ,defaults: '2026-01-30'
               ,person_profiles: 'identified_only'});

@@ -19,6 +19,7 @@
             [seiten.generics :as generics]
             [psite-rate-limit.core :as rate-limit]
             [serving.routes :refer [router]]
+            [setup.tracking :as tracking]
             [setup.config-check]
             [setup.session]
             [taoensso.timbre :refer [info]]))
@@ -124,6 +125,7 @@
 (def macchiato-app
   (cond-> reitit-handler
     (not (env/setting :show-errors?)) wrap-in-generic-converter
+    true tracking/wrap-tracking-id
     true (defaults/wrap-defaults
           (-> defaults/site-defaults
               #_(assoc-in [:session :cookie-attrs] {:max-age (* 2 psite.track/rotation-interval)})

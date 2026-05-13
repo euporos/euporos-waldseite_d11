@@ -115,8 +115,10 @@
                  (when (and (get-in req [:config :posthog])
                             (not notrack?))
                    [:script
-                    (ph/dangerous-html (tache/render (rc/inline "posthog.js")
-                                                     (get-in req [:config :posthog])))])]
+                    (ph/dangerous-html
+                     (tache/render (rc/inline "posthog.js")
+                                   (assoc (get-in req [:config :posthog])
+                                          :tracking-id (get-in req [:session :tracking :id]))))])]
 
                 into-head)
 

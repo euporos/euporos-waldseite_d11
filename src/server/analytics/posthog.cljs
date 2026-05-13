@@ -2,7 +2,13 @@
   "Server-side PostHog analytics client.
    Reads config from :posthog {:project-id … :host …} in settings.edn.
    All public functions are safe to call when PostHog is unconfigured — they
-   become no-ops."
+   become no-ops.
+
+   Identity: visitors are identified by a salted-hash tracking-id stored on
+   the macchiato session (`[:session :tracking :id]`), populated by
+   setup.tracking/wrap-tracking-id. The browser snippet bootstraps
+   posthog-js with the same value and runs with disable_cookie: true, so
+   client and server events share an identity without an analytics cookie."
   (:require ["posthog-node" :refer [PostHog]]
             [config.env :as env]
             [mount.core :refer [defstate]]
@@ -10,10 +16,6 @@
             [taoensso.timbre :refer [infof warnf]]))
 
 (declare client)
-
-(defn- ph-cookie-name []
-  (when-let [pid (:project-id (env/setting :posthog))]
-    (str "ph_" pid "_posthog")))
 
 (defstate client
   :start (let [{:keys [project-id host]} (env/setting :posthog)]
@@ -33,25 +35,9 @@
 ;; ---------------------------------------------------------------------------
 ;; Helpers
 
-(defn- parse-ph-cookie
-  "PostHog stores `{\"distinct_id\":\"…\",\"$session_id\":\"…\",…}` in its cookie."
-  [req]
-  (when-let [cname (ph-cookie-name)]
-    (when-let [raw (get-in req [:cookies cname :value])]
-      (try
-        (js->clj (js/JSON.parse (js/decodeURIComponent raw)))
-        (catch :default _ nil)))))
-
-(defn- distinct-id
-  "Match the distinct_id the browser snippet uses. posthog-js stores its
-   anonymous id in `ph_<project-id>_posthog`; we read the same cookie so
-   server-side events land on the same person as client pageviews."
-  [req]
-  (or (get (parse-ph-cookie req) "distinct_id")
+(defn- distinct-id [req]
+  (or (get-in req [:session :tracking :id])
       "anonymous"))
-
-(defn- session-id [req]
-  (get (parse-ph-cookie req) "$session_id"))
 
 (defn- current-url [req]
   (let [scheme (some-> (:scheme req) name)
@@ -69,16 +55,14 @@
         ua           (get-in req [:headers "user-agent"])
         ref          (get-in req [:headers "referer"])
         host         (get-in req [:headers "host"])
-        url          (current-url req)
-        sid          (session-id req)]
+        url          (current-url req)]
     (cond-> {}
       ip   (assoc "$ip" ip)
       ua   (assoc "$useragent" ua)
       ref  (assoc "$referrer" ref)
       host (assoc "$host" host)
       url  (assoc "$current_url" url)
-      (:uri req)    (assoc "$pathname" (:uri req))
-      (seq sid)     (assoc "$session_id" sid))))
+      (:uri req) (assoc "$pathname" (:uri req)))))
 
 ;; ---------------------------------------------------------------------------
 ;; Public API
@@ -86,7 +70,7 @@
 (defn capture!
   "Fire-and-forget event capture. No-op when PostHog is unconfigured.
    `props` is a plain Clojure map of event properties; request-derived
-   PostHog auto-properties ($ip, $current_url, $session_id, …) are merged in."
+   PostHog auto-properties ($ip, $current_url, …) are merged in."
   ([req event-name]
    (capture! req event-name {}))
   ([req event-name props]
@@ -98,13 +82,13 @@
 (defn identify!
   "Associate the current visitor with a known user id and (optional) traits.
    Use after Directus login so admin actions land on a named person rather
-   than the anonymous cookie id."
+   than the anonymous tracking-id."
   ([req user-id] (identify! req user-id {}))
   ([req user-id traits]
    (when-let [ph @client]
      (when (seq user-id)
-       (.identify ph #js {:distinctId      user-id
-                          :properties      (clj->js traits)})
+       (.identify ph #js {:distinctId user-id
+                          :properties (clj->js traits)})
        (let [anon (distinct-id req)]
          (when (and anon (not= anon user-id) (not= anon "anonymous"))
            (.alias ph #js {:distinctId user-id :alias anon})))))))
