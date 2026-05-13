@@ -92,13 +92,24 @@
                                  (or (get-in env/env [:posthog :dashboard-embed-url]) ""))]
     origin))
 
+(def posthog-api-origin
+  ;; Origin of the PostHog ingestion host (e.g. https://eu.posthog.com), derived
+  ;; from :posthog :host. The browser snippet loads /static/array.js from this
+  ;; origin (needs script-src) and POSTs events to /e/ here (needs connect-src).
+  (when-let [[_ origin] (re-find #"^(https?://[^/]+)"
+                                 (or (get-in env/env [:posthog :host]) ""))]
+    origin))
+
 (def csp-directives
   {:default-src     ["'self'"]
    :script-src      (cond-> ["'self'" "'unsafe-inline'"]
-                      (= :dev (env/setting :mode)) (conj "'unsafe-eval'"))
+                      (= :dev (env/setting :mode)) (conj "'unsafe-eval'")
+                      posthog-api-origin (conj posthog-api-origin))
    :style-src       ["'self'" "'unsafe-inline'"]
    :img-src         (cond-> ["'self'" "data:" "https:"]
                       directus-origin (conj directus-origin))
+   :connect-src     (cond-> ["'self'"]
+                      posthog-api-origin (conj posthog-api-origin))
    ;; slick-carousel inlines its arrow-icon font as data: URIs; without
    ;; an explicit font-src the directive falls back to default-src='self'
    ;; and the browser refuses them.
