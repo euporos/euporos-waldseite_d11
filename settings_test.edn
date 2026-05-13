@@ -16,8 +16,8 @@
                            :port   465
                            :secure true
                            :auth   {:user "technical@olivermotz.com"}}
- :violinas-email "technical@olivermotz.com"; "piano@violina-petrychenko.de"
- :violinas-phone "+49 176/615 25 86 8"
+ :owner-email "technical@olivermotz.com"; "piano@violina-petrychenko.de"
+ :owner-phone "+49 176/615 25 86 8"
  :email-transporter {:host   "mx2ff9.netcup.net"
                      :port   465
                      :secure true

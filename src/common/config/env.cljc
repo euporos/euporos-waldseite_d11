@@ -19,12 +19,12 @@
 
 (defn derive-values [env]
   (-> env
-      (derive-value [:violinas-email]
-                    [:frontend :violinas-email]
+      (derive-value [:owner-email]
+                    [:frontend :owner-email]
                     js/btoa
                     true)
-      (derive-value [:violinas-phone]
-                    [:frontend :violinas-phone]
+      (derive-value [:owner-phone]
+                    [:frontend :owner-phone]
                     js/btoa
                     true)))
 
