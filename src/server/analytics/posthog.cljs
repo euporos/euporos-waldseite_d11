@@ -43,12 +43,15 @@
         (catch :default _ nil)))))
 
 (defn- distinct-id
-  "Prefer the PostHog browser cookie's distinct_id so server events join the
-   same person as client pageviews. Fall back to the signed-session cookie,
-   then to \"anonymous\"."
+  "Match the distinct_id the browser snippet uses. The snippet bootstraps
+   posthog-js with `[:session :tracking :id]` (rotating SHA256 from
+   psite.admin-auth/wrap-tracking-id) and runs with disable_cookie: true,
+   so the ph_<token>_posthog cookie is never set. We read the same session
+   value here; the cookie path is kept as a fallback in case the snippet
+   later switches to cookie-based identity."
   [req]
-  (or (get (parse-ph-cookie req) "distinct_id")
-      (get-in req [:cookies "macchiato-session" :value])
+  (or (get-in req [:session :tracking :id])
+      (get (parse-ph-cookie req) "distinct_id")
       "anonymous"))
 
 (defn- session-id [req]
