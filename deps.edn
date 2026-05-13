@@ -22,9 +22,7 @@
         psite/psite-hiccup     {:git/url "git@github.com:euporos/psite.git" :git/sha "65f57a654e7ca1f2906281d4d0566c54acef42e8" :deps/root "psite-hiccup"}
         psite/psite-tooling    {:git/url "git@github.com:euporos/psite.git" :git/sha "65f57a654e7ca1f2906281d4d0566c54acef42e8" :deps/root "psite-tooling"}
         psite/psite-utils      {:git/url "git@github.com:euporos/psite.git" :git/sha "65f57a654e7ca1f2906281d4d0566c54acef42e8" :deps/root "psite-utils"}
-        ;; psite-tracking is local until the new sha is pushed; swap to a
-        ;; gitsha entry like the others once euporos/psite is published.
-        psite/psite-tracking   {:local/root "../../psite/psite-tracking"}
+        psite/psite-tracking   {:git/url "git@github.com:euporos/psite.git" :git/sha "f9c02de2d79aa4a701e8f5f41e80a10ef144c44c" :deps/root "psite-tracking"}
         metosin/reitit {:mvn/version "0.5.17"}
         com.taoensso/timbre {:mvn/version "5.2.1"}
         macchiato/hiccups {:mvn/version "0.4.1"}
