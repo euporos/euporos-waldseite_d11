@@ -57,9 +57,9 @@
            job)
   :stop  (.cancel @salt-rotation))
 
-(defn- expired? [req]
+(defn- expired? [now req]
   (when-let [ts (get-in req [:session :tracking :timestamp])]
-    (> (- @last-salt-rotation-timestamp ts) rotation-interval-ms)))
+    (> (- now ts) rotation-interval-ms)))
 
 (defn wrap-tracking-id
   "Ensures every request has [:session :tracking :id] set, writing the value
@@ -68,16 +68,20 @@
   (fn [req res raise]
     (let [now (js/Date.now)
           current (get-in req [:session :tracking :id])]
-      (if (and current (not (expired? req)))
+      (if (and current (not (expired? now req)))
         (handler req res raise)
         (let [{:keys [remote-addr headers]} req
-              new-id (sha256 (str @salt remote-addr (get headers "user-agent")))]
+              new-id (sha256 (str @salt remote-addr (get headers "user-agent")))
+              stamp  (fn [session]
+                       (-> (or session {})
+                           (assoc-in [:tracking :id] new-id)
+                           (assoc-in [:tracking :timestamp] now)))]
           (handler
-           (-> req
-               (assoc-in [:session :tracking :id] new-id)
-               (assoc-in [:session :tracking :timestamp] now))
+           (update req :session stamp)
            (fn [response]
-             (res (-> response
-                      (assoc-in [:session :tracking :id] new-id)
-                      (assoc-in [:session :tracking :timestamp] now))))
+             ;; If the inner handler didn't touch :session, preserve req's
+             ;; session so we don't blow away other session keys that the
+             ;; session middleware would otherwise persist.
+             (res (assoc response :session
+                         (stamp (or (:session response) (:session req))))))
            raise))))))
