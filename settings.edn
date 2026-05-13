@@ -23,9 +23,6 @@
  :rate-limit-buckets nil      ; explicit nil — defaults set in serving.core
  :directus {:translations-key :translations
             :language-key :languages_code}
- :posthog {:project-id "phc_G3PIX4ZsFbQkH1LyK32r5OVlzNaEJposa1P8y5K2vV1"
-           :host "https://eu.posthog.com"}
-
  ;; Required secrets — values come from ../settings.edn (parent, untracked).
  :admin-email     #psite/secret "admin-email"
  :contact-email   "technical@olivermotz.com"
