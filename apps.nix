@@ -281,10 +281,8 @@ in
 
   # Deploy waldseite from dev machine.
   # Server checkout lives at /home/phylax/projects/waldseite/app; systemd units
-  # are waldseite / waldseite-directus on :7202/:7203. Currently deploys to the
-  # staging domain waldseite.olivermotz.net (nginx adds noindex headers); when
-  # the migration is judged complete, the server-side nginx vhost is flipped to
-  # the real waldseite.de domain — checkout, services, and this app stay put.
+  # are waldseite / waldseite-directus on :7202/:7203. Serves the production
+  # domain bickels-ferienwohnungen.de via the server-side nginx vhost.
   deploy-prod = flake-utils.lib.mkApp {
     drv = pkgs.writeShellApplication {
       name = "waldseite-deploy-prod";
@@ -323,7 +321,7 @@ in
         TAG="deployed-$(date -u +%Y%m%dT%H%M%SZ)"
         git tag "$TAG" "$DEPLOYED_SHA"
         git push origin "$TAG"
-        echo "=== Done ($TAG) — https://waldseite.olivermotz.net ==="
+        echo "=== Done ($TAG) — https://bickels-ferienwohnungen.de ==="
       '';
       runtimeInputs = [ pkgs.openssh pkgs.git pkgs.coreutils ];
     };
