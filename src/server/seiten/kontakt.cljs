@@ -11,11 +11,13 @@
     [:div.textabschnitt.py-4.px-4
      [:h1.title.is-2 "Kontakt"]
      [:form
-      {:action (routing/reverse-match req :api_kontakt {})
+      {:id     "kontakt-form"
+       :action (routing/reverse-match req :api_kontakt {})
        :method "POST"}
       [:input {:type "hidden"
                :name "__anti-forgery-token"
                :value (:af-token req)}]
+      [:input {:type "hidden" :name "time-spent" :value ""}]
       [:div.is-hidden
        [:label "Alter:"]
        [:input {:type "text" :name "age" :required false}]]
@@ -42,7 +44,11 @@
          " gelesen und akzeptiert."]]]
       [:div.control
        [:button.button.is-link {:type "submit" :value "Submit"}
-        "Absenden"]]]]]])
+        "Absenden"]]]
+     [:script
+      "(function(){var t=Date.now();var f=document.getElementById('kontakt-form');"
+      "f.addEventListener('submit',function(){"
+      "f.elements['time-spent'].value=String(Date.now()-t);});})();"]]]])
 
 (defhandler handler [req]
   (p/let [_ nil]

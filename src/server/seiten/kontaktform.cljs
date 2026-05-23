@@ -18,9 +18,14 @@
       [:h2.title.is-3.has-text-centered heading]
       body]]]))
 
-(defn- validate [{:keys [age name email kontaktnachricht datenschutz?]}]
+(def ^:private min-time-spent-ms 4000)
+
+(defn- validate [{:keys [age time-spent name email kontaktnachricht datenschutz?]}]
   (cond-> []
     (seq age)                       (conj :spam)
+    (let [n (js/parseInt (or time-spent "") 10)]
+      (or (js/isNaN n) (< n min-time-spent-ms)))
+                                     (conj :too-fast)
     (str/blank? name)               (conj :name)
     (or (str/blank? email)
         (not (re-find #".+@.+\..+" (or email ""))))
@@ -45,13 +50,14 @@
 (defhandler handler [req]
   (let [params (:params req)
         form   {:age              (:age params)
+                :time-spent       (:time-spent params)
                 :name             (:name params)
                 :email            (:email params)
                 :kontaktnachricht (:kontaktnachricht params)
                 :datenschutz?     (boolean (:datenschutz? params))}
         errs   (validate form)]
     (cond
-      (some #{:spam} errs)
+      (some #{:spam :too-fast} errs)
       (result-page req "Nachricht als Spam erkannt"
                    [:p "Falls Sie kein Bot sind, schreiben Sie uns bitte direkt."])
 
