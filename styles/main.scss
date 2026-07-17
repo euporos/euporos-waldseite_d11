@@ -188,6 +188,22 @@ body > .footer { margin-top: auto; }
 
 .navbar { background-color: $waldseite-base; }
 
+// With 11 top-level entries the horizontal menu is wider than most laptop
+// viewports. Bulma's navbar row is `flex-wrap: nowrap` with a non-shrinking
+// `.navbar-menu`, so the surplus items — and the language picker sitting in
+// `.navbar-end` — overflow off the right edge instead of wrapping (invisible
+// on any screen narrower than the full menu). Let the menu shrink to the
+// navbar width and wrap the item row so overflow flows onto a second line and
+// the picker stays on-screen. Only above the navbar breakpoint (1024px);
+// below it the burger menu stacks everything vertically already.
+@media (min-width: 1024px) {
+  .navbar-menu {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .navbar-start { flex-wrap: wrap; }
+}
+
 // Inline language picker (DE · EN · NL) in the navbar-end
 .langpicker {
   display: flex;
