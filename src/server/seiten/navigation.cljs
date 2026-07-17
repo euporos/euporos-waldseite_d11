@@ -40,7 +40,7 @@
             :renderfn cnav/navbar-item-icon
             :pathfn   (fn [req] (rt/path-fixed :home req))
             :icon     "/imgs/zwei_daecher.png"
-            :name     {:de "Startseite" :en "Home"}}
+            :name     {:de "Startseite" :en "Home" :nl "Startpagina"}}
 
            {:type     :insertpoint :id :haeuser
             :renderfn insertwarn
@@ -49,22 +49,22 @@
            {:type     :menuitem :id :buchung
             :renderfn cnav/navbar-item
             :pathfn   (fn [req] (rt/path-fixed :buchung req))
-            :name     {:de "Buchung" :en "Booking"}}
+            :name     {:de "Buchung" :en "Booking" :nl "Reserveren"}}
 
            {:type     :menuitem :id :aktuelles
             :renderfn cnav/navbar-item
             :pathfn   (fn [req] (rt/path-fixed :aktuelles req))
-            :name     {:de "Aktuelles" :en "News"}}
+            :name     {:de "Aktuelles" :en "News" :nl "Nieuws"}}
 
            {:type     :menuitem :id :galerie
             :renderfn cnav/navbar-item
             :pathfn   (fn [req] (rt/path-fixed :galerie req))
-            :name     {:de "Galerie" :en "Gallery"}}
+            :name     {:de "Galerie" :en "Gallery" :nl "Galerij"}}
 
            {:type     :menuitem :id :ausfluege
             :renderfn cnav/navbar-item
             :pathfn   (fn [req] (rt/path-ausfluege req "alle"))
-            :name     {:de "Ausflugtips" :en "Hiking"}}
+            :name     {:de "Ausflugtips" :en "Hiking" :nl "Uitstapjes"}}
 
            {:type     :insertpoint :id :oben
             :defaults {:renderfn cnav/navbar-item}}]]
@@ -77,7 +77,7 @@
             {:type     :menuitem :id :kontakt
              :renderfn cnav/footer-menuitem
              :pathfn   (fn [req] (rt/path-fixed :kontakt req))
-             :name     {:de "Kontakt" :en "Contact us"}}]})
+             :name     {:de "Kontakt" :en "Contact us" :nl "Contact"}}]})
 
 ;; ###########################
 ;; ###### Data to Menus ######
@@ -91,9 +91,9 @@
    :href        (rt/path-einzelseite req id titel)})
 
 (def haeuser-anchors
-  [["wohnungen" {:de "Wohnungen"}]
-   ["anreise"   {:de "Anreise"}]
-   ["buchung"   {:de "Buchung"}]])
+  [["wohnungen" {:de "Wohnungen" :en "Apartments" :nl "Appartementen"}]
+   ["anreise"   {:de "Anreise"   :en "Directions" :nl "Route"}]
+   ["buchung"   {:de "Buchung"   :en "Booking"    :nl "Reserveren"}]])
 
 (defn anchors-to-items [req baselink [anchor-id title]]
   {:type     :menuitem

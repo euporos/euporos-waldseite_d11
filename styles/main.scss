@@ -186,6 +186,30 @@ body > .footer { margin-top: auto; }
 
 .navbar { background-color: $waldseite-base; }
 
+// Inline language picker (DE · EN · NL) in the navbar-end
+.langpicker {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  &__lang {
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover { color: maroon; }
+
+    &--active {
+      font-weight: 700;
+      text-decoration: underline;
+      cursor: default;
+    }
+  }
+
+  &__sep { opacity: 0.5; }
+}
+
 .base-background  { background: $waldseite-base; }
 .panel-background { background: $waldseite-base-soft; }
 

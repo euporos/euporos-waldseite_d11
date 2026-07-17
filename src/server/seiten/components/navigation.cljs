@@ -1,5 +1,6 @@
 (ns seiten.components.navigation
-  (:require [comp.localization :as loc]))
+  (:require [comp.localization :as loc]
+            [serving.routing :as rt]))
 
 ;; #################
 ;; #### Helpers ####
@@ -47,8 +48,45 @@
    [:a.navbar-link {:href (:href headitem)} (:name headitem)]
    [:div.navbar-dropdown items]])
 
+;; #####################
+;; ### Language picker ##
+;; #####################
+
+(def locale-labels
+  "Short codes shown in the inline picker."
+  {:de "DE" :en "EN" :nl "NL"})
+
+(def locale-names
+  "Full language names, used for accessible labels."
+  {:de "Deutsch" :en "English" :nl "Nederlands"})
+
+(defn locale-switcher
+  "Inline language picker: a short DE · EN · NL text link row. The active
+   locale renders as plain text; the others link to the current page in
+   that locale via rt/switch-locale. Clicking a link lands on the
+   switched-locale page, whose response refreshes the signed `locale`
+   cookie (psite-routing/wrap-locale), so the choice persists to the
+   next visit (and drives the '/' root redirect)."
+  [req]
+  (let [current (:locale req)]
+    [:div.navbar-item.langpicker
+     (->> loc/fallback
+          (map (fn [locale]
+                 (if (= locale current)
+                   [:span.langpicker__lang.langpicker__lang--active
+                    {:aria-current "true"
+                     :lang         (name locale)}
+                    (locale-labels locale)]
+                   [:a.langpicker__lang
+                    {:href       (rt/switch-locale locale req)
+                     :hreflang   (name locale)
+                     :lang       (name locale)
+                     :aria-label (locale-names locale)}
+                    (locale-labels locale)])))
+          (interpose [:span.langpicker__sep {:aria-hidden "true"} "·"]))]))
+
 (defn navbar
-  [_req headitem items]
+  [req headitem items]
   [:nav.navbar
    {:role       "navigation"
     :aria-label "main navigation"}
@@ -61,7 +99,10 @@
      [:span {:aria-hidden "true"}]
      [:span {:aria-hidden "true"}]
      [:span {:aria-hidden "true"}]]]
-   [:div.navbar-menu {:id (:menuid headitem)} items]])
+   [:div.navbar-menu {:id (:menuid headitem)}
+    items
+    [:div.navbar-end
+     (locale-switcher req)]]])
 
 ;; ##############
 ;; ### Footer ###

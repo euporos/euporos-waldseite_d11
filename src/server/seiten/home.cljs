@@ -16,7 +16,7 @@
   (let [coerced-locale (:locale req)
         query-string   (:query-string req)
         target         (str (routing/reverse-match req :home
-                                                   {:locale (or (#{:de :uk} coerced-locale) :de)})
+                                                   {:locale (or (#{:de :en :nl} coerced-locale) :de)})
                             (when query-string (str "?" query-string)))]
     (r/found target)))
 

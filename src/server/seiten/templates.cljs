@@ -33,7 +33,8 @@
 
 (def full-locales
   {:de "de-DE"
-   :en "en-US"})
+   :en "en-US"
+   :nl "nl-NL"})
 
 (def font-awesome
   (list [:script {:src "/compiled/fontawesome-free-6.4.0-web/js/brands.min.js"

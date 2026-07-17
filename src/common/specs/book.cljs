@@ -8,7 +8,7 @@
 
 (def payload
   [:map
-   [:language [:enum :de :en :uk]]
+   [:language [:enum :de :en :nl]]
    [:concert [:int {:min 1}]]
    [:email [:re email-regex]]
    [:name [:string {:min 3, :max 70}]]

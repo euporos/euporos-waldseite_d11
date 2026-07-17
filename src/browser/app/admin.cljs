@@ -67,9 +67,9 @@
        :on-click #(rf/dispatch [::emails-to-clickboard id nil])}
       "Alle"]
      [:button
-      {:data-test-id (str "uk-reservers-" id)
-       :on-click #(rf/dispatch [::emails-to-clickboard id "uk"])}
-      "Ukrainisch"]
+      {:data-test-id (str "nl-reservers-" id)
+       :on-click #(rf/dispatch [::emails-to-clickboard id "nl"])}
+      "Niederländisch"]
      [:button
       {:data-test-id (str "en-reservers-" id)
        :on-click #(rf/dispatch [::emails-to-clickboard id "en"])}
@@ -80,7 +80,7 @@
       "Deutsch"]
      [:div {:style {:margin-top "15px"}} "Erinnerungs-Email herunterladen:"]
      [:a.button {:href (str "/admin/reminder-eml/" id "/all")} "Alle"]
-     [:a.button {:href (str "/admin/reminder-eml/" id "/uk")} "Ukrainisch"]
+     [:a.button {:href (str "/admin/reminder-eml/" id "/nl")} "Niederländisch"]
      [:a.button {:href (str "/admin/reminder-eml/" id "/en")} "Englisch"]
      [:a.button {:href (str "/admin/reminder-eml/" id "/de")} "Deutsch"]
      [:div {:style {:margin-top "15px"}}
