@@ -6,6 +6,7 @@
             [psite-hiccup.core :as ph]
             [psite-routing.core :as routing]
             [psite-seo.json-ld :as ld]
+            [comp.snippets :as snip]
             [db.setup :as db]
             [db.queries :as q]
             [seiten.templates :as templates]
@@ -31,15 +32,15 @@
                :src   (d/image-by-preset "600" hauptbild)}]]]]
      [:div.is-size-3 name]]]])
 
-(defn- page-body [req startseite haeuser]
+(defn- page-body [req locale startseite haeuser]
   (let [{:keys [hauptueberschrift haupttext familienbild]} startseite]
     [:section
      [:div.panel.is-primary.mainpanel
       [:div.py-4.px-4
        [:div.block.willkommen
         [:h1.title.is-2
-         "Herzlich willkommen" [:span.is-hidden-tablet "…"]
-         [:span.is-hidden-mobile [:br] "in unseren Ferienhäusern…"]]]
+         (snip/herzlich-willkommen locale) [:span.is-hidden-tablet "…"]
+         [:span.is-hidden-mobile [:br] (snip/in-unseren-ferienhaeusern locale)]]]
 
        [:div.block
         [:div.columns.is-mobile.has-text-centered
@@ -47,14 +48,14 @@
 
        [:div.block
         [:h2.title.is-3.has-text-centered
-         (or hauptueberschrift "…wo der Bayerische Wald am schönsten ist.")]
+         (or hauptueberschrift (snip/wo-am-schoensten locale))]
         [:div.content (ph/dangerous-html (or haupttext ""))]]
 
        (when familienbild
          [:div.columns
           [:div.column.is-one-third]
           [:div.column.is-italic.has-text-centered
-           [:span.is-size-3 "Ihre Familie Bickel"] [:br]
+           [:span.is-size-3 (snip/familie-bickel locale)] [:br]
            [:div.mt-4
             [:img {:src (d/image-by-preset "600" familienbild)}]]]])]]]))
 
@@ -65,12 +66,12 @@
     (templates/render-page
      req
      {:titel        "Bickels Ferienwohnungen — Bayerischer Wald"
-      :beschreibung "Ferienwohnungen in Falkenstein, Bayerischer Wald."
+      :beschreibung (snip/home-meta-desc locale)
       :og-image     "/imgs/zwei_daecher.png"
       :json-ld      (ld/entity
                      :LodgingBusiness
                      {:name        "Bickels Ferienwohnungen"
-                      :description "Ferienwohnungen in Falkenstein, Bayerischer Wald."
+                      :description (snip/home-meta-desc locale)
                       :url         (routing/make-path-absolute req (:url req))
                       :image       (routing/make-path-absolute req "/imgs/zwei_daecher.png")
                       :address     (ld/entity
@@ -78,4 +79,4 @@
                                     {:addressLocality "Falkenstein"
                                      :addressRegion   "Bayern"
                                      :addressCountry  "DE"})})}
-     (page-body req startseite haeuser))))
+     (page-body req locale startseite haeuser))))

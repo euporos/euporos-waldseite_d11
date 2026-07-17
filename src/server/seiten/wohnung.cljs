@@ -9,6 +9,7 @@
             [db.setup :as db]
             [db.queries :as q]
             [preise.lookup :as plookup]
+            [comp.snippets :as snip]
             [seiten.components.gallery :as gallery]
             [seiten.templates :as templates]
             [serving.routing :as rt]
@@ -26,31 +27,31 @@
        (str/join "\n")
        not-empty))
 
-(defn- preis-rows [{:keys [maximalbelegung mindestaufenthalt_standard
-                           tag-min woche-min]}]
+(defn- preis-rows [locale {:keys [maximalbelegung mindestaufenthalt_standard
+                                  tag-min woche-min]}]
   (list
    (when maximalbelegung
      [:tr
-      [:td "Platz für bis zu"]
-      [:td (int maximalbelegung) " Personen"]])
+      [:td (snip/platz-fuer-bis-zu locale)]
+      [:td (int maximalbelegung) " " (snip/personen locale)]])
    (when (or tag-min woche-min)
      [:tr
-      [:td "Preise ab"]
+      [:td (snip/preise-ab locale)]
       [:td
-       (when tag-min   [:span (fmt-eur tag-min) " €/Nacht"])
+       (when tag-min   [:span (fmt-eur tag-min) " " (snip/eur-pro-nacht locale)])
        (when (and tag-min woche-min) [:br])
-       (when woche-min [:span (fmt-eur woche-min) " €/Woche"])]])
+       (when woche-min [:span (fmt-eur woche-min) " " (snip/eur-pro-woche locale)])]])
    (when mindestaufenthalt_standard
      [:tr
-      [:td "Mindestaufenthalt"]
-      [:td "ab " (int mindestaufenthalt_standard) " Nächte"]])))
+      [:td (snip/mindestaufenthalt locale)]
+      [:td (snip/ab locale) " " (int mindestaufenthalt_standard) " " (snip/naechte locale)]])))
 
-(defn- ausstattung-table [tabelle-string dtvsterne preise]
+(defn- ausstattung-table [locale tabelle-string dtvsterne preise]
   [:div.ausstattung-table
    [:div.card
     [:table.table
      [:tbody
-      (preis-rows preise)
+      (preis-rows locale preise)
       (when (and dtvsterne (pos? dtvsterne))
         [:tr
          [:td [:a {:target "_blank" :rel "noopener"
@@ -64,7 +65,7 @@
            [:td.has-text-centered {:colspan 2} (first cells)]
            (for [c cells] [:td c]))])]]]])
 
-(defn- page-body [req wohnung bilder ausstattung-string preise]
+(defn- page-body [req locale wohnung bilder ausstattung-string preise]
   (let [{:keys [id name beschreibung hauptbild dtvsterne]} wohnung]
     [:section
      [:div.panel.mainpanel
@@ -74,20 +75,20 @@
                          (remove #{hauptbild} (map :directus_files_id bilder))))]
 
       [:div.block.textabschnitt.py-4.px-4
-       [:h1.title.is-2 "Wohnung " name]
+       [:h1.title.is-2 (snip/wohnung locale) " " name]
        [:div.content
         [:div.wohnungbeschreibung
          [:div.wohnungbeschreibung__text
           (ph/dangerous-html (or beschreibung ""))]
          [:div.wohnungbeschreibung__ausstattung
-          (ausstattung-table ausstattung-string dtvsterne preise)]]]]
+          (ausstattung-table locale ausstattung-string dtvsterne preise)]]]]
 
       [:div.mb-4.has-text-centered.pb-4
        [:a {:href (str (rt/path-fixed :buchung req)
                        "?default=" id)}
         [:button.button.is-link
          {:type "submit" :value "Submit"}
-         "Jetzt Anfragen"]]]]]))
+         (snip/jetzt-anfragen locale)]]]]]))
 
 (defhandler handler [req]
   (p/let [locale       (:locale req)
@@ -104,18 +105,18 @@
           preise       (plookup/wohnung-summary wohnung-id)]
     (templates/render-page
      req
-     {:titel        (str "Wohnung " (:name wohnung))
+     {:titel        (str (snip/wohnung locale) " " (:name wohnung))
       :beschreibung ""
       :og-image     (when-let [img (:hauptbild wohnung)]
                       (d/image-by-preset "og" img))
-      :breadcrumbs  [{:name "Bickels"      :url (routing/reverse-match req :home {})}
-                     {:name "Ferienhäuser" :url (routing/reverse-match req :haeuser {})}
-                     {:name (str "Wohnung " (:name wohnung))
+      :breadcrumbs  [{:name "Bickels"                   :url (routing/reverse-match req :home {})}
+                     {:name (snip/ferienhaeuser locale) :url (routing/reverse-match req :haeuser {})}
+                     {:name (str (snip/wohnung locale) " " (:name wohnung))
                       :url  (:url req)}]
       :json-ld      (ld/entity
                      :Apartment
-                     {:name  (str "Wohnung " (:name wohnung))
+                     {:name  (str (snip/wohnung locale) " " (:name wohnung))
                       :url   (routing/make-path-absolute req (:url req))
                       :image (when-let [img (:hauptbild wohnung)]
                                (d/image-by-preset "og" img))})}
-     (page-body req wohnung bilder ausstattung preise))))
+     (page-body req locale wohnung bilder ausstattung preise))))

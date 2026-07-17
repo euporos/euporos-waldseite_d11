@@ -3,6 +3,7 @@
   (:require [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
             [psite-hiccup.core :as ph]
+            [comp.snippets :as snip]
             [db.setup :as db]
             [db.queries :as q]
             [seiten.components.dates :refer [fmt-datum]]
@@ -28,7 +29,7 @@
     [:div.block.textabschnitt.mt-4.py-4.px-4
      [:h2.title.is-3.has-text-centered
       {:id "aktuelles"}
-      "Aktuelles"]
+      (snip/aktuelles locale)]
      (map (partial format-newsitem locale) newsitems)]]])
 
 (defhandler handler [req]
@@ -36,6 +37,6 @@
           newsitems (db/query (q/news-overview locale))]
     (templates/render-page
      req
-     {:titel "Aktuelles — Bickels Ferienwohnungen"
-      :beschreibung "Neuigkeiten von Bickels Ferienwohnungen im Bayerischen Wald."}
+     {:titel (str (snip/aktuelles locale) " — Bickels Ferienwohnungen")
+      :beschreibung (snip/aktuelles-meta-desc locale)}
      (page-body locale newsitems))))

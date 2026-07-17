@@ -3,6 +3,7 @@
   (:require [clojure.string :as str]
             [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
+            [comp.snippets :as snip]
             [setup.mail :as mail]
             [config.env :as env]
             [analytics.posthog :as ph]
@@ -33,11 +34,13 @@
     (str/blank? kontaktnachricht)   (conj :kontaktnachricht)
     (not datenschutz?)              (conj :datenschutz?)))
 
-(def errormessages
-  {:datenschutz?     "Bitte akzeptieren Sie die Datenschutzerklärung."
-   :name             "Bitte geben Sie Ihren Namen an."
-   :email            "Bitte geben Sie eine gültige Emailadresse an."
-   :kontaktnachricht "Nachrichtenfeld ist leer."})
+(defn- errormessage [locale e]
+  (case e
+    :datenschutz?     (snip/datenschutzregelung locale)
+    :name             (snip/bitte-name locale)
+    :email            (snip/bitte-email locale)
+    :kontaktnachricht (snip/nachricht-leer locale)
+    nil))
 
 (defn- send-mail! [{:keys [name email kontaktnachricht]}]
   (mail/send-from-info
@@ -48,7 +51,8 @@
                   "\n\n--------\ngesendet von " name " <" email ">")}))
 
 (defhandler handler [req]
-  (let [params (:params req)
+  (let [locale (:locale req)
+        params (:params req)
         form   {:age              (:age params)
                 :time-spent       (:time-spent params)
                 :name             (:name params)
@@ -58,20 +62,20 @@
         errs   (validate form)]
     (cond
       (some #{:spam :too-fast} errs)
-      (result-page req "Nachricht als Spam erkannt"
-                   [:p "Falls Sie kein Bot sind, schreiben Sie uns bitte direkt."])
+      (result-page req (snip/spam-erkannt locale)
+                   [:p (snip/kein-bot locale)])
 
       (seq errs)
-      (result-page req "Fehler beim Versenden der Nachricht"
-                   [:ul (for [e errs] [:li (errormessages e)])])
+      (result-page req (snip/fehler-versand locale)
+                   [:ul (for [e errs] [:li (errormessage locale e)])])
 
       :else
       (-> (p/let [_ (send-mail! form)]
             (ph/capture! req "Kontaktanfrage gesendet"
                          {:locale (name (:locale req))})
-            (result-page req "Nachricht verschickt"
-                         [:p "Vielen Dank für Ihre Nachricht! "
-                          "Sie erhalten in Kürze eine Antwort."]))
+            (result-page req (snip/nachricht-verschickt locale)
+                         [:p (snip/dank-nachricht locale)
+                          (snip/antwort-kuerze locale)]))
           (.catch (fn [_]
-                    (result-page req "Versand fehlgeschlagen"
-                                 [:p "Leider ist beim Versenden Ihrer Nachricht ein Fehler aufgetreten."])))))))
+                    (result-page req (snip/versand-fehlgeschlagen locale)
+                                 [:p (snip/versand-fehler-text locale)])))))))

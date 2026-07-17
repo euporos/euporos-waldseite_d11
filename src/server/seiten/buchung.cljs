@@ -5,6 +5,7 @@
   {:clj-kondo/config '{:lint-as {macchiato-async.core/defhandler clojure.core/defn}}}
   (:require [macchiato-async.core :refer-macros [defhandler]]
             [macchiato.middleware.anti-forgery :as af]
+            [comp.snippets :as snip]
             [seiten.templates :as templates]))
 
 (def ^:private slick-css
@@ -27,11 +28,12 @@
   ;; macchiato-async/wrap-async re-snapshots :af-token from the dynamic var
   ;; inside its own promise hop, by which time the wrap-anti-forgery
   ;; binding has been popped. See setup.directus-auth for the same trick.
-  (let [af-token af/*anti-forgery-token*]
+  (let [af-token af/*anti-forgery-token*
+        locale   (:locale req)]
     (templates/render-page
      req
-     {:titel        "Buchungsanfrage"
-      :beschreibung "Buchen Sie Ihren Aufenthalt in einer unserer Ferienwohnungen"
+     {:titel        (snip/buchungsanfrage locale)
+      :beschreibung (snip/buchung-meta-desc locale)
       :into-head    slick-css
       ;; templates/blank_hiccup composes the app.js script tag with
       ;; onload = "<onload-string>(app.core.readarg(<arg>))". Setting

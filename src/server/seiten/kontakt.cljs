@@ -2,14 +2,15 @@
   {:clj-kondo/config '{:lint-as {macchiato-async.core/defhandler clojure.core/defn}}}
   (:require [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
+            [comp.snippets :as snip]
             [seiten.templates :as templates]
             [psite-routing.core :as routing]))
 
-(defn- page-body [req]
+(defn- page-body [req locale]
   [:section
    [:div.panel.mainpanel
     [:div.textabschnitt.py-4.px-4
-     [:h1.title.is-2 "Kontakt"]
+     [:h1.title.is-2 (snip/kontakt locale)]
      [:form
       {:id     "kontakt-form"
        :action (routing/reverse-match req :api_kontakt {})
@@ -22,38 +23,38 @@
        [:label "Alter:"]
        [:input {:type "text" :name "age" :required false}]]
       [:div.field
-       [:label.label "Name"]
+       [:label.label (snip/name-snip locale)]
        [:input.input {:type "text" :name "name" :required true}]]
       [:div.field
-       [:label.label "Email"]
+       [:label.label (snip/email locale)]
        [:div.control
         [:input.input {:name "email" :type "email" :required true}]]]
       [:div.field
-       [:label.label "Nachricht"]
+       [:label.label (snip/nachricht locale)]
        [:div.control
         [:textarea.textarea
          {:name "kontaktnachricht"
-          :placeholder "Ihre Nachricht"
+          :placeholder (snip/ihre-nachricht locale)
           :required true}]]]
       [:div.field
        [:div.control
         [:label.checkbox
          [:input {:name "datenschutz?" :required true :type "checkbox"}]
-         " Ich habe die "
-         [:a {:href "#"} "Datenschutzerklärung"]
-         " gelesen und akzeptiert."]]]
+         (snip/ich-habe-die locale)
+         [:a {:href "#"} (snip/datenschutzerklärung locale)]
+         (snip/gelesen-akzeptiert locale)]]]
       [:div.control
        [:button.button.is-link {:type "submit" :value "Submit"}
-        "Absenden"]]]
+        (snip/absenden locale)]]]
      [:script
       "(function(){var t=Date.now();var f=document.getElementById('kontakt-form');"
       "f.addEventListener('submit',function(){"
       "f.elements['time-spent'].value=String(Date.now()-t);});})();"]]]])
 
 (defhandler handler [req]
-  (p/let [_ nil]
+  (p/let [locale (:locale req)]
     (templates/render-page
      req
-     {:titel        "Kontakt"
-      :beschreibung "Bei Fragen rund um unsere Ferienwohnungen können Sie uns hier kontaktieren."}
-     (page-body req))))
+     {:titel        (snip/kontakt locale)
+      :beschreibung (snip/kontakt-meta-desc locale)}
+     (page-body req locale))))

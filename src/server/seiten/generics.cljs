@@ -3,19 +3,20 @@
             [psite-hiccup.core :as ph]
             [psite-routing.core :as routing]
             [comp.localization :as loc]
+            [comp.snippets :as snip]
             [seiten.templates :as templates]
             [setup.mail :as mail]
             [taoensso.timbre :refer-macros [errorf]])
   (:require-macros
    [hiccups.core :as hiccups :refer [html5]]))
 
-(defn error-page [message status]
+(defn error-page [locale message status]
   [:section.section
    [:div.container.has-text-centered
     [:h1.title.is-1.has-text-centered message " (" status ")"]
     [:a
      {:href "/"}
-     "Zurück zur Startseite"]]])
+     (snip/zurueck-startseite locale)]]])
 
 (defn error-converter
   [router response]
@@ -28,13 +29,14 @@
         message          (loc/by-locale locale
                                       (get {404 {:en "Not found"
                                                  :de "Nicht gefunden"
-                                                 :it "Non trovato"}
+                                                 :nl "Niet gevonden"}
                                             403 {:en "Forbidden"
                                                  :de "Keine Zugriffserlaubnis"
-                                                 :it "Non permesso"}}
+                                                 :nl "Geen toegang"}}
                                            status
                                            {:en "Something went wrong"
-                                            :de "Etwas ist schief gelaufen"}))]
+                                            :de "Etwas ist schief gelaufen"
+                                            :nl "Er is iets misgegaan"}))]
     (when (and (get-in response [:original-request :config :mail-on-errors?])
                (not (= status 404)))
       (-> (mail/mail-to-admin!
@@ -47,12 +49,12 @@
     (-> {:body   (if-not true #_(:reitit.core/router request)
                          (templates/router-free request {:beschreibung ""
                                                          :titel        (str status " – " message)}
-                                                (error-page message status))
+                                                (error-page locale message status))
                          (templates/head-and-foot-blank
                           request {:beschreibung ""
                                    :titel        (str status " – " message)}
                           []
-                          (error-page message status)))
+                          (error-page locale message status)))
          :status status}
         (r/content-type "text/html"))))
 

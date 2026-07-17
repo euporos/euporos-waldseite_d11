@@ -4,6 +4,7 @@
             [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
             [psite-hiccup.core :as ph]
+            [comp.snippets :as snip]
             [db.setup :as db]
             [db.queries :as q]
             [seiten.templates :as templates]
@@ -21,15 +22,15 @@
       [:h2.title.is-3 titel]
       [:div.content (ph/dangerous-html (or beschreibung ""))]]]]])
 
-(defn- ueberschrift [haus]
-  (str "Ausflugtips"
-       (when haus (str " für " (str/lower-case (:name haus))))))
+(defn- ueberschrift [locale haus]
+  (str (snip/ausflugtips locale)
+       (when haus (str (snip/fuer locale) (str/lower-case (:name haus))))))
 
-(defn- page-body [haus ausfluege]
+(defn- page-body [locale haus ausfluege]
   [:section
    [:div.panel.is-primary.mainpanel
     [:div.panel.py-4.px-4
-     [:h2.title.is-2.has-text-centered (ueberschrift haus)]
+     [:h2.title.is-2.has-text-centered (ueberschrift locale haus)]
      (map format-ausflug ausfluege)]]])
 
 (defhandler handler [req]
@@ -45,6 +46,6 @@
                        (q/ausfluege-overview locale)))]
     (templates/render-page
      req
-     {:titel        (ueberschrift haus)
-      :beschreibung "Ausflugtips rund um den Bayerischen Wald."}
-     (page-body haus ausfluege))))
+     {:titel        (ueberschrift locale haus)
+      :beschreibung (snip/ausfluege-meta-desc locale)}
+     (page-body locale haus ausfluege))))

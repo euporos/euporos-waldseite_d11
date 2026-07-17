@@ -2,6 +2,7 @@
   {:clj-kondo/config '{:lint-as {macchiato-async.core/defhandler clojure.core/defn}}}
   (:require [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
+            [comp.snippets :as snip]
             [db.setup :as db]
             [db.queries :as q]
             [seiten.templates :as templates]
@@ -25,11 +26,11 @@
    [:div.galerie-grid {:data-photoswipe-gallery true}
     (map thumb bilder)]])
 
-(defn- page-body [haus-by-id bilder]
+(defn- page-body [locale haus-by-id bilder]
   [:section
    [:div.panel.is-primary.mainpanel
     [:div.block.py-4.px-4
-     [:h1.title.is-2.has-text-centered "Galerie"]
+     [:h1.title.is-2.has-text-centered (snip/galerie locale)]
      (->> bilder
           (group-by (fn [{:keys [haus]}] (get haus-by-id haus)))
           (sort-by (fn [[k _]] (or k "")))
@@ -42,6 +43,6 @@
           haus-by-id (into {} (map (juxt :id :name)) haeuser)]
     (templates/render-page
      req
-     {:titel        "Galerie — Bickels Ferienwohnungen"
-      :beschreibung "Bildergalerie unserer Ferienhäuser im Bayerischen Wald."}
-     (page-body haus-by-id bilder))))
+     {:titel        (str (snip/galerie locale) " — Bickels Ferienwohnungen")
+      :beschreibung (snip/galerie-meta-desc locale)}
+     (page-body locale haus-by-id bilder))))

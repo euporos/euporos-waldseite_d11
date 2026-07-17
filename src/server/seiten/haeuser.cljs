@@ -2,6 +2,7 @@
   {:clj-kondo/config '{:lint-as {macchiato-async.core/defhandler clojure.core/defn}}}
   (:require [macchiato-async.core :refer-macros [defhandler]]
             [kitchen-async.promise :as p]
+            [comp.snippets :as snip]
             [db.setup :as db]
             [db.queries :as q]
             [seiten.templates :as templates]
@@ -19,11 +20,11 @@
      [:div.content.has-text-centered
       [:span.is-size-3 name]]]]])
 
-(defn- page-body [req haeuser]
+(defn- page-body [req locale haeuser]
   [:section
    [:div.panel.is-primary.mainpanel
     [:div.py-4.px-4
-     [:h1.title.is-2.has-text-centered "Unsere Ferienhäuser"]
+     [:h1.title.is-2.has-text-centered (snip/unsere-ferienhaeuser locale)]
      [:div.columns.is-multiline.is-centered
       (map (partial haus-card req) haeuser)]]]])
 
@@ -32,6 +33,6 @@
           haeuser (db/query (q/haeuser-overview locale))]
     (templates/render-page
      req
-     {:titel "Unsere Ferienhäuser — Bickels"
-      :beschreibung "Übersicht unserer Ferienhäuser im Bayerischen Wald."}
-     (page-body req haeuser))))
+     {:titel (str (snip/unsere-ferienhaeuser locale) " — Bickels")
+      :beschreibung (snip/haeuser-meta-desc locale)}
+     (page-body req locale haeuser))))

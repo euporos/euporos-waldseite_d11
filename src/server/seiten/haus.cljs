@@ -8,6 +8,7 @@
             [psite-seo.json-ld :as ld]
             [db.setup :as db]
             [db.queries :as q]
+            [comp.snippets :as snip]
             [seiten.components.dates :refer [fmt-datum]]
             [seiten.components.gallery :as gallery]
             [seiten.templates :as templates]
@@ -57,7 +58,7 @@
    [:div.testimonial-quote.content (ph/dangerous-html (or text ""))]
    [:footer.testimonial-attribution
     [:span.testimonial-name name]
-    (when alter [:span ", " alter " Jahre"])
+    (when alter [:span ", " alter " " (snip/jahre locale)])
     (when-let [s (fmt-datum datum locale)]
       [:span.testimonial-date " — " s])]])
 
@@ -81,24 +82,24 @@
        [:div.content (ph/dangerous-html (or beschreibung ""))]]
 
       [:div.block.textabschnitt.px-4
-       [:h2.title.is-3.has-text-centered {:id "ausstattung"} "Ausstattung"]
+       [:h2.title.is-3.has-text-centered {:id "ausstattung"} (snip/ausstattung locale)]
        [:div.content
         (ausstattung-table
          ausstattung_tabelle
          (when (and name (seq name))
-           (str "Das bietet "
-                (str/lower-case (subs name 0 1))
-                (subs name 1) ":")))
+           (str/replace (snip/das-bietet locale) "%s"
+                        (str (str/lower-case (subs name 0 1))
+                             (subs name 1)))))
         (ph/dangerous-html (or ausstattung ""))]]
 
       [:div.block.px-4
        {:id "wohnungen"}
-       [:h2.title.is-3.has-text-centered "Wohnungen"]
+       [:h2.title.is-3.has-text-centered (snip/wohnungen locale)]
        [:div.columns.is-multiline.is-centered
         (map (partial wohnung-card req) wohnungen)]]
 
       [:div.block.px-4
-       [:h2.title.is-3.has-text-centered {:id "anreise"} "Anreise"]
+       [:h2.title.is-3.has-text-centered {:id "anreise"} (snip/anreise locale)]
        [:div.textabschnitt
         [:div.columns
          [:div.column
@@ -109,25 +110,25 @@
            [:div.column (interpose [:br] adresszeilen)]]]]]]
 
       [:div.block.px-4
-       [:h2.title.is-3.has-text-centered {:id "ausfluege"} "Ausflugtips"]
+       [:h2.title.is-3.has-text-centered {:id "ausfluege"} (snip/ausflugtips locale)]
        [:div.columns.is-multiline.is-centered
         (map (partial ausflugsvorschau req id) ausfluege)]]
 
       (when (seq gaestestimmen)
         [:div.block.textabschnitt.px-4
-         [:h2.title.is-3.has-text-centered {:id "gaestestimmen"} "Gästestimmen"]
+         [:h2.title.is-3.has-text-centered {:id "gaestestimmen"} (snip/gaestestimmen locale)]
          [:div.testimonials
           (map (partial gaestestimme locale) gaestestimmen)]])
 
       [:div.block.textabschnitt.px-4
-       [:h2.title.is-3.has-text-centered {:id "buchung"} "Buchungsanfrage"]
+       [:h2.title.is-3.has-text-centered {:id "buchung"} (snip/buchungsanfrage locale)]
        [:div.content (ph/dangerous-html (or buchungstext ""))]]
 
       [:div.block.has-text-centered.pb-4.px-4
        [:a {:href (str (rt/path-fixed :buchung req)
                        (when-let [w (first wohnungen)]
                          (str "?default=" (:id w))))}
-        [:button.button.is-link "Jetzt Anfragen"]]]]]))
+        [:button.button.is-link (snip/jetzt-anfragen locale)]]]]]))
 
 (defn- combine-tables [& tabelle-strings]
   (->> tabelle-strings
@@ -154,9 +155,9 @@
       :beschreibung (:meta_description haus)
       :og-image     (when-let [img (:hauptbild haus)]
                       (d/image-by-preset "og" img))
-      :breadcrumbs  [{:name "Bickels"        :url (routing/reverse-match req :home {})}
-                     {:name "Ferienhäuser"   :url (routing/reverse-match req :haeuser {})}
-                     {:name (:name haus)     :url (:url req)}]
+      :breadcrumbs  [{:name "Bickels"                 :url (routing/reverse-match req :home {})}
+                     {:name (snip/ferienhaeuser locale) :url (routing/reverse-match req :haeuser {})}
+                     {:name (:name haus)             :url (:url req)}]
       :json-ld      (ld/entity
                      :LodgingBusiness
                      {:name        (:name haus)
