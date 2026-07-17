@@ -267,3 +267,124 @@
      :en "News from Bickels holiday apartments in the Bavarian Forest."
      :nl "Nieuws van Bickels vakantieappartementen in het Beierse Woud."}]])
 
+;; ###########################################################################
+;; Booking SPA (src/browser/buchung). Strings surfaced by the Reagent
+;; single-page app: guest/pet selectors, travel-date panel, contact form,
+;; price summary, validation errors and the calendar widget labels.
+;; %s placeholders are filled via goog.string/format at the call site.
+;; ###########################################################################
+
+(defsnips loc/fallback
+  [;; --- guest / pet selectors ---
+   [gast
+    {:de "Gast" :en "guest" :nl "gast"}]
+   [gaeste
+    {:de "Gäste" :en "guests" :nl "gasten"}]
+   [haustier
+    {:de "Haustier" :en "pet" :nl "huisdier"}]
+   [haustiere
+    {:de "Haustiere" :en "pets" :nl "huisdieren"}]
+   [ueberbelegung-warnung
+    ;; %1$s = apartment name, %2$s = maximum number of people
+    {:de "Bitte beachten Sie, dass die Wohnung »%s« maximal %s Personen Platz bietet."
+     :en "Please note that the apartment “%s” accommodates a maximum of %s people."
+     :nl "Let op: het appartement “%s” biedt plaats aan maximaal %s personen."}]
+
+   ;; --- travel-date panel ---
+   [reisedaten
+    {:de "Reisedaten" :en "Travel dates" :nl "Reisdata"}]
+   [belegung-nicht-geladen
+    ;; %s = apartment name
+    {:de "Belegungsdaten für »%s« konnten nicht geladen werden — Ihre Wunschdaten könnten u.U. nicht frei sein."
+     :en "Occupancy data for “%s” could not be loaded — your desired dates may not be available."
+     :nl "Bezettingsgegevens voor “%s” konden niet worden geladen — uw gewenste data zijn mogelijk niet beschikbaar."}]
+   [anreise-label
+    {:de "Anreise" :en "Arrival" :nl "Aankomst"}]
+   [abreise-label
+    {:de "Abreise" :en "Departure" :nl "Vertrek"}]
+   [ab-15-uhr
+    {:de " ab 15:00 Uhr" :en " from 3:00 pm" :nl " vanaf 15:00 uur"}]
+   [bis-10-uhr
+    {:de " bis 10:00 Uhr" :en " until 10:00 am" :nl " tot 10:00 uur"}]
+
+   ;; --- contact form ---
+   [vorname
+    {:de "Vorname" :en "First name" :nl "Voornaam"}]
+   [nachname
+    {:de "Nachname" :en "Last name" :nl "Achternaam"}]
+   [emailadresse
+    {:de "Emailadresse" :en "Email address" :nl "E-mailadres"}]
+   [zusatznachricht
+    {:de "Zusatznachricht" :en "Additional message" :nl "Aanvullend bericht"}]
+   [mietbedingungen
+    {:de "Mietbedingungen" :en "rental terms" :nl "huurvoorwaarden"}]
+
+   ;; --- price summary panel ---
+   [reisedaten-frei
+    {:de "Reisedaten sind frei! Stellen Sie jetzt Ihre unverbindliche Anfrage…"
+     :en "Your dates are available! Send your no-obligation request now…"
+     :nl "Uw data zijn beschikbaar! Doe nu uw vrijblijvende aanvraag…"}]
+   [preiszeile
+    ;; %1$s = number of nights, %2$s = apartment name, %3$s = total price
+    {:de "%s Nächte in der Wohnung %s für voraussichtlich %s€"
+     :en "%s nights in apartment %s for an estimated %s€"
+     :nl "%s nachten in appartement %s voor naar verwachting %s€"}]
+   [gaestebeitrag-teil
+    ;; %s = guest-contribution amount
+    {:de " (+ %s€ Gästebeitrag"
+     :en " (+ %s€ guest contribution"
+     :nl " (+ %s€ gastenbijdrage"}]
+   [energieaufschlag-teil
+    ;; %s = energy-surcharge amount
+    {:de ", + %s€ Energieaufschlag"
+     :en ", + %s€ energy surcharge"
+     :nl ", + %s€ energietoeslag"}]
+   [anfrage-uebermittelt
+    {:de "Ihre Anfrage wurde erfolgreich übermittelt."
+     :en "Your request has been submitted successfully."
+     :nl "Uw aanvraag is succesvol verzonden."}]
+
+   ;; --- submit button ---
+   [erneut-versuchen
+    {:de "Erneut versuchen" :en "Try again" :nl "Opnieuw proberen"}]
+   [jetzt-anfragen-btn
+    {:de "Jetzt anfragen!" :en "Enquire now!" :nl "Nu aanvragen!"}]
+
+   ;; --- loading screen ---
+   [lade-buchungsdaten
+    {:de "Lade Buchungsdaten…"
+     :en "Loading booking data…"
+     :nl "Boekingsgegevens laden…"}]
+
+   ;; --- date validation errors (buchung.datechecking) ---
+   [err-anreise-vor-abreise
+    {:de "Das Anreisedatum muss vor dem Abreisedatum liegen."
+     :en "The arrival date must be before the departure date."
+     :nl "De aankomstdatum moet vóór de vertrekdatum liggen."}]
+   [err-belegt
+    {:de "Der gewählte Zeitraum umfasst bereits belegte Tage."
+     :en "The selected period includes already-booked days."
+     :nl "De gekozen periode bevat reeds bezette dagen."}]
+   [err-mindestaufenthalt
+    ;; %1$s = apartment name, %2$s = minimum number of nights
+    {:de "Für die gewählte Saison beträgt die Mindestbuchung der Wohnung %s %s Nächte."
+     :en "For the selected season, the minimum booking for apartment %s is %s nights."
+     :nl "Voor het gekozen seizoen bedraagt het minimumverblijf voor appartement %s %s nachten."}]
+
+   ;; --- calendar widget labels (buchung.datepicker) ---
+   ;; Values are vectors; the datepicker indexes into them by weekday / month.
+   [weekday-short
+    {:de ["Mo" "Di" "Mi" "Do" "Fr" "Sa" "So"]
+     :en ["Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun"]
+     :nl ["ma" "di" "wo" "do" "vr" "za" "zo"]}]
+   [month-long
+    {:de ["Januar" "Februar" "März" "April" "Mai" "Juni"
+          "Juli" "August" "September" "Oktober" "November" "Dezember"]
+     :en ["January" "February" "March" "April" "May" "June"
+          "July" "August" "September" "October" "November" "December"]
+     :nl ["januari" "februari" "maart" "april" "mei" "juni"
+          "juli" "augustus" "september" "oktober" "november" "december"]}]
+   [datum-format
+    ;; cljs-time.format pattern — all day-first, locale-appropriate separators.
+    {:de "DD.MM.y" :en "DD/MM/y" :nl "DD-MM-y"}]])
+

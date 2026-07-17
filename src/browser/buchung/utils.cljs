@@ -3,7 +3,19 @@
    of the old waldseite utils.helpers + utils.tdstuff."
   (:require [cljs-time.coerce :as t.coerce]
             [cljs-time.core :as t]
-            [cljs-time.format :as t.format]))
+            [cljs-time.format :as t.format]
+            [comp.snippets :as snip]))
+
+;; ---------- Active locale ----------
+;; Set once by buchung.core/main from the server-provided :js-data. All
+;; buchung namespaces read it to localize their snippets; it never changes
+;; during the SPA's lifetime (a locale switch is a full page reload), so a
+;; plain atom suffices.
+
+(defonce locale (atom :de))
+
+(defn set-locale! [loc]
+  (when loc (reset! locale (keyword loc))))
 
 ;; ---------- Collection helpers ----------
 
@@ -69,17 +81,13 @@
                    (assoc v :dtstart d1 :dtend d2)))))
        vec))
 
-;; ---------- German calendar labels ----------
+;; ---------- Localized calendar labels ----------
 
-(def weekday-short-de
-  ["Mo" "Di" "Mi" "Do" "Fr" "Sa" "So"])
+(defn weekday-short []
+  (snip/weekday-short @locale))
 
-(def month-long-de
-  ["Januar" "Februar" "März" "April" "Mai" "Juni"
-   "Juli" "August" "September" "Oktober" "November" "Dezember"])
+(defn month-label [date]
+  (nth (snip/month-long @locale) (dec (t/month date))))
 
-(defn month-label-de [date]
-  (nth month-long-de (dec (t/month date))))
-
-(defn format-date-de [d]
-  (when d (t.format/unparse (t.format/formatter "DD.MM.y") d)))
+(defn format-date [d]
+  (when d (t.format/unparse (t.format/formatter (snip/datum-format @locale)) d)))

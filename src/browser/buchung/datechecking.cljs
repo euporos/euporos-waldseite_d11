@@ -1,13 +1,16 @@
 (ns buchung.datechecking
   "Validates a guest's selected stay against the apartment's blocked-date
-   list and the season's minimum-stay rules. Returns a German error
+   list and the season's minimum-stay rules. Returns a localized error
    string (truthy) or nil (no problem)."
   (:require [cljs-time.core :as t]
+            [goog.string :as gstring]
+            [goog.string.format]
+            [comp.snippets :as snip]
             [buchung.utils :as u]))
 
 (defn err-anreise-vor-abreise? [anreise abreise]
   (when-not (t/before? anreise abreise)
-    "Das Anreisedatum muss vor dem Abreisedatum liegen."))
+    (snip/err-anreise-vor-abreise @u/locale)))
 
 (defn err-contains-blocked? [aufenthalt whg-id wohnungen]
   (let [belegung (u/get-by-id wohnungen whg-id :belegung)]
@@ -17,7 +20,7 @@
                        (t/overlap aufenthalt
                                   (t/interval dtstart (t/minus dtend (t/days 1)))))
                      belegung))
-      "Der gewählte Zeitraum umfasst bereits belegte Tage.")))
+      (snip/err-belegt @u/locale))))
 
 (defn- saisons-overlapping
   "Per-apartment fields of every season whose interval overlaps the stay."
@@ -39,8 +42,7 @@
         whg-name      (u/get-by-id wohnungen whg-id :name)]
     (when (and aufenthalt min-required
                (< (t/in-days aufenthalt) min-required))
-      (str "Für die gewählte Saison beträgt die Mindestbuchung der Wohnung "
-           whg-name " " min-required " Nächte."))))
+      (gstring/format (snip/err-mindestaufenthalt @u/locale) whg-name min-required))))
 
 (defn err-dates-bad?
   "Composes the three checks; returns the first error message or nil."

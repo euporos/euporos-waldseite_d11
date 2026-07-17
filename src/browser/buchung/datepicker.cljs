@@ -57,7 +57,7 @@
    {:key (str day)} (t/day day)])
 
 (defn- weekday-row []
-  [:tr (for [w u/weekday-short-de] [:td.picker__cell.picker__cell--weekday {:key w} w])])
+  [:tr (for [w (u/weekday-short)] [:td.picker__cell.picker__cell--weekday {:key w} w])])
 
 (defn- format-month [shown-date selected-date opts]
   (let [{:keys [belegung]} opts
@@ -91,7 +91,7 @@
       [:td (nav-button shown-date t/minus t/months "⟨")]
       [:td.picker__indicators
        [:div.picker__indicator.picker__indicator--year (t/year @shown-date)]
-       [:div.picker__indicator.picker__indicator--month (u/month-label-de @shown-date)]]
+       [:div.picker__indicator.picker__indicator--month (u/month-label @shown-date)]]
       [:td (nav-button shown-date t/plus t/months "⟩")]
       [:td (nav-button shown-date t/plus t/years  "⟩⟩")]]]]])
 

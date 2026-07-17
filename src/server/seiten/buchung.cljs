@@ -40,5 +40,9 @@
       ;; onload to the SPA entry name turns that into
       ;; "buchung.core.main(app.core.readarg(...))", which fires our
       ;; SPA after app.js has booted (so SHADOW_ENV is in place).
-      :cljs         {:onload "buchung.core.main"}}
+      ;; :js-data is transit-serialized and handed to buchung.core.main
+      ;; via app.core.readarg — the SPA reads :locale off it to localize
+      ;; its snippets.
+      :cljs         {:onload "buchung.core.main"
+                     :js-data {:locale locale}}}
      (page-body af-token))))
