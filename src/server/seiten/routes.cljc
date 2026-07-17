@@ -13,6 +13,7 @@
             [seiten.kontakt :as kontakt]
             [seiten.kontaktform :as kontaktform]
             [seiten.preise :as preise]
+            [seiten.translate :as translate]
             [seiten.wohnung :as wohnung]
             [setup.directus-auth :as directus-auth]))
   #?(:clj  (:require      [psite-routing.macros :as prm])
@@ -47,7 +48,15 @@
           :name    :admin}]
      ["/preise" {:middleware [directus-auth/require-directus-user]
                  :handler    preise/handler
-                 :name       :admin-preise}]]
+                 :name       :admin-preise}]
+     ["/uebersetzungen" {:handler translate/page-handler
+                         :name    :admin-uebersetzungen}]
+     ["/api/translation/gaps" {:handler translate/gaps-handler
+                               :name    :admin-translation-gaps}]
+     ["/api/translation/start" {:handler translate/start-handler
+                                :name    :admin-translation-start}]
+     ["/api/translation/job" {:handler translate/job-handler
+                              :name    :admin-translation-job}]]
 
     ;; Catch-all einzelseite must come last so static names match first.
     ["/{einzelseitid}-{einzelseitbez}"

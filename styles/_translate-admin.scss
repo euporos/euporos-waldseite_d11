@@ -1,0 +1,168 @@
+// //  ###########################
+// //  ### Übersetzungs-Dashboard ###   (app.translate / psite-translate)
+// //  ###########################
+//
+// Styles for the shared psite-translate dashboard, rendered into #admin on
+// /admin/uebersetzungen. The module emits .admin__* elements plus .kaufbutton
+// action buttons (class names hardcoded by the shared module). Bickels is a
+// light, Bulma-based site, so these are light-theme values.
+
+$admin-accent:       #8b5a2b; // site --link-color (brown)
+$admin-text:         #363636; // Bulma text
+$admin-pad:          1rem;
+$admin-panel-bg:     rgba($admin-accent, 0.05);
+$admin-panel-bg-alt: rgba($admin-accent, 0.10);
+$admin-error:        #e74c3c;
+$admin-ok:           #2ecc71;
+
+.admin {
+    text-align: left;
+    font-size: 1rem;
+    color: $admin-text;
+
+    &__section {
+        margin-bottom: calc(#{$admin-pad} * 1.5);
+    }
+
+    &__subtitle {
+        font-size: 1.4rem;
+        color: $admin-accent;
+        margin-bottom: $admin-pad;
+        padding-bottom: 0.3rem;
+        border-bottom: 2px solid $admin-accent;
+    }
+
+    // secondary text action (← Sprachen, Erneut scannen)
+    &__back {
+        float: right;
+        padding: 0;
+        border: none;
+        background: none;
+        font-size: 1rem;
+        color: $admin-accent;
+        cursor: pointer;
+
+        &:hover { text-decoration: underline; }
+    }
+
+    &__langs {
+        margin-bottom: $admin-pad;
+
+        label {
+            margin-right: 1.5rem;
+            cursor: pointer;
+        }
+
+        input { margin-right: 0.3rem; }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: $admin-pad;
+    }
+
+    &__note {
+        margin: $admin-pad 0;
+        padding: $admin-pad;
+        border: 2px solid $admin-accent;
+        background: $admin-panel-bg;
+
+        &--error {
+            border-color: $admin-error;
+            color: $admin-error;
+            background: rgba($admin-error, 0.08);
+        }
+    }
+
+    &__progress {
+        width: 100%;
+        height: 1rem;
+        margin: $admin-pad 0;
+        accent-color: $admin-accent;
+    }
+
+    &__tablewrap {
+        max-height: 60vh;
+        overflow-y: auto;
+        border: 1px solid rgba($admin-accent, 0.3);
+    }
+
+    &__table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+
+        th, td {
+            padding: 0.3rem 0.5rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background: $admin-panel-bg-alt;
+            border-bottom: 2px solid $admin-accent;
+        }
+
+        tbody tr { border-bottom: 1px solid rgba($admin-accent, 0.15); }
+
+        code {
+            font-family: monospace;
+            word-break: break-all;
+        }
+    }
+
+    &__group td {
+        background: $admin-panel-bg;
+    }
+
+    &__preview {
+        color: rgba($admin-text, 0.6);
+        font-size: 0.85em;
+    }
+
+    &__tag {
+        display: inline-block;
+        margin-right: 0.25em;
+        padding: 0 0.4em;
+        border: 1px solid $admin-accent;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        color: $admin-accent;
+    }
+
+    &__status {
+        &--ok    { color: $admin-ok;    font-weight: bold; }
+        &--error { color: $admin-error; font-weight: bold; cursor: help; }
+    }
+}
+
+// The dashboard's action buttons use .kaufbutton (a button class the shared
+// module hardcodes). Define a site-native accent button plus the ghost +
+// disabled variants the dashboard relies on.
+.kaufbutton {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 2px solid $admin-accent;
+    border-radius: 4px;
+    background: $admin-accent;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover { filter: brightness(1.08); }
+
+    &--ghost {
+        background: transparent;
+        color: $admin-accent;
+    }
+
+    &[disabled] {
+        opacity: 0.45;
+        cursor: default;
+    }
+}

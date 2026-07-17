@@ -87,6 +87,8 @@ $navbar-dropdown-item-hover-color:           maroon;
 
 @import '../node_modules/bulma/bulma.sass';
 
+@import 'translate-admin';
+
 :root {
   --link-color:      #8b5a2b;
   --svg-color-light: #f5deb3;

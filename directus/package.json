@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "directus": "^11.17.3",
+    "directus-extension-llm-translate": "git+ssh://git@github.com/euporos/directus-extension-llm-translate.git#8bc3e7270453779c6177328871d35fb269e53eb4",
     "mysql2": "^3.0.0"
   }
 }

@@ -8480,6 +8480,296 @@
         "has_auto_increment": false,
         "is_unique": false
       }
+    },
+    {
+      "collection": "haeuser",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "haeuser",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "wohnungen",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "wohnungen",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "einzelseiten",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "einzelseiten",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "ausfluege",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "ausfluege",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "galerie",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "galerie",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "news",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "news",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "startseite",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "startseite",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "allgemeines",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "allgemeines",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "articles",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "fixe_seiten",
+      "field": "llm_translate",
+      "type": "alias",
+      "meta": {
+        "collection": "fixe_seiten",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "llm_translate",
+        "group": null,
+        "hidden": false,
+        "interface": "llm-translate",
+        "note": "LLM-Übersetzung aus dem Deutschen",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": false,
+        "sort": "99",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
     }
   ],
   "systemFields": [

@@ -23,6 +23,15 @@
  :rate-limit-buckets nil      ; explicit nil — defaults set in serving.core
  :directus {:translations-key :translations
             :language-key :languages_code}
+
+ ;; LLM translation gateway. Used by the site-wide translation dashboard
+ ;; (/admin/uebersetzungen) to fill missing *_translations from the German
+ ;; reference. The key is server-side only (same value as the server's
+ ;; /etc/llm-gateway/env). The LLM_SITE_* context lives in flake.nix commonEnv,
+ ;; shared with the Directus extension. NOT shared with the frontend.
+ :llm-gateway {:url     "https://llm.olivermotz.net"
+               :api-key #psite/secret "llm-gateway-api-key"}
+
  ;; Required secrets — values come from ../settings.edn (parent, untracked).
  :admin-email     #psite/secret "admin-email"
  :contact-email   "technical@olivermotz.com"

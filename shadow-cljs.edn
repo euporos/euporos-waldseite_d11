@@ -22,6 +22,7 @@
                                        :entries [app.router
                                                  app.book
                                                  app.admin
+                                                 app.translate
                                                  app.modal
                                                  app.obfuscate
                                                  buchung.core]}}

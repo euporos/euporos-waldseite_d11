@@ -31,6 +31,18 @@
           SASS_DIRECTORY = pkgs.sass;
           SCSS_EXECUTABLE = "${pkgs.sass}/bin/scss";
           CHROME_BINARY_PATH = "${pkgs.chromium}/bin/chromium";
+
+          # LLM translation site context. Read by BOTH the Directus extension
+          # (directus-extension-llm-translate, via env.LLM_SITE_*) and the app's
+          # site-wide translation dashboard (psite-translate, via config → the
+          # :llm-site-* settings), so the gateway gets one identical description
+          # of the site from a single source. Optional LLM_SOURCE_LANG defaults
+          # to "de". The gateway key itself is a secret, not set here.
+          LLM_SITE_NAME = "Bickels Ferienwohnungen Waldseite";
+          LLM_SITE_DESCRIPTION = "Website of Bickels Ferienwohnungen Waldseite — holiday apartments and houses in the Bavarian Forest (Bayerischer Wald); houses, apartments, prices, excursion tips and booking enquiries.";
+          LLM_SITE_DOMAIN = "bickels-ferienwohnungen.de";
+          LLM_SITE_AUDIENCE = "holidaymakers and prospective guests looking for a vacation rental";
+          LLM_SITE_TONE = "warm, inviting and personal; polite direct address (Sie)";
         };
 
         # Tomato-colored prompt (RGB 255,99,71) showing repo_name:relative/path
