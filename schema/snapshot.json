@@ -786,6 +786,34 @@
       "schema": {
         "name": "wohnungen_translations"
       }
+    },
+    {
+      "collection": "bewertungen",
+      "meta": {
+        "group": null,
+        "color": null,
+        "display_template": "{{plattform}}: {{wert}}",
+        "accountability": "all",
+        "archive_field": null,
+        "archive_app_filter": true,
+        "sort_field": null,
+        "icon": "star",
+        "archive_value": null,
+        "item_duplication_fields": null,
+        "preview_url": null,
+        "note": "Bewertungen der Wohnung bzw. des Hauses auf externen Portalen. Werte werden von Hand gepflegt.",
+        "singleton": false,
+        "hidden": false,
+        "collapse": "open",
+        "versioning": false,
+        "collection": "bewertungen",
+        "unarchive_value": null,
+        "sort": null,
+        "translations": null
+      },
+      "schema": {
+        "name": "bewertungen"
+      }
     }
   ],
   "fields": [
@@ -8770,6 +8798,429 @@
         "validation_message": null,
         "width": "full"
       }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "id",
+      "type": "bigInteger",
+      "meta": {
+        "validation_message": null,
+        "special": null,
+        "interface": "input",
+        "group": null,
+        "readonly": true,
+        "width": "full",
+        "field": "id",
+        "searchable": true,
+        "note": null,
+        "conditions": null,
+        "hidden": true,
+        "display": null,
+        "options": null,
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": false,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": 0,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": null,
+        "is_indexed": false,
+        "name": "id",
+        "is_nullable": false,
+        "is_primary_key": true,
+        "numeric_precision": 64,
+        "max_length": null,
+        "data_type": "bigint",
+        "foreign_key_table": null,
+        "is_generated": false,
+        "default_value": "nextval('bewertungen_id_seq'::regclass)",
+        "has_auto_increment": true,
+        "is_unique": true
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "wohnung",
+      "type": "bigInteger",
+      "meta": {
+        "validation_message": null,
+        "special": [
+          "m2o"
+        ],
+        "interface": null,
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "wohnung",
+        "searchable": true,
+        "note": "Fuer Bewertungen einer einzelnen Wohnung (z.B. FeWo-direkt).",
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": null,
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": false,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": 0,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": "id",
+        "is_indexed": false,
+        "name": "wohnung",
+        "is_nullable": true,
+        "is_primary_key": false,
+        "numeric_precision": 64,
+        "max_length": null,
+        "data_type": "bigint",
+        "foreign_key_table": "wohnungen",
+        "is_generated": false,
+        "default_value": null,
+        "has_auto_increment": false,
+        "is_unique": false
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "haus",
+      "type": "bigInteger",
+      "meta": {
+        "validation_message": null,
+        "special": [
+          "m2o"
+        ],
+        "interface": null,
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "haus",
+        "searchable": true,
+        "note": "Fuer Bewertungen des ganzen Hauses (z.B. Google). Gilt fuer alle Wohnungen des Hauses.",
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": null,
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": false,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": 0,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": "id",
+        "is_indexed": false,
+        "name": "haus",
+        "is_nullable": true,
+        "is_primary_key": false,
+        "numeric_precision": 64,
+        "max_length": null,
+        "data_type": "bigint",
+        "foreign_key_table": "haeuser",
+        "is_generated": false,
+        "default_value": null,
+        "has_auto_increment": false,
+        "is_unique": false
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "plattform",
+      "type": "string",
+      "meta": {
+        "validation_message": null,
+        "special": null,
+        "interface": "select-dropdown",
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "plattform",
+        "searchable": true,
+        "note": null,
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": {
+          "choices": [
+            {
+              "text": "FeWo-direkt",
+              "value": "fewo-direkt"
+            },
+            {
+              "text": "Google",
+              "value": "google"
+            }
+          ]
+        },
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": true,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": null,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": null,
+        "is_indexed": false,
+        "name": "plattform",
+        "is_nullable": false,
+        "is_primary_key": false,
+        "numeric_precision": null,
+        "max_length": 50,
+        "data_type": "character varying",
+        "foreign_key_table": null,
+        "is_generated": false,
+        "default_value": null,
+        "has_auto_increment": false,
+        "is_unique": false
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "url",
+      "type": "string",
+      "meta": {
+        "validation_message": null,
+        "special": null,
+        "interface": "input",
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "url",
+        "searchable": true,
+        "note": "Link zur Anzeige auf dem Portal.",
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": null,
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": false,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": null,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": null,
+        "is_indexed": false,
+        "name": "url",
+        "is_nullable": true,
+        "is_primary_key": false,
+        "numeric_precision": null,
+        "max_length": 500,
+        "data_type": "character varying",
+        "foreign_key_table": null,
+        "is_generated": false,
+        "default_value": null,
+        "has_auto_increment": false,
+        "is_unique": false
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "wert",
+      "type": "decimal",
+      "meta": {
+        "validation_message": null,
+        "special": null,
+        "interface": "input",
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "wert",
+        "searchable": true,
+        "note": "Die Bewertungsnote laut Portal.",
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": null,
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": false,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": 1,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": null,
+        "is_indexed": false,
+        "name": "wert",
+        "is_nullable": true,
+        "is_primary_key": false,
+        "numeric_precision": 3,
+        "max_length": null,
+        "data_type": "numeric",
+        "foreign_key_table": null,
+        "is_generated": false,
+        "default_value": null,
+        "has_auto_increment": false,
+        "is_unique": false
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "max_wert",
+      "type": "decimal",
+      "meta": {
+        "validation_message": null,
+        "special": null,
+        "interface": "input",
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "max_wert",
+        "searchable": true,
+        "note": "Maximale Note der Skala: FeWo-direkt 10, Google 5.",
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": null,
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": false,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": 1,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": null,
+        "is_indexed": false,
+        "name": "max_wert",
+        "is_nullable": true,
+        "is_primary_key": false,
+        "numeric_precision": 3,
+        "max_length": null,
+        "data_type": "numeric",
+        "foreign_key_table": null,
+        "is_generated": false,
+        "default_value": 10,
+        "has_auto_increment": false,
+        "is_unique": false
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "anzahl",
+      "type": "integer",
+      "meta": {
+        "validation_message": null,
+        "special": null,
+        "interface": "input",
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "anzahl",
+        "searchable": true,
+        "note": "Anzahl der Bewertungen laut Portal.",
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": null,
+        "validation": null,
+        "collection": "bewertungen",
+        "display_options": null,
+        "sort": null,
+        "required": false,
+        "translations": null
+      },
+      "schema": {
+        "numeric_scale": 0,
+        "generation_expression": null,
+        "table": "bewertungen",
+        "foreign_key_column": null,
+        "is_indexed": false,
+        "name": "anzahl",
+        "is_nullable": true,
+        "is_primary_key": false,
+        "numeric_precision": 32,
+        "max_length": null,
+        "data_type": "integer",
+        "foreign_key_table": null,
+        "is_generated": false,
+        "default_value": null,
+        "has_auto_increment": false,
+        "is_unique": false
+      }
+    },
+    {
+      "collection": "wohnungen",
+      "field": "bewertungen",
+      "type": "alias",
+      "meta": {
+        "validation_message": null,
+        "special": [
+          "o2m"
+        ],
+        "interface": "list-o2m",
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "bewertungen",
+        "searchable": true,
+        "note": null,
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": {},
+        "validation": null,
+        "collection": "wohnungen",
+        "display_options": null,
+        "sort": 20,
+        "required": false,
+        "translations": null
+      }
+    },
+    {
+      "collection": "haeuser",
+      "field": "bewertungen",
+      "type": "alias",
+      "meta": {
+        "validation_message": null,
+        "special": [
+          "o2m"
+        ],
+        "interface": "list-o2m",
+        "group": null,
+        "readonly": false,
+        "width": "full",
+        "field": "bewertungen",
+        "searchable": true,
+        "note": null,
+        "conditions": null,
+        "hidden": false,
+        "display": null,
+        "options": {},
+        "validation": null,
+        "collection": "haeuser",
+        "display_options": null,
+        "sort": 20,
+        "required": false,
+        "translations": null
+      }
     }
   ],
   "systemFields": [
@@ -9769,6 +10220,56 @@
         "constraint_name": "wohnungen_translations_language_foreign",
         "on_update": "NO ACTION",
         "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "wohnung",
+      "related_collection": "wohnungen",
+      "meta": {
+        "one_collection_field": null,
+        "sort_field": null,
+        "one_allowed_collections": null,
+        "many_collection": "bewertungen",
+        "one_deselect_action": "delete",
+        "junction_field": null,
+        "many_field": "wohnung",
+        "one_field": "bewertungen",
+        "one_collection": "wohnungen"
+      },
+      "schema": {
+        "table": "bewertungen",
+        "column": "wohnung",
+        "foreign_key_table": "wohnungen",
+        "foreign_key_column": "id",
+        "constraint_name": "bewertungen_wohnung_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE"
+      }
+    },
+    {
+      "collection": "bewertungen",
+      "field": "haus",
+      "related_collection": "haeuser",
+      "meta": {
+        "one_collection_field": null,
+        "sort_field": null,
+        "one_allowed_collections": null,
+        "many_collection": "bewertungen",
+        "one_deselect_action": "delete",
+        "junction_field": null,
+        "many_field": "haus",
+        "one_field": "bewertungen",
+        "one_collection": "haeuser"
+      },
+      "schema": {
+        "table": "bewertungen",
+        "column": "haus",
+        "foreign_key_table": "haeuser",
+        "foreign_key_column": "id",
+        "constraint_name": "bewertungen_haus_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE"
       }
     }
   ]
