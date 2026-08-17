@@ -63,7 +63,7 @@ nix run .#deploy-prod         # deploy to production (pulls main on server, runs
 - **Backend:** ClojureScript on Node.js via [Macchiato](https://macchiato-framework.github.io/) framework
 - **Frontend:** ClojureScript with [Re-frame](https://github.com/day8/re-frame) state management
 - **Routing:** [Reitit](https://github.com/metosin/reitit) with Malli coercion
-- **Database:** MySQL (MariaDB 10.6) via HoneySQL query builder
+- **Database:** PostgreSQL (local dev on port 5435) via the `psite-pg` wrapper + HoneySQL query builder. Migrated from MariaDB 2026-04-24 — see `MIGRATION.md`
 - **CMS:** Directus 11.x (REST API for content/translations)
 - **Templating:** Hiccup/Hiccups (Clojure HTML DSL)
 - **Styling:** Garden (CSS-in-Clojure) + SCSS + Bulma 0.9.4
@@ -127,6 +127,12 @@ scripts/
 - `view-defs` — HoneySQL maps executed at server startup to CREATE OR REPLACE VIEW
 - `schema-meta` — full schema metadata for downstream tooling
 - `as` helper for HoneySQL SELECT aliasing
+
+**Gotcha:** shadow-cljs does not track `schema/snapshot.json` as a dependency of
+`db/schema.cljs`, so after changing the snapshot (new collection or field) a
+warm build still emits the *old* defs and every new `s/...` symbol fails as
+"Use of undeclared Var". Clear the build cache — `rm -rf .shadow-cljs/builds/server`
+— and recompile.
 
 **i18n strings** use the `defsnips` macro in `comp/snippets.cljs` with per-language variants.
 

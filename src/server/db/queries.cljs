@@ -105,6 +105,29 @@
    :where  [:= s/haeuser-id haus-id]
    :limit  1})
 
+(defn bewertungen-for-wohnung
+  "Portal ratings that apply to one apartment: its own rows plus the rows of its
+   house (Google rates the location, not the flat). Rows with both FKs null are
+   orphans and never match. Precedence between the two levels is resolved by the
+   caller — see `seiten.wohnung`."
+  [wohnung-id haus-id]
+  {:select   [s/bewertungen-id
+              s/bewertungen-wohnung
+              s/bewertungen-haus
+              s/bewertungen-plattform
+              s/bewertungen-url
+              s/bewertungen-wert
+              s/bewertungen-max_wert
+              s/bewertungen-anzahl]
+   :from     [s/bewertungen]
+   :where    (if haus-id
+               [:or
+                [:= s/bewertungen-wohnung wohnung-id]
+                [:and [:is s/bewertungen-wohnung nil]
+                      [:= s/bewertungen-haus haus-id]]]
+               [:= s/bewertungen-wohnung wohnung-id])
+   :order-by [s/bewertungen-plattform s/bewertungen-id]})
+
 (defn wohnung-bilder [wohnung-id]
   {:select   [:wohnungen_directus_files.directus_files_id]
    :from     [:wohnungen_directus_files]

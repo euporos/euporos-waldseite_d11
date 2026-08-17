@@ -27,6 +27,43 @@
        (str/join "\n")
        not-empty))
 
+;; Portal ratings ("bewertungen") -----------------------------------------
+;; Scales differ per platform (FeWo-direkt /10, Google /5), so the score is
+;; always rendered together with its max_wert — never normalised.
+
+(def ^:private plattform-namen
+  {"fewo-direkt" "FeWo-direkt"
+   "google"      "Google"})
+
+(defn- fmt-wert
+  "Score with one decimal, no trailing \".0\"; decimal comma in de/nl, point in
+   en. Numerics arrive from node-pg as strings."
+  [locale v]
+  (when-let [n (some-> v str js/parseFloat)]
+    (when-not (js/isNaN n)
+      (cond-> (if (= n (js/Math.floor n)) (str (int n)) (.toFixed n 1))
+        (not= :en locale) (str/replace "." ",")))))
+
+(defn- effektive-bewertungen
+  "One row per platform: an apartment-level row wins over the house-level one."
+  [bewertungen]
+  (->> bewertungen
+       (remove (fn [{:keys [wohnung haus]}] (and (nil? wohnung) (nil? haus))))
+       (group-by :plattform)
+       (sort-by key)
+       (map (fn [[_ rows]] (or (first (filter :wohnung rows)) (first rows))))))
+
+(defn- bewertung-rows [locale bewertungen]
+  (for [{:keys [plattform wert max_wert anzahl]} (effektive-bewertungen bewertungen)
+        :let [wert (fmt-wert locale wert)
+              max_wert (fmt-wert locale max_wert)]
+        :when (and wert max_wert)]
+    [:tr
+     [:td (get plattform-namen plattform plattform)]
+     [:td wert "/" max_wert
+      (when (and anzahl (pos? anzahl))
+        (str " (" anzahl " " (snip/bewertungen locale) ")"))]]))
+
 (defn- preis-rows [locale {:keys [maximalbelegung mindestaufenthalt_standard
                                   tag-min woche-min]}]
   (list
@@ -46,7 +83,7 @@
       [:td (snip/mindestaufenthalt locale)]
       [:td (snip/ab locale) " " (int mindestaufenthalt_standard) " " (snip/naechte locale)]])))
 
-(defn- ausstattung-table [locale tabelle-string dtvsterne preise]
+(defn- ausstattung-table [locale tabelle-string dtvsterne preise bewertungen]
   [:div.ausstattung-table
    [:div.card
     [:table.table
@@ -58,6 +95,7 @@
                    :href "https://www.deutschertourismusverband.de/qualitaet/sterneunterkuenfte.html"}
                "DTV-Sterne"]]
          [:td (repeat dtvsterne [:i.dtvstern])]])
+      (bewertung-rows locale bewertungen)
       (for [line (when tabelle-string (str/split-lines tabelle-string))
             :let [cells (str/split line #"::")]]
         [:tr
@@ -65,7 +103,7 @@
            [:td.has-text-centered {:colspan 2} (first cells)]
            (for [c cells] [:td c]))])]]]])
 
-(defn- page-body [req locale wohnung bilder ausstattung-string preise]
+(defn- page-body [req locale wohnung bilder ausstattung-string preise bewertungen]
   (let [{:keys [id name beschreibung hauptbild dtvsterne]} wohnung]
     [:section
      [:div.panel.mainpanel
@@ -81,7 +119,7 @@
          [:div.wohnungbeschreibung__text
           (ph/dangerous-html (or beschreibung ""))]
          [:div.wohnungbeschreibung__ausstattung
-          (ausstattung-table locale ausstattung-string dtvsterne preise)]]]]
+          (ausstattung-table locale ausstattung-string dtvsterne preise bewertungen)]]]]
 
       [:div.mb-4.has-text-centered.pb-4
        [:a {:href (str (rt/path-fixed :buchung req)
@@ -102,7 +140,8 @@
           allg         (-> (db/query (q/allgemeines-content locale))
                            (.then (comp :ausstattung_tabelle first)))
           ausstattung  (combine-tables (:ausstattung_tabelle wohnung) haus-tabelle allg)
-          preise       (plookup/wohnung-summary wohnung-id)]
+          preise       (plookup/wohnung-summary wohnung-id)
+          bewertungen  (db/query (q/bewertungen-for-wohnung wohnung-id (:haus wohnung)))]
     (templates/render-page
      req
      {:titel        (str (snip/wohnung locale) " " (:name wohnung))
@@ -119,4 +158,4 @@
                       :url   (routing/make-path-absolute req (:url req))
                       :image (when-let [img (:hauptbild wohnung)]
                                (d/image-by-preset "og" img))})}
-     (page-body req locale wohnung bilder ausstattung preise))))
+     (page-body req locale wohnung bilder ausstattung preise bewertungen))))
