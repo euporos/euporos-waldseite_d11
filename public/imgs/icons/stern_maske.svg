@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- Silhouette only — used as a CSS mask over the rating fill, so the fill
+       colour lives in the stylesheet, not here. Scaled down and offset to
+       leave a little air between adjacent stars when the tile repeats. -->
+  <path transform="translate(2 2) scale(0.8333)"
+        d="M12 .587l3.668 7.431 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/>
+</svg>

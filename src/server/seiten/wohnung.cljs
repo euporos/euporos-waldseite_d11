@@ -28,21 +28,35 @@
        not-empty))
 
 ;; Portal ratings ("bewertungen") -----------------------------------------
-;; Scales differ per platform (FeWo-direkt /10, Google /5), so the score is
-;; always rendered together with its max_wert — never normalised.
+;; Scales differ per platform (FeWo-direkt and Booking.com /10, Google /5), so
+;; the score is always rendered together with its max_wert — never normalised.
 
 (def ^:private plattform-namen
   {"fewo-direkt" "FeWo-direkt"
-   "google"      "Google"})
+   "google"      "Google"
+   "booking"     "Booking.com"})
+
+(defn- ->zahl
+  "Numerics arrive from node-pg as strings."
+  [v]
+  (when-let [n (some-> v str js/parseFloat)]
+    (when-not (js/isNaN n) n)))
 
 (defn- fmt-wert
-  "Score with one decimal, no trailing \".0\"; decimal comma in de/nl, point in
-   en. Numerics arrive from node-pg as strings."
-  [locale v]
-  (when-let [n (some-> v str js/parseFloat)]
-    (when-not (js/isNaN n)
-      (cond-> (if (= n (js/Math.floor n)) (str (int n)) (.toFixed n 1))
-        (not= :en locale) (str/replace "." ",")))))
+  "Score with one decimal, no trailing \".0\"; decimal comma in de/nl, point in en."
+  [locale n]
+  (cond-> (if (= n (js/Math.floor n)) (str (int n)) (.toFixed n 1))
+    (not= :en locale) (str/replace "." ",")))
+
+(defn- sterne
+  "Five stars filled to `anteil` (0–1). The fill is a plain coloured bar and the
+   star shapes are a CSS mask over it, so the boundary lands anywhere inside a
+   star — 9,6/10 is exactly 96 % of the bar, not a rounded half-star. Decorative
+   only: the score sits next to it as text."
+  [anteil]
+  [:span.sternewertung {:aria-hidden "true"}
+   [:span.sternewertung__fuellung
+    {:style (str "width:" (.toFixed (* 100 (min 1 (max 0 anteil))) 2) "%")}]])
 
 (defn- effektive-bewertungen
   "One row per platform: an apartment-level row wins over the house-level one."
@@ -54,15 +68,15 @@
        (map (fn [[_ rows]] (or (first (filter :wohnung rows)) (first rows))))))
 
 (defn- bewertung-rows [locale bewertungen]
-  (for [{:keys [plattform wert max_wert anzahl]} (effektive-bewertungen bewertungen)
-        :let [wert (fmt-wert locale wert)
-              max_wert (fmt-wert locale max_wert)]
-        :when (and wert max_wert)]
+  (for [{:keys [plattform wert max_wert]} (effektive-bewertungen bewertungen)
+        :let [wert     (->zahl wert)
+              max_wert (->zahl max_wert)]
+        :when (and wert max_wert (pos? max_wert))]
     [:tr
      [:td (get plattform-namen plattform plattform)]
-     [:td wert "/" max_wert
-      (when (and anzahl (pos? anzahl))
-        (str " (" anzahl " " (snip/bewertungen locale) ")"))]]))
+     [:td
+      [:span.bewertung__zahl (fmt-wert locale wert) "/" (fmt-wert locale max_wert)]
+      (sterne (/ wert max_wert))]]))
 
 (defn- preis-rows [locale {:keys [maximalbelegung mindestaufenthalt_standard
                                   tag-min woche-min]}]

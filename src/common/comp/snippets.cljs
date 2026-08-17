@@ -140,9 +140,6 @@
     {:de "Nächte" :en "nights" :nl "nachten"}]
    [dtv-sterne
     {:de "DTV-Sterne" :en "DTV stars" :nl "DTV-sterren"}]
-   [bewertungen
-    ;; used inside parentheses after a count: "(13 Bewertungen)"
-    {:de "Bewertungen" :en "reviews" :nl "beoordelingen"}]
 
    ;; --- haeuser overview ---
    [unsere-ferienhaeuser

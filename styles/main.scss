@@ -288,6 +288,37 @@ body > .footer { margin-top: auto; }
   .table { background: white; }
 }
 
+// Portal review score (bewertungen). The yellow bar is the fill and the five
+// star silhouettes are a mask laid over it, so the fill boundary can land
+// anywhere inside a star — 9,6/10 renders as exactly 96 % of the bar, not as
+// a half-star approximation. The grey background is what shows through the
+// unfilled part of the mask.
+.bewertung__zahl {
+  margin-right: 0.45rem;
+  white-space: nowrap;
+}
+
+.sternewertung {
+  --stern-groesse: 1.15rem;
+
+  position: relative;
+  display: inline-block;
+  vertical-align: -0.18em;
+  width: calc(5 * var(--stern-groesse));
+  height: var(--stern-groesse);
+  background: #d9d4cc;
+  -webkit-mask: url("/imgs/icons/stern_maske.svg") left center / var(--stern-groesse) var(--stern-groesse) repeat-x;
+          mask: url("/imgs/icons/stern_maske.svg") left center / var(--stern-groesse) var(--stern-groesse) repeat-x;
+
+  &__fuellung {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: #e0a423;
+  }
+}
+
 // Wohnung: text and amenities side-by-side on tablet+, stacked on mobile.
 .wohnungbeschreibung {
   display: flex;

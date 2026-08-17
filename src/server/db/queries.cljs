@@ -117,8 +117,7 @@
               s/bewertungen-plattform
               s/bewertungen-url
               s/bewertungen-wert
-              s/bewertungen-max_wert
-              s/bewertungen-anzahl]
+              s/bewertungen-max_wert]
    :from     [s/bewertungen]
    :where    (if haus-id
                [:or
