@@ -402,7 +402,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase E — Booking SPA on re-frame
 
-- [ ] 10. Booking state layer: app-db, events, subs, effects @fable
+- [x] 10. Booking state layer: app-db, events, subs, effects @fable
   - New `src/browser/buchung/{db,events,subs,fx}.cljs` per "Target
     architecture". app-db: `{:locale :status (:loading|:ready|:load-failed)
     :wohnungen [...] :preise <raw> :auswahl {:wohnungsid 1 :gaestezahl 2
