@@ -90,6 +90,9 @@ src/
     directus/       # Directus API integration (fetchers)
     style/          # Garden CSS definitions
     processing/     # Build-time asset processing
+    kalender/       # Shared calendar-day helpers (ISO days, UTC-midnight dates, exact night counts, picker month grid)
+    preise/         # Shared preise.edn model: malli schema of the on-disk format + normalize
+    specs/          # Shared malli specs (anfrage payload, email regex)
   dschema/
     dschema/
       core.clj      # defschema macro — compile-time schema validation

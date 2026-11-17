@@ -287,7 +287,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase C — Shared domain in `src/common`
 
-- [ ] 5. Shared calendar helpers and preise.edn model + schema @opus
+- [x] 5. Shared calendar helpers and preise.edn model + schema @opus
   - `src/common/kalender/core.cljs`: `iso->date` (UTC midnight via
     `cljs-time.coerce/from-string`), `date->iso`, `nights` (calendar-day
     difference, exact — must never floor across DST), `days-between`
