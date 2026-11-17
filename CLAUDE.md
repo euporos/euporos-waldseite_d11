@@ -37,7 +37,7 @@ nix run .#export              # create deployable export/ directory
 nix run .#export-stage        # export with staging config
 
 # Testing
-nix run .#test                # clj -M:test -m cognitect.test-runner
+nix run .#test                # compile all builds, run Node tests (test/cljs) under TZ=Europe/Berlin and TZ=UTC
 
 # Assets
 nix run .#process-reservoir   # process/resize images from reservoir/
@@ -167,4 +167,4 @@ Dependencies in `../../libs/`:
 - `:watch-statics` - watch styles + SCSS + reservoir assets (used by process-compose)
 - `:compile-styles` - one-time Garden CSS compilation (with minification)
 - `:process-reservoir` - process raw images
-- `:test` - test runner with cuic, next.jdbc
+- `:cljs-test` - extra path `test/cljs` + test.check for the shadow `:test` (node-test) build

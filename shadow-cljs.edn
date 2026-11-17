@@ -1,4 +1,4 @@
-{:deps {:aliases [:shadow-cljs]}
+{:deps {:aliases [:shadow-cljs :cljs-test]}
  :nrepl {:port 9000}
  :builds {:server {:target     :node-script
                    :output-to  "server/server.js"
@@ -37,4 +37,9 @@
                     :output-dir "public/compiled/admin"
                     :asset-path "/compiled/admin"
                     :modules    {:preise {:init-fn preise.core/main}}
-                    :compiler-options {:infer-externs :auto}}}}
+                    :compiler-options {:infer-externs :auto}}
+          :test    {:target           :node-test
+                    :output-to        "target/test/node-tests.js"
+                    :ns-regexp        "-test$"
+                    :autorun          false
+                    :compiler-options {:reader-features #{:node}}}}}

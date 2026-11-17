@@ -140,7 +140,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase A — Foundations
 
-- [ ] 1. Node test infrastructure and new `nix run .#test` @sonnet
+- [x] 1. Node test infrastructure and new `nix run .#test` @sonnet
   - Why: there are no runnable tests. `nix run .#test` (`apps.nix:119-124`)
     runs a JVM cuic browser suite in `test/test/*.clj` that tests Sounds of
     Ukraine concert booking and needs MariaDB + Chromium — dead.

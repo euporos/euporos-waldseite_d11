@@ -116,11 +116,20 @@ in
     zip -r ../upload.zip ./*
   '';
 
-  # Run tests (expects MariaDB already running, e.g. via `nix run .#dev`)
-  test = mkApp "festival-test" ''
-    export CHROME_BINARY_PATH=${pkgs.chromium}/bin/chromium
-    npx shadow-cljs release server browser admin
-    clj -M:test -m cognitect.test-runner
+  # Node test suite: compiles all builds, then runs the shadow :test build
+  # under both TZ=Europe/Berlin and TZ=UTC. No DB, Directus or browser needed.
+  test = mkApp "waldseite-test" ''
+    # The server build slurps public/compiled/bundle/main.css at compile time
+    if [ ! -f public/compiled/bundle/main.css ]; then
+      npx vite build
+    fi
+    npx shadow-cljs compile server browser admin test
+    status=0
+    for tz in Europe/Berlin UTC; do
+      echo "=== node tests, TZ=$tz ==="
+      TZ=$tz node target/test/node-tests.js || status=1
+    done
+    exit $status
   '';
 
   # Initialize local dev database and directus user
