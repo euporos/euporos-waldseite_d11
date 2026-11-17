@@ -159,6 +159,12 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
   - Delete the dead JVM suite: `test/test/*.clj` and the `:test` alias in
     `deps.edn` (cuic, next.jdbc, mysql connector, clj-http, test-runner).
     Add `target/` to `.gitignore` if not ignored.
+  - Gotcha: the `server` build expands `psite-utils.macros/cache-bust`, which
+    slurps `public/compiled/bundle/main.css` at compile time; a fresh clone
+    lacks it (it comes from `nix run .#build`). In the test app, run the
+    styles/webpack part of the build first when that file is missing (see the
+    `build` app in `apps.nix`), so `nix run .#test` works on a fresh clone.
+    (On the box the file already exists from the pre-flight build.)
   - One trivial smoke test (`test/cljs/smoke_test.cljs`) that requires
     `specs.anfrage` and validates a sample payload.
   - Update `CLAUDE.md` "Development Commands"/testing text.
