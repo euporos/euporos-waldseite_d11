@@ -28,7 +28,7 @@ All commands use Nix flake apps (the Makefile has been removed):
 # Initial setup
 nix run .#setup               # npm install + create directories
 
-# Development — launches all processes (MariaDB, shadow-cljs, statics watcher, app server, Directus) via process-compose
+# Development — launches all processes (Postgres, MariaDB (legacy import source), shadow-cljs, statics watcher, app server, Directus) via process-compose
 nix run .#dev
 
 # Building
@@ -107,7 +107,7 @@ src/
 schema/
   snapshot.json     # Directus schema snapshot (exported via nix run .#schema-export)
 scripts/
-  init_db.sh        # Initialize local MariaDB + Directus admin user
+  init_db.sh        # Initialize local DB + Directus admin user (Postgres variant: init_pg_db.sh)
   pull_db_from_prod.sh    # Pull prod DB to local dev
   redeploy.sh       # Production redeployment script
   upgrade_directus.sh     # Directus version upgrade helper
@@ -181,6 +181,32 @@ warm build still emits the *old* defs and every new `s/...` symbol fails as
 
 **Configuration** lives in `settings.edn` (merged with parent `../settings.edn`). Keys listed in `:share-with-frontend` are available browser-side.
 
+### Frontend architecture
+
+Both browser apps (booking SPA `buchung.*`, price admin `preise.*`) are
+re-frame apps with the same shape: `db` (app-db shape + pure fns), `events`,
+`subs`, `fx`, `views`, and a `core` that only mounts.
+
+- **app-db is plain data only**: dates as ISO `yyyy-MM-dd` strings, prices as
+  on disk (strings), seasons addressed by `:id`, UI state under `:ui`. Derived
+  data (normalized prices, parsed seasons) is computed in subs.
+- **Views are pure**: they deref subs and dispatch events, never `reset!`/`swap!`.
+  Local component state only for purely visual things.
+- **Side effects only** in `reg-fx` / `reg-event-fx` (http via
+  `day8.re-frame/http-fx` with EDN request/response formats).
+- **Locale lives in app-db**; all user-visible strings are pure fns / snippets
+  in de/en/nl (`buchung.views.texte`, `comp.snippets`). Domain rules return
+  data (`{:error :belegt}` …); only views localize.
+- **Shared domain in `src/common`** (price calculation, availability/date rules,
+  calendar helpers, preise.edn model, malli specs) is used by browser *and*
+  server: the server re-validates and recomputes booking requests. Calendar
+  logic counts UTC-midnight calendar days (DST-safe), never local `Date` diffs.
+- **Transport:** EDN POST + `X-CSRF-Token` header, see Key Patterns.
+- **Tests:** `nix run .#test` (Node, under TZ Berlin and UTC): golden-master
+  and property tests against the frozen `test/cljs/legacy/**` oracle (never
+  edit it) plus event/sub tests. Manual click-through list:
+  `doc/frontend-refactor-checklist.md`.
+
 ### Build Targets (shadow-cljs.edn)
 
 - `:server` -> `server/server.js` (Node.js script, entry: `serving.core/serve`)
@@ -201,7 +227,7 @@ Dependencies in `../../libs/`:
 
 - `flake.nix` — devShells (`default`, `prod`, `deploy`) and apps (imported from `apps.nix`)
 - `apps.nix` — all `nix run .#<name>` commands (replaces Makefile)
-- `process-compose.yaml` — dev process orchestration (MariaDB, shadow-cljs, watch-statics, app-server, Directus)
+- `process-compose.yaml` — dev process orchestration (Postgres, MariaDB (still defined, legacy import source), shadow-cljs, watch-statics, app-server, Directus)
 - Node.js 22, MariaDB 10.6, JDK 17 provided via Nix
 
 ### Configuration (deps.edn aliases)

@@ -556,7 +556,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase H — Cleanup, docs, review
 
-- [ ] 15. Dependency and dead-code sweep, docs @sonnet
+- [x] 15. Dependency and dead-code sweep, docs @sonnet
   - Remove now-unused browser deps/requires: `cljs-http` and
     `cljs.core.async` in browser code if unused (check server too before
     touching `deps.edn`), `reagent-forms` if present, leftover helpers in
