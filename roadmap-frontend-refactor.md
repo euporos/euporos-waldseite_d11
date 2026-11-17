@@ -331,7 +331,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     `doc/frontend-refactor-quirks.md`; treat those like DST stays.)
   - Acceptance: tests green both TZs; no change to the old UI yet.
 
-- [ ] 7. Shared availability and date rules with parity @opus
+- [x] 7. Shared availability and date rules with parity @opus
   - `src/common/buchung/verfuegbarkeit.cljs`: `prepare-belegung` (legacy
     `rework-wohnungen` filter: drop vevents ≤ 47 h, invalid dates),
     `handover-days`, `day-blocked?` (Sunday rule + inside a booking; departure

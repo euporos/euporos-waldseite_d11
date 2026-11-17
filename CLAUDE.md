@@ -90,7 +90,7 @@ src/
     directus/       # Directus API integration (fetchers)
     style/          # Garden CSS definitions
     processing/     # Build-time asset processing
-    buchung/        # Shared booking domain: preis (price calculation, server + browser)
+    buchung/        # Shared booking domain: preis (price calculation), verfuegbarkeit (blocked days, stay checks as data) — server + browser
     kalender/       # Shared calendar-day helpers (ISO days, UTC-midnight dates, exact night counts, picker month grid)
     preise/         # Shared preise.edn model: malli schema of the on-disk format + normalize
     specs/          # Shared malli specs (anfrage payload, email regex)
