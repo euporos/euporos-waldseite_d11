@@ -81,12 +81,18 @@
   (some-> (.getElementById js/document "ifg") (.getAttribute "token")))
 
 (defn post-anfrage!
-  "POST the request to /api/anfrage. Resolves the supplied atom to
-   :success / :failed."
+  "POST the request to /api/anfrage as an `application/edn` body with the
+   CSRF token in the `X-CSRF-Token` header. Resolves the supplied atom to
+   :success / :failed. A 400 carries an EDN error (`{:error :belegt}`,
+   `{:error :mindestaufenthalt :min n}`, `{:error :ueberbelegung …}`,
+   `{:error :invalid :fields […]}` …); for now every error maps to the
+   existing :failed state."
   [anfrage !poststate]
   (reset! !poststate :pending)
   (go
     (let [resp (<! (http/post "/api/anfrage"
-                              {:form-params {:__anti-forgery-token (csrf-token)
-                                             :anfragedaten         (pr-str anfrage)}}))]
+                              {:edn-params anfrage
+                               :headers    {"X-CSRF-Token" (csrf-token)}}))]
+      (when-not (:success resp)
+        (js/console.warn "anfrage rejected" (:status resp) (pr-str (:body resp))))
       (reset! !poststate (if (:success resp) :success :failed)))))

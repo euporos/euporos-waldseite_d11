@@ -1,49 +1,42 @@
 (ns api.anfrage
-  "Receive a booking-request POST from the browser SPA, validate the
-   payload, send the confirmation email."
+  "POST /api/anfrage — booking request from the browser SPA.
+
+   Transport: the SPA POSTs an `application/edn` body (CSRF token in the
+   `X-CSRF-Token` header); `psite-middleware.core/wrap-edn-params` on the
+   /api/ tree puts it on `:edn-params`. Responses are EDN. Rate-limited per
+   IP (bucket `:anfrage`, see `api.routes`).
+
+   All checks live in `buchung.anfrage-pruefung`; this namespace only wires
+   in the real price cache, occupancy fetch, mailer and analytics."
   {:clj-kondo/config '{:lint-as {macchiato-async.core/defhandler clojure.core/defn}}}
   (:require [macchiato-async.core :refer-macros [defhandler]]
-            [macchiato.util.response :as r]
-            [cljs.reader :as reader]
-            [buchung.mailer :as mailer]
-            [specs.anfrage :as specs]
             [analytics.posthog :as ph]
-            [taoensso.timbre :refer [warn warnf]]))
+            [buchung.anfrage-pruefung :as pruefung]
+            [buchung.fetch :as fetch]
+            [buchung.mailer :as mailer]
+            [db.queries :as q]
+            [db.setup :as db]
+            [preise.cache :as cache]
+            [taoensso.timbre :refer [warn]]))
 
-(defn- read-payload
-  "The SPA posts EDN as the value of the :anfragedaten form param so the
-   anti-forgery middleware sees a normal form POST. Accept either a
-   form-encoded string or an already-parsed map (when callers post EDN
-   directly via wrap-edn-params)."
-  [req]
-  (let [s (or (get-in req [:params :anfragedaten])
-              (get-in req [:form-params "anfragedaten"]))]
-    (cond
-      (map? s)    s
-      (string? s) (try (reader/read-string s)
-                       (catch :default _ nil))
-      :else       nil)))
+(defn- fetch-wohnung
+  "Promise of the wohnung's `{:name … :belegung [vevents] …}` (iCal feeds
+   fetched like /api/buchungsproxy does), nil if it is not in the DB."
+  [wohnungsid]
+  (-> (db/query (q/wohnungen-with-ical))
+      (.then (fn [rows]
+               ;; wohnungen.id arrives from the driver as a string
+               (if-let [w (first (filter #(= (str wohnungsid) (str (:id %))) rows))]
+                 (.then (fetch/fetch-ical-feeds [w]) first)
+                 nil)))))
+
+(defn- deps [req]
+  {:read-prices   cache/read-prices
+   :fetch-wohnung fetch-wohnung
+   :send-mail!    mailer/send!
+   :track!        (fn [event props]
+                    (ph/capture! req event (assoc props :locale (some-> (:locale req) name))))
+   :warn!         (fn [msg] (warn msg))})
 
 (defhandler handler [req]
-  (let [data (read-payload req)]
-    (cond
-      (nil? data)
-      {:status 400 :headers {"Content-Type" "text/plain"} :body "missing anfragedaten"}
-
-      (not (specs/valid? data))
-      (do (warn "buchung anfrage rejected: schema mismatch")
-          {:status 400 :headers {"Content-Type" "text/plain"} :body "invalid"})
-
-      :else
-      (-> (mailer/send! data)
-          (.then (fn [_]
-                   (ph/capture! req "Buchungsanfrage gesendet"
-                                {:wohnung (:wohnungsname data)
-                                 :locale  (name (:locale req))})
-                   (-> (r/ok "ok") (r/content-type "text/plain"))))
-          (.catch (fn [e]
-                    (warnf "buchung anfrage mail failed: %s" (.-message e))
-                    (ph/capture! req "Buchungsanfrage fehlgeschlagen"
-                                 {:wohnung (:wohnungsname data)
-                                  :error   (.-message e)})
-                    {:status 500 :headers {"Content-Type" "text/plain"} :body "send-failed"}))))))
+  (pruefung/respond (deps req) (:edn-params req)))

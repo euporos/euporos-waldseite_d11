@@ -121,6 +121,28 @@ scripts/
 
 **Routing** is split between `seiten/routes.cljs` (pages) and `api/routes.cljs` (API endpoints), composed in `serving/routes.cljs`.
 
+**Browser→server transport (EDN):** SPA POSTs to `/api/...` send an
+`application/edn` body (cljs-http `:edn-params`) with the CSRF token in the
+`X-CSRF-Token` header (token read from the `#ifg` element; macchiato's
+anti-forgery accepts the header). `psite-middleware.core/wrap-edn-params` on
+the `/api/` tree parses it onto `(:edn-params req)` — it only fires for the
+exact content type `application/edn`. Responses are EDN too: errors are
+400 + `{:error <keyword> …}` (e.g. `:invalid` with `:fields` paths), which the
+UI maps to localized text. Server→browser page hand-off stays transit via
+`:js-data`/`app.core/readarg`. `/api/anfrage` is the reference: the handler
+(`api.anfrage`) only wires real deps (price cache, DB+iCal, mailer, PostHog)
+into `buchung.anfrage-pruefung/respond`, which does schema + domain checks
+with the shared `buchung.*` code and is tested in Node with stubs. It is
+rate-limited per IP (`psite-rate-limit`, bucket `:anfrage` in
+`serving.core/lib-config`; skipped in devmode).
+
+**Server namespaces loaded by tests must not require `config.env`** (directly
+or via `setup.mail`, `db.setup`, `analytics.posthog`): it reads
+`../settings.edn` at load time, which the test box lacks. Keep testable logic
+in config-free namespaces (e.g. `buchung.mailtext` vs `buchung.mailer`).
+kitchen-async `p/all` returns a thenable without `.catch`/`.finally` — wrap
+it in `js/Promise.resolve` before chaining those.
+
 **Database queries** are composed with HoneySQL in `db/queries.cljs`, using compile-time validated symbols from `db/schema` (e.g., `s/haus-id` for `:haus.id`). Translated collections query `_v` views (e.g., `haus_v`) with `db/localized` for locale-aware COALESCE fallback. Views are generated at compile time by `dschema.views` and created on server startup in `db/setup.cljs`.
 
 **Schema system (dschema):** The `defschema` macro in `src/dschema/dschema/core.clj` reads `schema/snapshot.json` at shadow-cljs compile time and emits into `db.schema`:

@@ -7,6 +7,7 @@
             [api.preise :as preise]
             [config.env :as env]
             [psite-middleware.core :as middleware]
+            [psite-rate-limit.core :as rate-limit]
             [setup.directus-auth :as directus-auth]))
   #?(:clj  (:require      [psite-routing.macros :as prm])
      :cljs (:require-macros [psite-routing.macros :as prm])))
@@ -19,7 +20,9 @@
                           middleware/wrap-edn-params]}
     ["ping"                 {:name :ping            :handler ping/handler}]
     ["buchungsproxy"        {:name :buchungsproxy   :handler buchungsproxy/handler}]
-    ["anfrage"              {:name :anfrage         :handler anfrage/handler}]
+    ["anfrage"              {:name       :anfrage
+                             :middleware [(rate-limit/wrap-rate-limit :anfrage)]
+                             :handler    anfrage/handler}]
 
     ["preise" {:middleware [directus-auth/wrap-directus-user
                             directus-auth/require-directus-user-401]}

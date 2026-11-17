@@ -352,7 +352,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase D — Transport and server-side validation
 
-- [ ] 8. Booking request: EDN transport + server validation + rate limit @opus
+- [x] 8. Booking request: EDN transport + server validation + rate limit @opus
   - Server `src/server/api/anfrage.cljs`: read `(:edn-params req)` (drop the
     `:anfragedaten` form-param path). Validate with `specs.anfrage/payload`
     (tighten: `:preis` now optional and ignored; dates must parse; wohnungsid
