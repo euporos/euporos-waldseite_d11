@@ -38,9 +38,8 @@
              :psite-routing/locale-fallback (env/setting :locale-fallback)
              :psite-middleware/show-errors?  (boolean (env/setting :show-errors?))
              :rate-limit/trust-proxy?       (boolean (env/setting :rate-limit-trust-proxy?))
-             :rate-limit/buckets            (merge {:book {:capacity 3  :refill-per-sec 0.003333333}
-                                                   :ical {:capacity 30 :refill-per-sec 0.5}
-                                                   :qr   {:capacity 30 :refill-per-sec 0.5}}
+             :rate-limit/buckets            (merge {:anfrage {:capacity 5 :refill-per-sec 0.002}
+                                                   :kontakt {:capacity 5 :refill-per-sec 0.002}}
                                                   (env/setting :rate-limit-buckets))}]
     (config/validate! app-config-schema cfg)
     cfg))
@@ -80,7 +79,7 @@
 ;; Remove 'unsafe-inline' from script-src once templates inject (:csp-nonce req).
 (def directus-origin
   ;; When :directus-url is absolute (dev: http://localhost:8055/,
-  ;; prod: https://directus.sounds-of-ukraine.de/), extract origin so
+  ;; prod: https://<directus-host>/), extract origin so
   ;; Directus-served images pass img-src. Relative paths are covered by 'self'.
   (when-let [[_ origin] (re-find #"^(https?://[^/]+)"
                                  (or (env/setting :directus-url) ""))]

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the web application for **Bickels Ferienwohnungen Waldseite** — a vacation rental site for holiday apartments in the Bayerischer Wald. It is the D11 migration target for the legacy Drupal 8 "waldseite" site (see `doc/d8-to-d11-import.md` and the memory notes); a future full rewrite onto the crow-framework is planned but out of scope here.
 
-The codebase was forked from the Sounds of Ukraine festival site ("Festival Macchiato"), so some library names and helpers still carry that lineage. It's a full-stack ClojureScript application running on Node.js via the Macchiato framework, with a Directus headless CMS for content management. Pages cover the home page, houses (`haus`), apartments (`wohnung`), gallery, prices, contact/booking, excursions, news, and CMS-driven single pages.
+The codebase was forked from the Sounds of Ukraine festival site ("Festival Macchiato"), so some library names and helpers still carry that lineage (the concert/musician code has been purged). Deliberately kept legacy names: the prod systemd unit `festival-directus.service` (referenced by `push-db-to-prod` and the server flake) and the `festival_directus` DB name in `scripts/`. It's a full-stack ClojureScript application running on Node.js via the Macchiato framework, with a Directus headless CMS for content management. Pages cover the home page, houses (`haus`), apartments (`wohnung`), gallery, prices, contact/booking, excursions, news, and CMS-driven single pages.
 
 ## First-time dev setup
 

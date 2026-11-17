@@ -11,8 +11,7 @@
    [reitit.ring :as ring]
    [reitit.ring.coercion :as rrc]
    [seiten.home :as home]
-   [seiten.routes :as seiten]
-   [seiten.test-page :as test-page]))
+   [seiten.routes :as seiten]))
 
 (def routes
   ;; The /directus/* reverse proxy is dispatched in serving.core/app, before
@@ -25,7 +24,6 @@
                               [:debug {:optional true} :boolean]]}}
     ["" home/blankhome]
     ["sitemap.xml" {:name :sitemap :handler sitemap/handler}]
-    ["test" {:name :test :handler test-page/handler}]
 
     [":locale" {:middleware []}
      ;; No :parameters {:path …} here — locale is keywordized by

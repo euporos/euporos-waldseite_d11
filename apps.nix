@@ -11,7 +11,7 @@ in
 {
   # Launch all dev processes via process-compose
   dev = flake-utils.lib.mkApp {
-    drv = pkgs.writeShellScriptBin "festival-dev" ''
+    drv = pkgs.writeShellScriptBin "waldseite-dev" ''
       exec nix develop .#default --command ${pkgs.process-compose}/bin/process-compose up -f process-compose.yaml
     '';
   };
@@ -28,7 +28,7 @@ in
   };
 
   # Build all Directus extensions
-  build-directus-extensions = mkApp "festival-build-directus-extensions" ''
+  build-directus-extensions = mkApp "waldseite-build-directus-extensions" ''
     for ext in directus/extensions/directus-extension-*/; do
       if [ -f "$ext/package.json" ]; then
         echo "Building extension: $ext"
@@ -38,7 +38,7 @@ in
   '';
 
   # Initial project setup
-  setup = mkApp "festival-setup" ''
+  setup = mkApp "waldseite-setup" ''
     npm install
     (cd directus && npm install)
     nix run .#build-directus-extensions
@@ -46,13 +46,13 @@ in
   '';
 
   # Process and resize reservoir images
-  process-reservoir = mkApp "festival-process-reservoir" ''
+  process-reservoir = mkApp "waldseite-process-reservoir" ''
     clj -X:process-reservoir
     bash scripts/resize_images.sh reservoir/imgs/*.JPG
   '';
 
   # Full production build
-  build = mkApp "festival-build" ''
+  build = mkApp "waldseite-build" ''
     export NODE_ENV=production
     rm -rf .shadow-cljs
     rm -rf public/compiled/*
@@ -64,7 +64,7 @@ in
   '';
 
   # Create deployable export directory
-  export = mkApp "festival-export" ''
+  export = mkApp "waldseite-export" ''
     export NODE_ENV=production
     rm -rf export
     mkdir export
@@ -87,7 +87,7 @@ in
   '';
 
   # Export with staging configuration
-  export-stage = mkApp "festival-export-stage" ''
+  export-stage = mkApp "waldseite-export-stage" ''
     export MCT_CONFIG_DIRS="../config/prod ../config/stage"
     export NODE_ENV=production
     rm -rf export
@@ -111,7 +111,7 @@ in
   '';
 
   # Zip the export directory for upload
-  zip = mkApp "festival-zip" ''
+  zip = mkApp "waldseite-zip" ''
     cd export
     zip -r ../upload.zip ./*
   '';
@@ -133,7 +133,7 @@ in
   '';
 
   # Initialize local dev database and directus user
-  init-db = mkApp "festival-init-db" ''
+  init-db = mkApp "waldseite-init-db" ''
     export MYSQL_UNIX_PORT="$PWD/.nix-shell/mysql/mysql.sock"
     bash scripts/init_db.sh
   '';
@@ -143,7 +143,7 @@ in
   # pgEnvHook in flake.nix are in scope — this keeps PGPORT as the single
   # source of truth for the port across dev-infra.
   init-pg-db = flake-utils.lib.mkApp {
-    drv = pkgs.writeShellScriptBin "festival-init-pg-db" ''
+    drv = pkgs.writeShellScriptBin "waldseite-init-pg-db" ''
       exec nix develop .#default --command bash scripts/init_pg_db.sh
     '';
   };
@@ -151,7 +151,7 @@ in
   # Rebuild local Postgres Directus DB from the MariaDB prod clone via pgloader.
   # Wrapped in `nix develop` so PGHOST/PGPORT/... from pgEnvHook are in scope.
   pg-migrate = flake-utils.lib.mkApp {
-    drv = pkgs.writeShellScriptBin "festival-pg-migrate" ''
+    drv = pkgs.writeShellScriptBin "waldseite-pg-migrate" ''
       exec nix develop .#default --command bash scripts/pg_migrate.sh
     '';
   };
@@ -179,7 +179,7 @@ in
   # Pull production Postgres directus DB → local devShell Postgres.
   # Wrapped in `nix develop` so PGHOST/PGPORT/... from pgEnvHook are in scope.
   pull-db-from-prod = flake-utils.lib.mkApp {
-    drv = pkgs.writeShellScriptBin "festival-pull-db-from-prod" ''
+    drv = pkgs.writeShellScriptBin "waldseite-pull-db-from-prod" ''
       exec nix develop .#default --command bash scripts/pull_db_from_prod.sh
     '';
   };
@@ -200,7 +200,7 @@ in
   # festival-directus.service — declared in the server flake at
   # ../servers/vps2/netcup-vps-2/configuration.nix (security.sudo.extraConfig).
   push-db-to-prod = flake-utils.lib.mkApp {
-    drv = pkgs.writeShellScriptBin "festival-push-db-to-prod" ''
+    drv = pkgs.writeShellScriptBin "waldseite-push-db-to-prod" ''
       exec nix develop .#default --command bash scripts/push_db_to_prod.sh
     '';
   };
@@ -208,7 +208,7 @@ in
   # Generate Directus presentation-links from route metadata
   gen-directus-links = flake-utils.lib.mkApp {
     drv = pkgs.writeShellApplication {
-      name = "festival-gen-directus-links";
+      name = "waldseite-gen-directus-links";
       text = ''
         clj -X:gen-directus-links
         jq . schema/snapshot.json > schema/snapshot.json.tmp && mv schema/snapshot.json.tmp schema/snapshot.json
@@ -220,7 +220,7 @@ in
   # Export Directus schema snapshot (requires running MariaDB + Directus)
   schema-export = flake-utils.lib.mkApp {
     drv = pkgs.writeShellApplication {
-      name = "festival-schema-export";
+      name = "waldseite-schema-export";
       text = ''
         mkdir -p schema
         cd directus && npx directus schema snapshot --format json ../schema/snapshot.json
@@ -239,7 +239,7 @@ in
   # from the same two-layer chain (app-invariant + per-server file) the
   # systemd unit gets via EnvironmentFile — sourced here so this app works
   # whether invoked manually on the server or from redeploy.sh.
-  schema-apply = mkApp "festival-schema-apply" ''
+  schema-apply = mkApp "waldseite-schema-apply" ''
     set -a
     # shellcheck disable=SC1091
     [ -f directus/.env.public ] && . directus/.env.public
@@ -252,7 +252,7 @@ in
   # Upgrade psite libs to latest main and prefetch deps
   upgrade-psite = flake-utils.lib.mkApp {
     drv = pkgs.writeShellApplication {
-      name = "festival-upgrade-psite";
+      name = "waldseite-upgrade-psite";
       runtimeInputs = commonPackages ++ [ pkgs.git ];
       text = ''
         PSITE_DIR="$(cd ../../psite && pwd)"

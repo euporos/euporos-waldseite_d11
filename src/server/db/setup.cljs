@@ -41,6 +41,6 @@
 
 (defn localized
   "Selects a translated field with locale fallback via COALESCE.
-   (localized :concerts.title :uk) => [[:coalesce :title_uk :title_de :title_en] :title]"
+   (localized :haus.meta_description :en) => [[:coalesce :meta_description_en :meta_description_de :meta_description_nl] :meta_description]"
   [field-kw locale]
   (dsr/localized field-kw locale fallback-order))

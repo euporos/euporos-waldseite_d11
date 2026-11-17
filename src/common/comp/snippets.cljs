@@ -17,10 +17,6 @@
     {:de "ausgebucht"
      :en "fully booked"
      :nl "volgeboekt"}]
-   [extra-concert
-    {:de "Zusatzkonzert"
-     :en "Extra Concert"
-     :nl "Extra concert"}]
 
    [datenschutzerklärung
     {:de "Datenschutzerklärung"

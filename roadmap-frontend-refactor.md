@@ -198,7 +198,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     `src/browser` or `src/common`; all builds compile without new warnings;
     `nix run .#test` green.
 
-- [ ] 3. Purge Sounds of Ukraine code from server, assets and build @sonnet
+- [x] 3. Purge Sounds of Ukraine code from server, assets and build @sonnet
   - `src/server/seiten/components/common.cljs`: `musician-card`,
     `musicians-c`, `concert-card`, `concerts-c` — delete if unreferenced
     (grep), keep anything Waldseite uses.
