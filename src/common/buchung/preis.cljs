@@ -2,7 +2,7 @@
   "The stay price calculation, shared by the booking SPA and the server.
 
    Same rules, map shape and numeric results as the legacy
-   `buchung.preisberechnung/berechnen` (frozen copy:
+   `legacy.buchung.preisberechnung/berechnen` (frozen copy:
    test/cljs/legacy/buchung/preisberechnung.cljs; rules and quirks in
    doc/frontend-refactor-quirks.md), with one sanctioned difference: nights
    are counted as **calendar days**, so a stay across the spring DST switch

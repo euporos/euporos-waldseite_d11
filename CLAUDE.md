@@ -85,8 +85,9 @@ src/
     localization/   # i18n helpers
   browser/
     app/            # Browser modules: core, modal, obfuscate, youtube, translate
-    buchung/        # Booking SPA. New re-frame state layer: db (app-db shape + pure db→data fns), events, subs, fx
-                    # (not yet wired to views; `core.cljs` is still the legacy Reagent app, replaced in roadmap step 11)
+    buchung/        # Booking SPA on re-frame: db (app-db shape + pure db→data fns), events, subs, fx;
+                    # views/ (formular = panels, datepicker = pure props-only picker, texte = all localized
+                    # strings as pure fns, Node-tested); react_slick = controlled carousel; core = mount only
   common/
     comp/           # Shared UI components and i18n snippets (defsnips macro)
     directus/       # Directus API integration (fetchers)

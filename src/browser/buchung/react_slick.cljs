@@ -1,6 +1,9 @@
 (ns buchung.react-slick
-  "Apartment carousel. Shows one apartment per slide; selecting a slide
-   updates the surrounding state."
+  "Apartment carousel. Shows one apartment per slide. Controlled from
+   outside: receives the apartments and the selected id as props and
+   reports a swipe through `on-select`; when the selected id changes from
+   elsewhere (the dropdown) it scrolls to that slide. The only mutable
+   thing is the handle on the slick instance."
   (:require ["react-slick" :as react-slick-slider]
             [reagent.core :as r]))
 
@@ -8,7 +11,7 @@
   (r/adapt-react-class (or (.-default react-slick-slider) react-slick-slider)))
 
 (defn- carousel-card [{:keys [id name hauptbild-url haus-name wohnung-url]}]
-  [:div.card.has-text-centered.carousel-card {:key (str id)}
+  [:div.card.has-text-centered.carousel-card {:key (str id) :data-test-id (str "wohnung-slide-" id)}
    [:div.card-image
     ;; is-4by3 forces a uniform aspect across slides so slick's
     ;; top:50% arrow positioning lands on the image instead of being
@@ -23,32 +26,35 @@
       [:strong name])
     (when haus-name [:<> [:br] haus-name])]])
 
-(defn- selected-slide-index [wohnungen ausgew-id]
-  (or (some (fn [[i w]] (when (= ausgew-id (:id w)) i))
+(defn- slide-index [wohnungen selected-id]
+  (or (some (fn [[i w]] (when (= selected-id (:id w)) i))
             (map-indexed vector wohnungen))
       0))
 
-(defn wohnungspicker-stateful
-  [_state-a wohnungen !ausgew-whg-id !ueberbelegung?]
-  (let [!ref (atom nil)]
+(defn wohnungspicker
+  "`props`: `:wohnungen` (vector of apartment maps), `:selected-id`,
+   `:on-select` (fn [wohnungsid])."
+  [_props]
+  (let [!slick (atom nil)]
     (r/create-class
-     {:reagent-render
-      (fn [_state-a wohnungen !ausgew-whg-id _!ueberbelegung?]
+     {:display-name "wohnungspicker"
+      :reagent-render
+      (fn [{:keys [wohnungen selected-id on-select]}]
         [slider
          {:dots           false
-          :ref            #(reset! !ref %)
-          :initialSlide   (selected-slide-index wohnungen @!ausgew-whg-id)
+          :ref            #(reset! !slick %)
+          :initialSlide   (slide-index wohnungen selected-id)
           :accessibility  true
           :speed          250
           :infinite       false
           :slidesToShow   1
           :slidesToScroll 1
           :afterChange    (fn [idx]
-                            (reset! !ueberbelegung? nil)
-                            (reset! !ausgew-whg-id (:id (nth wohnungen idx))))}
+                            (when-let [w (nth wohnungen idx nil)]
+                              (on-select (:id w))))}
          (for [w wohnungen] (carousel-card w))])
       :component-did-update
-      (fn [this]
-        (let [[_ _ wohnungen !ausgew-whg-id] (r/argv this)]
-          (when @!ref
-            (.slickGoTo ^js @!ref (selected-slide-index wohnungen @!ausgew-whg-id)))))})))
+      (fn [this [_ old-props]]
+        (let [{:keys [wohnungen selected-id]} (r/props this)]
+          (when (and @!slick (not= selected-id (:selected-id old-props)))
+            (.slickGoTo ^js @!slick (slide-index wohnungen selected-id)))))})))

@@ -3,8 +3,8 @@
    server: which picker days are blocked, which are selectable, and whether a
    chosen stay is acceptable.
 
-   Same rules as the legacy `buchung.datepicker` (`handovers`, `blocked?`) and
-   `buchung.datechecking/err-dates-bad?` (frozen copies under
+   Same rules as the legacy `legacy.buchung.datepicker` (`handovers`, `blocked?`) and
+   `legacy.buchung.datechecking/err-dates-bad?` (frozen copies under
    test/cljs/legacy/buchung/; rules and quirks in
    doc/frontend-refactor-quirks.md), except:
    - nights are counted as **calendar days**, so the minimum-stay check is no

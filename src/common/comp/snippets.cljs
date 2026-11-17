@@ -319,8 +319,44 @@
     {:de "Lade Buchungsdaten…"
      :en "Loading booking data…"
      :nl "Boekingsgegevens laden…"}]
+   [buchungsdaten-nicht-geladen
+    {:de "Die Buchungsdaten konnten nicht geladen werden."
+     :en "The booking data could not be loaded."
+     :nl "De boekingsgegevens konden niet worden geladen."}]
 
-   ;; --- date validation errors (buchung.datechecking) ---
+   ;; --- per-field validation (shown after a submit attempt) ---
+   [err-feld-leer
+    {:de "Bitte füllen Sie dieses Feld aus."
+     :en "Please fill in this field."
+     :nl "Vul dit veld in."}]
+   [err-email-ungueltig
+    {:de "Bitte geben Sie eine gültige Emailadresse an."
+     :en "Please enter a valid email address."
+     :nl "Vul een geldig e-mailadres in."}]
+   [err-zustimmung-fehlt
+    {:de "Bitte bestätigen Sie dies, um die Anfrage zu senden."
+     :en "Please confirm this to send the request."
+     :nl "Bevestig dit om de aanvraag te verzenden."}]
+   [err-nachricht-zu-lang
+    {:de "Die Nachricht ist zu lang (höchstens 2048 Zeichen)."
+     :en "The message is too long (2048 characters at most)."
+     :nl "Het bericht is te lang (maximaal 2048 tekens)."}]
+   [err-formular-unvollstaendig
+    {:de "Bitte prüfen Sie die markierten Angaben."
+     :en "Please check the marked fields."
+     :nl "Controleer de gemarkeerde gegevens."}]
+
+   ;; --- server answers to a rejected request ---
+   [err-server-ungueltig
+    {:de "Die Anfrage wurde als unvollständig abgelehnt. Bitte prüfen Sie Ihre Angaben."
+     :en "The request was rejected as incomplete. Please check your details."
+     :nl "De aanvraag is als onvolledig afgewezen. Controleer uw gegevens."}]
+   [err-server-allgemein
+    {:de "Die Anfrage konnte nicht übermittelt werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt."
+     :en "The request could not be sent. Please try again later or contact us directly."
+     :nl "De aanvraag kon niet worden verzonden. Probeer het later opnieuw of neem direct contact met ons op."}]
+
+   ;; --- date validation errors (buchung.verfuegbarkeit stay errors) ---
    [err-anreise-vor-abreise
     {:de "Das Anreisedatum muss vor dem Abreisedatum liegen."
      :en "The arrival date must be before the departure date."
@@ -335,7 +371,7 @@
      :en "For the selected season, the minimum booking for apartment %s is %s nights."
      :nl "Voor het gekozen seizoen bedraagt het minimumverblijf voor appartement %s %s nachten."}]
 
-   ;; --- calendar widget labels (buchung.datepicker) ---
+   ;; --- calendar widget labels (buchung.views.datepicker) ---
    ;; Values are vectors; the datepicker indexes into them by weekday / month.
    [weekday-short
     {:de ["Mo" "Di" "Mi" "Do" "Fr" "Sa" "So"]

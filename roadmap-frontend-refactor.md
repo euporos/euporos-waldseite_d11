@@ -443,7 +443,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     `rf/reg-fx` overrides in tests.
   - Acceptance: tests green; no views changed yet; builds compile.
 
-- [ ] 11. Booking views on re-frame; delete the Reagent version @opus
+- [x] 11. Booking views on re-frame; delete the Reagent version @opus
   - Rewrite `src/browser/buchung/views/*.cljs` and `core.cljs` (`main` keeps
     its exported name and `{:keys [locale]}` arg — `seiten.buchung` calls
     `buchung.core.main` via `:js-data`). Same DOM structure and Bulma classes

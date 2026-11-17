@@ -77,7 +77,7 @@
 
 (def numeric-fields
   "Keys whose string values get parsed to numbers — same set as legacy
-   `buchung.ajaxing/numeric-fields`."
+   `legacy.buchung.ajaxing/numeric-fields`."
   #{:mindestaufenthalt :mindestaufenthalt_standard :grundpreis
     :preis_woche :preis_tag :reinigung-unter :standardbelegung
     :maximalbelegung :reinigung :aufschlag_zus_person
