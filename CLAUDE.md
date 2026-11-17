@@ -88,6 +88,8 @@ src/
     buchung/        # Booking SPA on re-frame: db (app-db shape + pure db→data fns), events, subs, fx;
                     # views/ (formular = panels, datepicker = pure props-only picker, texte = all localized
                     # strings as pure fns, Node-tested); react_slick = controlled carousel; core = mount only
+    preise/         # Price admin (`:admin` build) on re-frame: db (app-db + pure season rules on ISO days),
+                    # events (all season edits by :id), subs, fx
   common/
     comp/           # Shared UI components and i18n snippets (defsnips macro)
     directus/       # Directus API integration (fetchers)
@@ -95,7 +97,8 @@ src/
     processing/     # Build-time asset processing
     buchung/        # Shared booking domain: preis (price calculation), verfuegbarkeit (blocked days, stay checks as data) — server + browser
     kalender/       # Shared calendar-day helpers (ISO days, UTC-midnight dates, exact night counts, picker month grid)
-    preise/         # Shared preise.edn model: malli schema of the on-disk format + normalize
+    preise/         # Shared preise.edn model: malli schema of the on-disk format + normalize;
+                    # calculations = weighted average prices of the admin
     specs/          # Shared malli specs (anfrage payload, email regex)
   dschema/
     dschema/

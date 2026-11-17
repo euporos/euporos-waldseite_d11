@@ -469,7 +469,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase F — Price admin on re-frame
 
-- [ ] 12. Price admin state layer: app-db, events, subs @opus
+- [x] 12. Price admin state layer: app-db, events, subs @opus
   - New `src/browser/preise/{db,events,subs}.cljs`. app-db: `{:status
     :loading|:ready|:load-failed|:not-logged-in, :wohnungen (sorted by id
     like legacy `(into (sorted-map) …)`), :daten <raw preise.edn map, strings
