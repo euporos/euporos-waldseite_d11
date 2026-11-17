@@ -28,6 +28,7 @@ pom.xml.asc
 scss/haupt/.sass-cache/
 scss/preise/.sass-cache/
 preise.edn
+!test/fixtures/preise.edn
 /.sass-cache
 /.cljs-kondo/.cache
 /.clj-kondo/.cache
