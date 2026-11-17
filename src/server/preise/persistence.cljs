@@ -1,7 +1,6 @@
 (ns preise.persistence
-  (:require ["fs" :as fs]
-            [cljs.reader :as reader]
-            [config.env :as env]
+  (:require [config.env :as env]
+            [preise.edn-io :as io]
             [taoensso.timbre :refer [warnf]]))
 
 (defn- path []
@@ -11,23 +10,10 @@
   "Returns the raw contents of preise.edn as a string, or nil if missing."
   []
   (let [p (path)]
-    (if (.existsSync fs p)
-      (.toString (.readFileSync fs p))
-      (do (warnf "preise.edn not found at %s" p) nil))))
+    (or (io/read-string-from p)
+        (do (warnf "preise.edn not found at %s" p) nil))))
 
 (defn write-edn-string!
-  "Validates s parses as EDN, then writes atomically (tmp + rename).
-   Returns :ok on success, :parse-fail on bad EDN, :verify-fail if the
-   read-back doesn't match what was written."
+  "See `preise.edn-io/write-edn-string!`, on the configured path."
   [s]
-  (let [parsed (try (reader/read-string s)
-                    (catch :default _ ::parse-error))]
-    (if (= ::parse-error parsed)
-      :parse-fail
-      (let [target (path)
-            tmp    (str target ".tmp")]
-        (.writeFileSync fs tmp s)
-        (.renameSync fs tmp target)
-        (if (= s (.toString (.readFileSync fs target)))
-          :ok
-          :verify-fail)))))
+  (io/write-edn-string! (path) s))

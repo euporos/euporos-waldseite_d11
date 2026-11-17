@@ -46,12 +46,11 @@
   (go
     (let [resp (<! (http/post
                     (str base "/api/preise/save")
-                    {:form-params
-                     {:__anti-forgery-token
-                      (.getAttribute (js/document.getElementById "ifg") "token")
-                      :preisstruktur (str (u/serialize-daten daten))}}))]
+                    {:edn-params {:preisstruktur (u/serialize-daten daten)}
+                     :headers    {"X-CSRF-Token"
+                                  (.getAttribute (js/document.getElementById "ifg") "token")}}))]
       (cond
         (= 401 (:status resp)) (reset! speicherzustand-a :falsches-passwort)
+        (= 400 (:status resp)) (reset! speicherzustand-a :fehlgeschlagen)
         (not (:success resp))  (reset! speicherzustand-a :req-failed)
-        (= "fail" (:body resp)) (reset! speicherzustand-a :fehlgeschlagen)
         :else (reset! speicherzustand-a :erfolgreich)))))

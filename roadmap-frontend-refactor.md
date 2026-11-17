@@ -384,7 +384,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
   - Acceptance: tests green; `server` + `browser` builds compile;
     `CLAUDE.md` documents the EDN transport pattern in "Key Patterns".
 
-- [ ] 9. Price admin save: EDN transport + schema validation @sonnet
+- [x] 9. Price admin save: EDN transport + schema validation @sonnet
   - `src/server/api/preise.cljs` `save`: accept `(:edn-params req)` →
     `{:preisstruktur <map>}`; validate with `preise.model/schema` (400 with
     `{:error :invalid :explain …}` on failure); additionally reject seasons

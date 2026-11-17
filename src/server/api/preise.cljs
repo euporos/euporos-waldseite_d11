@@ -6,7 +6,8 @@
             [db.setup :as db]
             [db.schema :as s]
             [preise.cache :as cache]
-            [preise.persistence :as persist]))
+            [preise.persistence :as persist]
+            [preise.speichern :as pruefung]))
 
 (defhandler data [_req]
   (if-let [s (persist/read-edn-string)]
@@ -17,18 +18,13 @@
      :body    (pr-str {:error :preise-edn-missing})}))
 
 (defhandler save [req]
-  (let [s (or (get-in req [:params :preisstruktur])
-              (get-in req [:form-params "preisstruktur"]))]
-    (if (or (nil? s) (= "" s))
-      {:status  400
-       :headers {"Content-Type" "text/plain"}
-       :body    "fail"}
-      (case (persist/write-edn-string! s)
-        :ok          (do (cache/refresh!)
-                         (-> (r/ok (persist/read-edn-string))
-                             (r/content-type "application/edn")))
-        :parse-fail  {:status 400 :headers {"Content-Type" "text/plain"} :body "fail"}
-        :verify-fail {:status 500 :headers {"Content-Type" "text/plain"} :body "fail"}))))
+  (pruefung/respond
+   {:write!      persist/write-edn-string!
+    :after-save! (fn []
+                   (cache/refresh!)
+                   (-> (r/ok (persist/read-edn-string))
+                       (r/content-type "application/edn")))}
+   req))
 
 (defhandler refdata [_req]
   (p/let [rows (db/query
