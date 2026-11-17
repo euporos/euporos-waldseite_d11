@@ -168,3 +168,14 @@ Dependencies in `../../libs/`:
 - `:compile-styles` - one-time Garden CSS compilation (with minification)
 - `:process-reservoir` - process raw images
 - `:cljs-test` - extra path `test/cljs` + test.check for the shadow `:test` (node-test) build
+
+### Tests and the frozen legacy oracle
+
+`test/cljs/legacy/**` (`legacy.*` namespaces) is a verbatim copy of the old
+Reagent booking/price code. It is the definition of "old behaviour" for parity
+tests and must never be edited, except to keep it compiling. Fixtures
+(`test/fixtures/preise.edn` = real price file, `belegung.edn` = synthetic
+iCal occupancy) are read at run time via `test-support.fixtures`. Legacy
+quirks and their keep/fix decisions: `doc/frontend-refactor-quirks.md`.
+Legacy results depend on the process TZ (local arrival vs UTC season dates),
+which is why the suite runs under both Berlin and UTC.

@@ -1,0 +1,24 @@
+;; Synthetic iCal occupancy per wohnung id, in the shape /api/buchungsproxy
+;; delivers (:dtstart/:dtend as ISO day strings; dtend = departure day).
+;; Hand-built for the legacy characterization tests (roadmap step 4):
+{1 [;; adjacent bookings → 2026-07-11 is a handover day (Sat→Sat→Sat)
+    {:dtstart "2026-07-04" :dtend "2026-07-11"}
+    {:dtstart "2026-07-11" :dtend "2026-07-18"}
+    ;; starts and ends on a Sunday → both days blocked by the Sunday rule
+    {:dtstart "2026-08-02" :dtend "2026-08-09"}
+    ;; single nights (24 h < 47 h) → dropped by rework-wohnungen
+    {:dtstart "2026-08-20" :dtend "2026-08-21"}
+    {:dtstart "2026-11-29" :dtend "2026-11-30"}   ; would hit the Sunday rule
+    ;; two nights (48 h) → kept
+    {:dtstart "2026-08-25" :dtend "2026-08-27"}
+    ;; across the season boundary 51 (…–09-10) / 52 (09-11–…)
+    {:dtstart "2026-09-08" :dtend "2026-09-14"}
+    ;; across the spring DST switch (Sun 2026-03-29)
+    {:dtstart "2026-03-26" :dtend "2026-04-02"}
+    ;; across the autumn DST switch (Sun 2026-10-25)
+    {:dtstart "2026-10-22" :dtend "2026-10-29"}]
+ 2 [{:dtstart "2026-05-30" :dtend "2026-06-06"}
+    ;; across the spring DST switch 2027 (Sun 2027-03-28)
+    {:dtstart "2027-03-24" :dtend "2027-03-31"}]
+ 3 []
+ 4 [] 5 [] 6 [] 7 [] 8 []}

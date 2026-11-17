@@ -236,7 +236,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase B — Freeze the old behaviour
 
-- [ ] 4. Frozen legacy oracle + characterization tests + quirks list @opus
+- [x] 4. Frozen legacy oracle + characterization tests + quirks list @opus
   - Why: every later step proves parity against this. Do it before any logic
     moves.
   - Copy **verbatim** (only change: `ns` name to `legacy.*`, `defn-` →
@@ -326,7 +326,9 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     (`legacy.utils/parse-iso`) → must be `=` exactly. Oracle B (only when TZ
     has DST): legacy fed Berlin-local `goog.date.Date`s → `=` except when the
     stay spans the spring switch; for those assert new == oracle A. Also
-    explicit regression cases from step 4.
+    explicit regression cases from step 4. (Step-4 finding: oracle B also
+    differs for stays arriving on a season's first day — see "Time zone" in
+    `doc/frontend-refactor-quirks.md`; treat those like DST stays.)
   - Acceptance: tests green both TZs; no change to the old UI yet.
 
 - [ ] 7. Shared availability and date rules with parity @opus
@@ -343,7 +345,9 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     `blocked?` over every day 2025–2027 for every fixture wohnung; `stay-error`
     vs legacy `err-dates-bad?` mapped to codes (map legacy localized strings
     back to codes by comparing against the snippets with `legacy.utils/locale`
-    set to `:de`); same DST allowance as step 6.
+    set to `:de`); same DST allowance as step 6, plus (step-4 finding)
+    stays arriving on a season's `ende` day for the min-stay rule — see
+    "Time zone" in `doc/frontend-refactor-quirks.md`.
   - Acceptance: tests green both TZs.
 
 ## Phase D — Transport and server-side validation
