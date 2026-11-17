@@ -142,6 +142,17 @@ with the shared `buchung.*` code and is tested in Node with stubs. It is
 rate-limited per IP (`psite-rate-limit`, bucket `:anfrage` in
 `serving.core/lib-config`; skipped in devmode).
 
+**Contact form (`/:locale/kontakt` → POST `/:locale/kontaktform`) is
+JavaScript-free by design** — no script tags on the page. Anti-spam lives in
+`kontakt.pruefung` (config-free, Node-tested): HMAC-signed timestamp token
+(`ts`/`sig` hidden fields, per-process random key — a restart invalidates
+open forms, the user then gets the form back with a "please submit again"
+note), honeypot `website`, link heuristic, schema `specs.kontakt`; per-IP
+rate limit bucket `:kontakt` via `seiten.kontaktform/wrap-rate-limit-page`
+(localized 429 page). Errors re-render the form with input kept
+(`kontakt.formular`). The Datenschutz link is the einzelseite whose German
+title contains "Datenschutz" (no link if none exists).
+
 **Server namespaces loaded by tests must not require `config.env`** (directly
 or via `setup.mail`, `db.setup`, `analytics.posthog`): it reads
 `../settings.edn` at load time, which the test box lacks. Keep testable logic

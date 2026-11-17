@@ -148,18 +148,22 @@
     {:de "Nachrichtenfeld ist leer."
      :en "The message field is empty."
      :nl "Het berichtveld is leeg."}]
-   [spam-erkannt
-    {:de "Nachricht als Spam erkannt"
-     :en "Message flagged as spam"
-     :nl "Bericht als spam gemarkeerd"}]
-   [kein-bot
-    {:de "Falls Sie kein Bot sind, schreiben Sie uns bitte direkt."
-     :en "If you are not a bot, please write to us directly."
-     :nl "Als u geen bot bent, schrijf ons dan rechtstreeks."}]
-   [fehler-versand
-    {:de "Fehler beim Versenden der Nachricht"
-     :en "Error sending the message"
-     :nl "Fout bij het verzenden van het bericht"}]
+   [nachricht-zu-lang
+    {:de "Die Nachricht ist zu lang (höchstens 5000 Zeichen)."
+     :en "The message is too long (5000 characters at most)."
+     :nl "Het bericht is te lang (maximaal 5000 tekens)."}]
+   [kontakt-erneut-senden
+    {:de "Ihre Nachricht wurde noch nicht verschickt. Bitte prüfen Sie Ihre Angaben und klicken Sie erneut auf „Absenden“."
+     :en "Your message has not been sent yet. Please check your details and click “Send” again."
+     :nl "Uw bericht is nog niet verzonden. Controleer uw gegevens en klik nogmaals op „Verzenden”."}]
+   [zu-viele-anfragen
+    {:de "Zu viele Anfragen"
+     :en "Too many requests"
+     :nl "Te veel aanvragen"}]
+   [zu-viele-anfragen-text
+    {:de "Von Ihrem Anschluss kamen in kurzer Zeit zu viele Nachrichten. Bitte versuchen Sie es später erneut oder schreiben Sie uns direkt per E-Mail."
+     :en "Too many messages were sent from your connection in a short time. Please try again later or write to us directly by email."
+     :nl "Er zijn in korte tijd te veel berichten vanaf uw verbinding verzonden. Probeer het later opnieuw of stuur ons direct een e-mail."}]
    [nachricht-verschickt
     {:de "Nachricht verschickt"
      :en "Message sent"

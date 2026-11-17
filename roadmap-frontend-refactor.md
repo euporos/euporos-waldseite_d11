@@ -516,7 +516,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
 
 ## Phase G — Contact form (no JavaScript)
 
-- [ ] 14. Contact form: shared schema and anti-spam without JS @opus
+- [x] 14. Contact form: shared schema and anti-spam without JS @opus
   - Today: `src/server/seiten/kontakt.cljs` renders a plain form posting to
     `:api_kontakt` (`/:locale/kontaktform`, `seiten.kontaktform`). Spam
     defences: honeypot `age` and a `time-spent` hidden field **filled by an

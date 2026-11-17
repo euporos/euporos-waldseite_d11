@@ -41,7 +41,9 @@
       :handler    ausfluege/handler
       :parameters {:path [:map [:hausid :string]]}}]
     ["/kontakt"     {:name :kontakt     :handler kontakt/handler}]
-    ["/kontaktform" {:name :api_kontakt :handler kontaktform/handler}]
+    ["/kontaktform" {:name       :api_kontakt
+                     :middleware [kontaktform/wrap-rate-limit-page]
+                     :handler    kontaktform/handler}]
 
     ["/admin" {:middleware [directus-auth/wrap-directus-user]}
      ["" {:handler admin/handler
