@@ -500,7 +500,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     action above, especially id-based editing with two identical seasons.
   - Acceptance: tests green; builds compile.
 
-- [ ] 13. Price admin views on re-frame; delete the Reagent version @sonnet
+- [x] 13. Price admin views on re-frame; delete the Reagent version @sonnet
   - Rewrite `src/browser/preise/views.cljs` + `core.cljs` (`main` keeps its
     name; mounted by `seiten.preise` via `/compiled/admin/preise.js`, the
     `:admin` build). Same table layout, CSS classes, labels, units, icons

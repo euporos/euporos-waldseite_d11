@@ -1,53 +1,22 @@
 (ns preise.core
-  (:require [preise.ajaxing :as ajx]
-            [preise.components :as cmp]
-            [reagent.core :as r]
-            [reagent.dom :as rdom]
-            [reagent.ratom :as ratom]))
+  "Price admin entry point: loads the data and mounts the re-frame app into
+   #mainframe (`seiten.preise` ships it as the `:admin` build). State:
+   `preise.db`/`events`/`subs`/`fx`; views: `preise.views`."
+  (:require [preise.events :as ev]
+            [preise.fx]
+            [preise.subs]
+            [preise.views :as views]
+            [re-frame.core :as rf]
+            [reagent.dom :as rdom]))
 
-(defonce state
-  (r/atom {:daten           {:zusatzdaten nil :saisonen nil}
-           :speicherzustand :ungespeichert}))
-
-(defonce daten            (r/cursor state [:daten]))
-(defonce saisonen         (r/cursor state [:daten :saisonen]))
-(defonce speicherzustand  (r/cursor state [:speicherzustand]))
-(defonce allgdaten        (r/cursor state [:daten :allgdaten]))
-(defonce basisdaten       (r/cursor state [:daten :basisdaten]))
-(defonce wohnungen        (r/atom nil))
-
-(def sorted-saisonen
-  (ratom/reaction (sort-by :beginn @saisonen)))
-
-(def loading-screen
-  [:div.loadscreen
-   [:div.lds-dual-ring__msg "Lade Preisdaten"]
-   [:div.lds-dual-ring [:div]]])
-
-(defn alles []
-  (fn []
-    [:div.panel-group.panelgruppe
-     [:div.panel.panel-success
-      [:div.panel-heading "Allgemeine Daten"]
-      [cmp/einzelfelder allgdaten]]
-     [:div.panel.panel-success
-      [:div.panel-heading "Basisdaten"]
-      [cmp/basisfelder basisdaten wohnungen]]
-     [:div.panel.panel-success
-      [:div.panel-heading "Saisonale Daten"]
-      [cmp/saisonale-daten saisonen @wohnungen]]
-     [:div.panel.panel-success
-      [:div.panel-heading "Aktionen für ausgewählte Saisonen"]
-      [cmp/special-actions-table saisonen cmp/special-actions]]
-     [:br]
-     [cmp/speicherbericht
-      @speicherzustand
-      #(ajx/post-preise! speicherzustand @daten)]]))
+(defn- mount! []
+  (when-let [el (.getElementById js/document "mainframe")]
+    (rdom/render [views/root] el)))
 
 (defn ^:dev/after-load start []
-  (rdom/render [alles] (js/document.getElementById "mainframe")))
+  (rf/clear-subscription-cache!)
+  (mount!))
 
 (defn ^:export main []
-  (rdom/render loading-screen (js/document.getElementById "mainframe"))
-  (ajx/get-data wohnungen daten start))
-
+  (rf/dispatch-sync [::ev/load])
+  (mount!))
