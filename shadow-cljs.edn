@@ -19,10 +19,7 @@
                     :modules    {:app {:init-fn app.core/main
                                        :preloads [devtools.preload
                                                   #_day8.re-frame-10x.preload]
-                                       :entries [app.router
-                                                 app.book
-                                                 app.admin
-                                                 app.translate
+                                       :entries [app.translate
                                                  app.modal
                                                  app.obfuscate
                                                  buchung.core]}}

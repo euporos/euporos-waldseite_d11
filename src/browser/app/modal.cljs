@@ -7,28 +7,8 @@
 
 (defonce content (r/atom nil))
 
-(rf/reg-event-db ::close
-                 (fn [db _]
-                   (dissoc db :modal-content)))
-
-(rf/reg-sub ::content
-            (fn [db _]
-              (get db :modal-content)))
-
-(rf/reg-event-db ::display
-                 (fn [db [_ component]]
-                   (assoc db :modal-content component)))
-
 (defn set-content  [comp]
   (reset! content comp))
-
-(defn notes []
-  [:div.notes-container
-   [:div.notes
-    [:div.note-1 "♫ ♩"]
-    [:div.note-2 "♩"]
-    [:div.note-3 "♯ ♪"]
-    [:div.note-4 "♪"]]])
 
 (defn modal []
   [:div.modal

@@ -1,11 +1,10 @@
 (ns app.translate
   "Site entry point for the site-wide translation dashboard, served at
    /<locale>/admin/uebersetzungen. The dashboard itself lives in the shared
-   psite-translate module; this shim only pulls in the site's re-frame helpers
-   and computes the target-language candidates from this site's config before
+   psite-translate module; this shim
+   computes the target-language candidates from this site's config before
    handing off."
   (:require
-   [app.reframe]
    [config.env :as env]
    [psite-translate.admin :as pta]))
 

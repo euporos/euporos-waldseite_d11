@@ -84,7 +84,7 @@ src/
     config/         # App configuration (reads settings.edn)
     localization/   # i18n helpers
   browser/
-    app/            # Browser modules: core, reframe, modal, admin, obfuscate, book
+    app/            # Browser modules: core, modal, obfuscate, youtube, translate
   common/
     comp/           # Shared UI components and i18n snippets (defsnips macro)
     directus/       # Directus API integration (fetchers)
@@ -141,7 +141,7 @@ warm build still emits the *old* defs and every new `s/...` symbol fails as
 ### Build Targets (shadow-cljs.edn)
 
 - `:server` -> `server/server.js` (Node.js script, entry: `serving.core/serve`)
-- `:browser` -> `public/compiled/js/` (modules: app, with entries for book, admin, modal, obfuscate)
+- `:browser` -> `public/compiled/js/` (modules: app, with entries for translate, modal, obfuscate, buchung.core)
 
 ### Local Libraries (monorepo)
 

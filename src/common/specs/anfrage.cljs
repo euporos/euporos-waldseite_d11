@@ -1,6 +1,6 @@
 (ns specs.anfrage
   (:require [malli.core :as m]
-            [specs.book :refer [email-regex]]))
+            [specs.common :refer [email-regex]]))
 
 (def date-regex #"^\d{4}-\d{2}-\d{2}$")
 

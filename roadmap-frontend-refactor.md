@@ -172,7 +172,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     (after `nix run .#setup`), runs the smoke test under both TZs, and fails if
     the smoke test is made to fail (try it, then revert).
 
-- [ ] 2. Purge Sounds of Ukraine code from the browser bundle @sonnet
+- [x] 2. Purge Sounds of Ukraine code from the browser bundle @sonnet
   - Delete `src/browser/app/book.cljs` (concert seat reservation),
     `src/browser/app/admin.cljs` (concert reservations/reminder mails),
     `src/common/specs/book.cljs` (move `email-regex` to a new
