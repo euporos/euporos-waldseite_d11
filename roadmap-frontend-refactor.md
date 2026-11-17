@@ -309,7 +309,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
     kalender functions incl. DST-spanning ranges in both TZs.
   - Acceptance: tests green under both TZs.
 
-- [ ] 6. Shared price calculation with property-based parity @opus
+- [x] 6. Shared price calculation with property-based parity @opus
   - `src/common/buchung/preis.cljs` `berechnen` taking
     `{:anreise iso :abreise iso :gaestezahl :haustierzahl :wohnungsid}` and
     normalized preise; returns the **same map shape and values** as legacy
