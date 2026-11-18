@@ -210,6 +210,22 @@
            (is (= "Buchungsanfrage fehlgeschlagen" (ffirst tracks))))
          :send-mail! (fn [_] (js/Promise.reject (js/Error. "smtp down"))))))
 
+(deftest wohnungsname-vom-server
+  (async done
+    (run done (assoc gueltig :wohnungsname "Gefälscht")
+         (fn [resp {:keys [mails]}]
+           (is (= 200 (:status resp)))
+           (is (= "Wohnung 1" (:wohnungsname (first mails)))
+               "mail names the apartment as the DB does, not as the client claims")))))
+
+(deftest wohnungsname-fallback-ohne-db-treffer
+  (async done
+    (run done (assoc gueltig :wohnungsname "Vom Client")
+         (fn [resp {:keys [mails]}]
+           (is (= 200 (:status resp)))
+           (is (= "Vom Client" (:wohnungsname (first mails)))))
+         :fetch-wohnung (fn [_] (js/Promise.resolve nil)))))
+
 (deftest mail-text
   (let [preis (server-preis gueltig)
         text  (mailtext/body (assoc gueltig :preis preis

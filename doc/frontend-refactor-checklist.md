@@ -24,7 +24,7 @@ Run `nix run .#dev`, then check each item in a real browser.
 ## Contact form (JavaScript disabled)
 - [ ] Page contains no script tags; success path sends mail.
 - [ ] Submit immediately (too fast): form returns with input kept and a "submit again" note.
-- [ ] Honeypot `website` filled: rejected.
+- [ ] Honeypot `website` filled (e.g. via devtools): answered like a success, but no mail is sent (log line `dropped as spam`).
 - [ ] Validation errors re-render the form with input kept.
 - [ ] Datenschutz link present when a matching einzelseite exists.
 - [ ] Many rapid posts: localized 429 page.

@@ -24,7 +24,8 @@
    sent. If the occupancy cannot be (fully) fetched, the request is accepted
    — checked against whatever events did arrive — and the mail carries a
    warning line. The mail always quotes the server-computed price; a
-   differing client `:gesamtsumme` is only logged."
+   differing client `:gesamtsumme` is only logged, and the apartment name
+   in the mail is the DB name (client `:wohnungsname` only as fallback)."
   (:require [clojure.string :as str]
             [buchung.preis :as preis]
             [buchung.verfuegbarkeit :as vf]
@@ -75,13 +76,17 @@
                (when-not w
                  ((:warn! deps) (str "anfrage: wohnung " id " not found for occupancy check")))
                {:belegung      (vf/prepare-belegung (:belegung w))
-                :vollstaendig? (boolean (and w (not (:belegung-unvollstaendig? w))))}))
+                :vollstaendig? (boolean (and w (not (:belegung-unvollstaendig? w))))
+                :name          (:name w)}))
       (.catch (fn [e]
                 ((:warn! deps) (str "anfrage: occupancy fetch failed: " (some-> e .-message)))
                 {:belegung [] :vollstaendig? false}))))
 
-(defn- senden [deps data preise {:keys [belegung vollstaendig?]}]
-  (let [server-preis (preis/berechnen data preise)
+(defn- senden [deps data preise {:keys [vollstaendig?] db-name :name}]
+  (let [;; The apartment name comes from the DB when the lookup succeeded;
+        ;; the client's `:wohnungsname` is only a fallback.
+        data         (cond-> data (string? db-name) (assoc :wohnungsname db-name))
+        server-preis (preis/berechnen data preise)
         client-summe (let [p (:preis data)] (when (map? p) (:gesamtsumme p)))
         hinweise     (cond-> [] (not vollstaendig?) (conj hinweis-belegung-ungeprueft))
         mail-daten   (-> data

@@ -578,7 +578,7 @@ src/browser/preise/        db.cljs events.cljs subs.cljs views.cljs core.cljs
   - Acceptance: tests green; all builds compile without warnings from
     project namespaces.
 
-- [ ] 16. Whole-branch review against this roadmap @opus
+- [x] 16. Whole-branch review against this roadmap @opus
   - Review `git diff 4510d4c..HEAD` against every step's acceptance criteria
     and the "Decisions that stand". Look specifically for: behaviour drift not
     covered by a parity test, views that mutate state, domain functions that

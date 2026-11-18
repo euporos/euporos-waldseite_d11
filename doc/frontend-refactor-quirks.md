@@ -67,3 +67,16 @@ new == oracle A (legacy on UTC dates).
 | `next-saison` begins the day after the **latest `ende`**, regardless of gaps, and lasts 2 weeks. With no seasons it starts at `t/today`. [`admin-season-helpers`] | preserved; the new season additionally carries `:felder {}` so it passes the step-9 save schema (legacy left the key out) |
 | "für nächstes Jahr klonen" shifts only `:selected` seasons by one year, and the clones keep `:selected true` until `unselect-all-saisonen` runs. The clones get fresh ids (`max + 1`, in `add-saison!`). [`admin-season-helpers`] | preserved |
 | `interval-sn` silently substitutes an empty `now`–`now` interval, with a console warning, for an invalid season (not pinned by a test). | preserved on day granularity: `preise.db/seasons-overlap?` uses an empty interval at midday of `:heute` (local date at load), without the warning |
+
+## Follow-ups (from the whole-branch review, step 16)
+
+Found in the final review, deliberately not fixed in this run (larger than a
+review fix, or a behaviour decision for the owner):
+
+| Finding | Suggestion |
+|---|---|
+| The server stay check (`buchung.anfrage-pruefung`) does not reject an **arrival date in the past**. Only the picker enforces `day-selectable?` against today. A hand-crafted request for a past stay would reach the owner's inbox. | Reject `anreise` before the server's Berlin calendar date (`{:error :invalid :fields [[:anreise]]}`); mind the TZ (server runs UTC, guests think Berlin). |
+| The server does not apply the picker-only **Sunday rule** (no arrival/departure on a Sunday that is a booking's arrival/departure day) and does not check handover days as departure. Pinned as legacy behaviour (`blocked-stay-check-allows-departure-day-as-arrival`), so the server is laxer than the picker. | If the owner wants the server as strict as the picker, add `day-blocked?` checks for `anreise`/`abreise` to `stay-error`'s server use (not to the shared rule, to keep the picker parity tests intact). |
+| `maximalbelegung` missing for a wohnung: the SPA falls back to 6 guests (legacy), the server skips the capacity check (schema caps at 20). | Use `buchung.db/default-maximalbelegung` on the server too (move the constant to `src/common`). |
+| A rate-limited booking request (HTTP 429) is shown as the generic "could not be sent" message. | Add a dedicated snippet if it turns out to matter in practice. |
+| The price admin views are German-only (as legacy; the admin is used by the owner only). | None unless other operators appear. |
