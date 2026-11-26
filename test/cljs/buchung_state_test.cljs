@@ -90,7 +90,8 @@
 (deftest init-defaults
   (rf/dispatch-sync [::ev/init "en"])
   (testing "legacy defaults: wohnung 1, 2 guests, 0 pets, no dates"
-    (is (= {:wohnungsid 1 :gaestezahl 2 :haustierzahl 0 :anreise nil :abreise nil}
+    (is (= {:wohnungsid 1 :erwachsene 2 :kinder-7-16 0 :kinder-bis-6 0
+            :haustierzahl 0 :anreise nil :abreise nil}
            (sub [::subs/auswahl]))))
   (is (= :en (sub [::subs/locale])))
   (is (= :loading (sub [::subs/status])))
@@ -145,33 +146,33 @@
 (deftest wohnung-switch-clamps-guests
   (boot!)
   (rf/dispatch-sync [::ev/select-wohnung 2])
-  (rf/dispatch-sync [::ev/set-gaestezahl 7])
+  (rf/dispatch-sync [::ev/set-gaeste :erwachsene 7])
   (is (= 8 (sub [::subs/maximalbelegung])))
-  (is (= 7 (get-in (sub [::subs/auswahl]) [:gaestezahl])))
+  (is (= 7 (:erwachsene (sub [::subs/auswahl]))))
   (testing "switching to a smaller wohnung clamps and warns"
     (rf/dispatch-sync [::ev/select-wohnung 3])
     (is (= 3 (:wohnungsid (sub [::subs/auswahl]))))
-    (is (= 4 (:gaestezahl (sub [::subs/auswahl]))))
+    (is (= 4 (:erwachsene (sub [::subs/auswahl]))))
     (is (true? (sub [::subs/ueberbelegung?]))))
   (testing "choosing a guest count clears the warning"
-    (rf/dispatch-sync [::ev/set-gaestezahl 3])
-    (is (= 3 (:gaestezahl (sub [::subs/auswahl]))))
+    (rf/dispatch-sync [::ev/set-gaeste :erwachsene 3])
+    (is (= 3 (:erwachsene (sub [::subs/auswahl]))))
     (is (false? (sub [::subs/ueberbelegung?]))))
   (testing "switching without clamping clears the warning, guests stay"
     (rf/dispatch-sync [::ev/select-wohnung 2])
-    (rf/dispatch-sync [::ev/set-gaestezahl 5])
+    (rf/dispatch-sync [::ev/set-gaeste :erwachsene 5])
     (rf/dispatch-sync [::ev/select-wohnung 3])
-    (is (= 4 (:gaestezahl (sub [::subs/auswahl]))))
+    (is (= 4 (:erwachsene (sub [::subs/auswahl]))))
     (is (true? (sub [::subs/ueberbelegung?])))
     (rf/dispatch-sync [::ev/select-wohnung 2])
     (is (false? (sub [::subs/ueberbelegung?])))
-    (is (= 4 (:gaestezahl (sub [::subs/auswahl])))))
+    (is (= 4 (:erwachsene (sub [::subs/auswahl])))))
   (testing "unknown wohnung: legacy default of 6"
     (rf/dispatch-sync [::ev/select-wohnung 99])
-    (rf/dispatch-sync [::ev/set-gaestezahl 9])
+    (rf/dispatch-sync [::ev/set-gaeste :erwachsene 9])
     (rf/dispatch-sync [::ev/select-wohnung 99])
     (is (= 6 (sub [::subs/maximalbelegung])))
-    (is (= 6 (:gaestezahl (sub [::subs/auswahl]))))
+    (is (= 6 (:erwachsene (sub [::subs/auswahl]))))
     (is (true? (sub [::subs/ueberbelegung?])))
     (is (nil? (sub [::subs/wohnungsname])))))
 
@@ -180,8 +181,34 @@
     (rf/dispatch-sync [::ev/init :de])
     (rf/dispatch-sync [::ev/data-loaded
                        (assoc-in (proxy-body) [:preise :basisdaten 1 :maximalbelegung] "1")])
-    (is (= 1 (:gaestezahl (sub [::subs/auswahl]))))
+    (is (= 1 (:erwachsene (sub [::subs/auswahl]))))
     (is (true? (sub [::subs/ueberbelegung?])))))
+
+(deftest kinder-zaehlen-zur-maximalbelegung
+  (boot!)
+  (testing "dropdown options leave room for the other categories"
+    (rf/dispatch-sync [::ev/set-gaeste :kinder-7-16 1])
+    (rf/dispatch-sync [::ev/set-gaeste :kinder-bis-6 1])
+    (is (= [1 2 3] (sub [::subs/gaeste-optionen :erwachsene])))
+    (is (= [0 1 2] (sub [::subs/gaeste-optionen :kinder-7-16])))
+    (is (= [0 1 2] (sub [::subs/gaeste-optionen :kinder-bis-6]))))
+  (testing "a smaller wohnung removes the youngest first"
+    (rf/dispatch-sync [::ev/select-wohnung 2])
+    (rf/dispatch-sync [::ev/set-gaeste :erwachsene 3])
+    (rf/dispatch-sync [::ev/set-gaeste :kinder-bis-6 2])
+    (rf/dispatch-sync [::ev/select-wohnung 3])
+    (is (= {:erwachsene 3 :kinder-7-16 1 :kinder-bis-6 0}
+           (select-keys (sub [::subs/auswahl]) [:erwachsene :kinder-7-16 :kinder-bis-6])))
+    (is (true? (sub [::subs/ueberbelegung?])))))
+
+(deftest begrenze-gaeste
+  (is (= [{:erwachsene 2 :kinder-7-16 0 :kinder-bis-6 0} false]
+         (db/begrenze-gaeste {:erwachsene 2 :kinder-7-16 0 :kinder-bis-6 0} 4)))
+  (is (= [{:erwachsene 2 :kinder-7-16 1 :kinder-bis-6 0} true]
+         (db/begrenze-gaeste {:erwachsene 2 :kinder-7-16 2 :kinder-bis-6 1} 3)))
+  (is (= [{:erwachsene 1 :kinder-7-16 0 :kinder-bis-6 0} true]
+         (db/begrenze-gaeste {:erwachsene 4 :kinder-7-16 2 :kinder-bis-6 1} 1))
+      "adults never below 1"))
 
 (deftest haustiere
   (boot!)
@@ -198,10 +225,11 @@
   (is (nil? (sub [::subs/preis])) "no price with one date")
   (is (nil? (sub [::subs/stay-error])))
   (rf/dispatch-sync [::ev/pick-date :abreise "2026-08-17"])
-  (rf/dispatch-sync [::ev/set-gaestezahl 5])
+  (rf/dispatch-sync [::ev/set-gaeste :erwachsene 5])
   (rf/dispatch-sync [::ev/set-haustierzahl 1])
   (let [auswahl {:anreise "2026-08-10" :abreise "2026-08-17"
-                 :gaestezahl 5 :haustierzahl 1 :wohnungsid 1}]
+                 :erwachsene 5 :kinder-7-16 0 :kinder-bis-6 0
+                 :haustierzahl 1 :wohnungsid 1}]
     (is (= auswahl (sub [::subs/auswahl])))
     (is (= (preis/berechnen auswahl (pm/normalize (fxt/preise)))
            (sub [::subs/preis])))
@@ -352,30 +380,36 @@
       preis                 (assoc :preis (lu/map-vals #(when (number? %) (.round js/Math %)) preis)))))
 
 (defn- legacy-anfrage
-  "Legacy payload for the same selection, legacy price on UTC dates."
-  [{:keys [anreise abreise gaestezahl haustierzahl wohnungsid]} extra wohnungsname]
-  (let [a (lu/parse-iso anreise)
+  "Legacy payload for the same selection, legacy price on UTC dates.
+   Legacy knew only `:gaestezahl`; it is swapped for the three guest
+   categories of the selection (parity holds for adults-only selections)."
+  [{:keys [anreise abreise haustierzahl wohnungsid] :as auswahl} extra wohnungsname]
+  (let [gaestezahl (preis/gaestezahl auswahl)
+        a (lu/parse-iso anreise)
         b (lu/parse-iso abreise)
         aufenthalt (when (and a b (t/before? a b)) (t/interval a b))
         preis (lprs/berechnen aufenthalt gaestezahl haustierzahl wohnungsid
                               (laj/rework-preise (fxt/preise)))]
-    (legacy-build-anfrage (merge {:anreise a :abreise b :ausgew-whg-id wohnungsid
+    (-> (legacy-build-anfrage (merge {:anreise a :abreise b :ausgew-whg-id wohnungsid
                                   :gaestezahl gaestezahl :haustierzahl haustierzahl}
                                  extra)
-                          preis wohnungsname)))
+                          preis wohnungsname)
+        (dissoc :gaestezahl)
+        (merge (select-keys auswahl preis/gaestekategorien)))))
 
 (deftest anfrage-payload-parity
   (boot!)
   (testing "empty form, no dates"
     (is (= (legacy-anfrage (sub [::subs/auswahl]) {} "Wohnung 1")
            (sub [::subs/anfrage])))
-    (is (= {:anreise nil :abreise nil :gaestezahl 2 :haustierzahl 0 :wohnungsid 1
+    (is (= {:anreise nil :abreise nil :erwachsene 2 :kinder-7-16 0 :kinder-bis-6 0
+            :haustierzahl 0 :wohnungsid 1
             :wohnungsname "Wohnung 1" :gast {} :datenschutz-gelesen? false
             :mietbedingungen-gelesen? false}
            (sub [::subs/anfrage]))))
   (testing "complete form with price"
     (rf/dispatch-sync [::ev/select-wohnung 2])
-    (rf/dispatch-sync [::ev/set-gaestezahl 6])
+    (rf/dispatch-sync [::ev/set-gaeste :erwachsene 6])
     (rf/dispatch-sync [::ev/set-haustierzahl 1])
     (rf/dispatch-sync [::ev/pick-date :anreise "2026-08-10"])
     (rf/dispatch-sync [::ev/pick-date :abreise "2026-08-20"])
@@ -410,7 +444,7 @@
   (is (= {:vorname "Erika"} (sub [::subs/gast])))
   (testing "unknown paths are ignored"
     (let [before (app-db)]
-      (rf/dispatch-sync [::ev/set-field [:auswahl :gaestezahl] 99])
+      (rf/dispatch-sync [::ev/set-field [:auswahl :erwachsene] 99])
       (rf/dispatch-sync [::ev/set-field [:gast :admin?] true])
       (is (= before (app-db))))))
 

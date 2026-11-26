@@ -4,14 +4,14 @@
    functions from app-db to derived data that both events and subs need.
    Domain rules come from `buchung.*` under src/common.
 
-   Defaults equal the legacy `buchung.core/state` (wohnung 1, 2 guests,
-   0 pets)."
+   Defaults equal the legacy `buchung.core/state` (wohnung 1, 2 guests —
+   now 2 adults, no children — 0 pets)."
   (:require [buchung.preis :as preis]
             [kalender.core :as kal]
             [preise.model :as pm]))
 
 (def default-wohnungsid 1)
-(def default-gaestezahl 2)
+(def default-erwachsene 2)
 (def default-haustierzahl 0)
 
 (def default-maximalbelegung
@@ -60,7 +60,9 @@
    :wohnungen                []
    :preise                   nil
    :auswahl                  {:wohnungsid   default-wohnungsid
-                              :gaestezahl   default-gaestezahl
+                              :erwachsene   default-erwachsene
+                              :kinder-7-16  0
+                              :kinder-bis-6 0
                               :haustierzahl default-haustierzahl
                               :anreise      nil
                               :abreise      nil}
@@ -94,20 +96,45 @@
   (or (some-> (get-in preise [:basisdaten wohnungsid :maximalbelegung]) int)
       default-maximalbelegung))
 
+(defn optionen
+  "Selectable counts for guest category `kategorie`: up to what the other
+   categories leave of `max-n`; adults at least 1, children from 0."
+  [auswahl max-n kategorie]
+  (let [andere (- (preis/gaestezahl auswahl) (or (get auswahl kategorie) 0))
+        von    (if (= kategorie :erwachsene) 1 0)]
+    (range von (inc (max von (- max-n andere))))))
+
+(defn begrenze-gaeste
+  "`auswahl` with at most `max-n` guests in total, removing the youngest
+   first (children up to 6, then 7–16, then adults down to 1). Returns
+   `[auswahl gekuerzt?]`."
+  [auswahl max-n]
+  (loop [a auswahl [k & ks] (reverse preis/gaestekategorien)]
+    (let [zuviel (- (preis/gaestezahl a) max-n)]
+      (if (or (<= zuviel 0) (nil? k))
+        [a (not= a auswahl)]
+        (let [min-k (if (= k :erwachsene) 1 0)
+              n     (or (get a k) 0)]
+          (recur (assoc a k (max min-k (- n zuviel))) ks))))))
+
 (defn- round-preis [preis]
   (into {} (for [[k v] preis] [k (when (number? v) (.round js/Math v))])))
 
 (defn anfrage
   "The request payload (`specs.anfrage/payload`) for the current state —
-   same keys and values as legacy `build-anfrage` (buchung/core.cljs:67-80).
+   legacy `build-anfrage` (buchung/core.cljs:67-80), with `:gaestezahl`
+   replaced by the three guest categories.
    `preise` normalized."
   [db preise]
-  (let [{:keys [anreise abreise wohnungsid gaestezahl haustierzahl] :as auswahl} (:auswahl db)
+  (let [{:keys [anreise abreise wohnungsid erwachsene kinder-7-16 kinder-bis-6
+                haustierzahl] :as auswahl} (:auswahl db)
         {:keys [gast zusatznachricht datenschutz-gelesen? mietbedingungen-gelesen?]} db
         preis (when preise (preis/berechnen auswahl preise))]
     (cond-> {:anreise                  (when (kal/valid-iso? anreise) anreise)
              :abreise                  (when (kal/valid-iso? abreise) abreise)
-             :gaestezahl               gaestezahl
+             :erwachsene               erwachsene
+             :kinder-7-16              kinder-7-16
+             :kinder-bis-6             kinder-bis-6
              :haustierzahl             haustierzahl
              :wohnungsid               wohnungsid
              :wohnungsname             (or (:name (wohnung db)) "")

@@ -5,6 +5,7 @@
   (:require [ajax.edn :as edn]
             [buchung.db :as db]
             [buchung.fx :as fx]
+            [buchung.preis :as preis]
             [re-frame.core :as rf]
             [specs.anfrage :as specs]))
 
@@ -32,12 +33,14 @@
 
 (defn- clamp-gaestezahl
   "Legacy `gaestezahl-select` at render time: more guests than the wohnung
-   allows → guests set to the maximum and the warning shown."
+   allows → the youngest removed down to the maximum (`db/begrenze-gaeste`)
+   and the warning shown."
   [db]
-  (let [max-n (db/maximalbelegung (db/normalized-preise db) (get-in db [:auswahl :wohnungsid]))]
-    (if (> (get-in db [:auswahl :gaestezahl]) max-n)
+  (let [max-n (db/maximalbelegung (db/normalized-preise db) (get-in db [:auswahl :wohnungsid]))
+        [auswahl gekuerzt?] (db/begrenze-gaeste (:auswahl db) max-n)]
+    (if gekuerzt?
       (-> db
-          (assoc-in [:auswahl :gaestezahl] max-n)
+          (assoc :auswahl auswahl)
           (assoc-in [:ui :ueberbelegung?] true))
       db)))
 
@@ -63,10 +66,11 @@
         (assoc-in [:ui :ueberbelegung?] false)
         clamp-gaestezahl)))
 
-(rf/reg-event-db ::set-gaestezahl
-  (fn [db [_ n]]
+(rf/reg-event-db ::set-gaeste
+  (fn [db [_ kategorie n]]
+    {:pre [(some #{kategorie} preis/gaestekategorien)]}
     (-> db
-        (assoc-in [:auswahl :gaestezahl] n)
+        (assoc-in [:auswahl kategorie] n)
         (assoc-in [:ui :ueberbelegung?] false))))
 
 (rf/reg-event-db ::set-haustierzahl

@@ -6,6 +6,7 @@
   (:require [re-frame.core :as rf]
             [comp.snippets :as snip]
             [buchung.events :as ev]
+            [buchung.preis :as preis]
             [buchung.subs :as subs]
             [buchung.react-slick :as slick]
             [buchung.views.datepicker :refer [datepicker]]
@@ -18,15 +19,15 @@
 ;; ---------------------------------------------------------------------------
 ;; Apartment selection
 
-(defn- gaestezahl-select [loc]
-  (let [max-n (<sub [::subs/maximalbelegung])]
+(defn- gaeste-select [loc kategorie]
+  (let [auswahl (<sub [::subs/auswahl])]
     [:select
      {:class        (when (<sub [::subs/ueberbelegung?]) "is-danger")
-      :data-test-id "gaestezahl"
-      :value        (:gaestezahl (<sub [::subs/auswahl]))
-      :on-change    #(rf/dispatch [::ev/set-gaestezahl (target-int %)])}
-     (for [n (range 1 (inc max-n))]
-       ^{:key n} [:option {:value n} (tx/gaeste-option loc n)])]))
+      :data-test-id (name kategorie)
+      :value        (get auswahl kategorie)
+      :on-change    #(rf/dispatch [::ev/set-gaeste kategorie (target-int %)])}
+     (for [n (<sub [::subs/gaeste-optionen kategorie])]
+       ^{:key n} [:option {:value n} (tx/gaeste-option loc kategorie n)])]))
 
 (defn- haustierzahl-select [loc]
   [:select
@@ -53,8 +54,9 @@
 (defn- wohnungswahl [loc]
   [:nav.panel.is-primary.panel-background
    [:div.panel-heading
-    [:div.field.has-addons.has-addons-centered
-     [:p.control [:span.select [gaestezahl-select loc]]]
+    [:div.field.is-grouped.is-grouped-centered.is-grouped-multiline
+     (for [k preis/gaestekategorien]
+       ^{:key k} [:p.control [:span.select [gaeste-select loc k]]])
      [:p.control [:span.select [haustierzahl-select loc]]]
      [:p.control.is-hidden-mobile
       [:span.select [wohnungsdropdown loc]]]]]

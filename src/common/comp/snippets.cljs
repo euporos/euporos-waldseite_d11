@@ -244,10 +244,20 @@
 
 (defsnips loc/fallback
   [;; --- guest / pet selectors ---
-   [gast
-    {:de "Gast" :en "guest" :nl "gast"}]
-   [gaeste
-    {:de "Gäste" :en "guests" :nl "gasten"}]
+   [erwachsener
+    {:de "Erwachsener" :en "adult" :nl "volwassene"}]
+   [erwachsene
+    {:de "Erwachsene" :en "adults" :nl "volwassenen"}]
+   [kind
+    {:de "Kind" :en "child" :nl "kind"}]
+   [kinder
+    {:de "Kinder" :en "children" :nl "kinderen"}]
+   [alter-erwachsene
+    {:de "17+" :en "17+" :nl "17+"}]
+   [alter-7-16
+    {:de "7–16 J." :en "7–16 yrs" :nl "7–16 jr"}]
+   [alter-bis-6
+    {:de "bis 6 J." :en "up to 6 yrs" :nl "t/m 6 jr"}]
    [haustier
     {:de "Haustier" :en "pet" :nl "huisdier"}]
    [haustiere

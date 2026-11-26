@@ -62,7 +62,7 @@
             (= :anreise-nach-abreise (:error (vf/stay-error data {:belegung []} preise)))
             {:abgelehnt (fehler {:error :anreise-nach-abreise})}
 
-            (and (number? maxbel) (> (:gaestezahl data) maxbel))
+            (and (number? maxbel) (> (preis/gaestezahl data) maxbel))
             {:abgelehnt (fehler {:error :ueberbelegung :max maxbel})}
 
             :else {:preise preise}))))))

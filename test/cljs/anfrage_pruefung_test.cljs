@@ -17,7 +17,9 @@
   "Wohnung 1, 7 nights in season 58 (min 5), 2 guests (max 5), free."
   {:anreise                  "2027-05-08"
    :abreise                  "2027-05-15"
-   :gaestezahl               2
+   :erwachsene               2
+   :kinder-7-16              0
+   :kinder-bis-6             0
    :haustierzahl             1
    :wohnungsid               1
    :wohnungsname             "Wohnung 1"
@@ -78,13 +80,13 @@
   (async done
     (run done (-> gueltig
                   (assoc-in [:gast :email] "keine-mail")
-                  (dissoc :gaestezahl))
+                  (dissoc :erwachsene))
          (fn [resp {:keys [mails]}]
            (is (= 400 (:status resp)))
            (let [{:keys [error fields]} (body resp)]
              (is (= :invalid error))
              (is (some #{[:gast :email]} fields))
-             (is (some #{[:gaestezahl]} fields)))
+             (is (some #{[:erwachsene]} fields)))
            (is (empty? mails))))))
 
 (deftest kein-map-payload
@@ -135,7 +137,7 @@
 
 (deftest ueberbelegung
   (async done
-    (run done (assoc gueltig :gaestezahl 6)
+    (run done (assoc gueltig :erwachsene 3 :kinder-7-16 2 :kinder-bis-6 1)
          (fn [resp {:keys [mails]}]
            (is (= 400 (:status resp)))
            (is (= {:error :ueberbelegung :max 5} (body resp)))
@@ -232,7 +234,11 @@
                                   :hinweise [ap/hinweis-belegung-ungeprueft]))]
     (is (str/starts-with? text (str "⚠ " ap/hinweis-belegung-ungeprueft "\n")))
     (is (str/includes? text (str "Berechneter Preis: " (:gesamtsumme preis) "€"))))
-  (is (str/starts-with? (mailtext/body (assoc gueltig :hinweise [])) "Erika Muster")))
+  (is (str/starts-with? (mailtext/body (assoc gueltig :hinweise [])) "Erika Muster"))
+  (testing "guest categories"
+    (is (str/includes? (mailtext/body gueltig) "\n2 Erwachsene, 1 Haustier.\n"))
+    (is (str/includes? (mailtext/body (assoc gueltig :erwachsene 1 :kinder-7-16 1 :kinder-bis-6 2))
+                       "\n1 Erwachsener, 1 Kind (7–16 J.), 2 Kinder (bis 6 J.), 1 Haustier.\n"))))
 
 (deftest fetch-markiert-fehlgeschlagene-feeds
   (async done

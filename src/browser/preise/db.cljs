@@ -26,7 +26,7 @@
 
 (def allg-felder
   #{:aufschlag_zus_person :aufschlag_haustier :reinigung-unter
-    :gaestebeitrag :energieaufschlag})
+    :gaestebeitrag :gaestebeitrag_kind :energieaufschlag})
 
 (def basis-felder
   #{:maximalbelegung :standardbelegung :grundpreis :reinigung

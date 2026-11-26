@@ -45,9 +45,31 @@
                   :ende-iso   (kal/date->iso (:ende %)))
         saisonen))
 
+(def gaestekategorien
+  "Guest categories, in form order. Adults are 17+, children 7–16 pay the
+   reduced Gästebeitrag (`:gaestebeitrag_kind`, falling back to the adult
+   rate when empty), children up to 6 pay none. Everyone counts towards
+   Maximalbelegung, Belegungsaufschlag and Energieaufschlag (owner decision
+   2026-11-26)."
+  [:erwachsene :kinder-7-16 :kinder-bis-6])
+
+(defn gaestezahl
+  "Total number of guests of an anfrage/selection (all categories)."
+  [anfrage]
+  (reduce + 0 (map #(or (get anfrage %) 0) gaestekategorien)))
+
+(defn- gaestebeitrag-satz
+  "Per-night Gästebeitrag rates `[erwachsene kind-7-16]`. Adult rate as
+   legacy (`js/parseFloat`, so an empty field gives NaN like before); the
+   child rate falls back to the adult rate unless it is a number."
+  [{:keys [gaestebeitrag gaestebeitrag_kind]}]
+  (let [erw (js/parseFloat (or gaestebeitrag 0))]
+    [erw (if (number? gaestebeitrag_kind) gaestebeitrag_kind erw)]))
+
 (defn berechnen
   "Price of a stay. `anfrage` is
-   `{:anreise iso :abreise iso :gaestezahl n :haustierzahl n :wohnungsid id}`,
+   `{:anreise iso :abreise iso :erwachsene n :kinder-7-16 n :kinder-bis-6 n
+     :haustierzahl n :wohnungsid id}` (missing categories count as 0),
    `preise` normalized (`preise.model/normalize`). Returns
    `{:tageszahl :gaestezahl :einzeltage-summe :belegungsaufschlag
      :haustieraufschlag :reinigungsaufschlag :gaestebeitrag
@@ -55,14 +77,16 @@
    (`:einzeltage-summe` unrounded, levies and total `Math.round`ed, levies
    not part of the total). Nil when a date is missing/invalid or the
    departure is not after the arrival."
-  [{:keys [anreise abreise gaestezahl haustierzahl wohnungsid]} preise]
+  [{:keys [anreise abreise erwachsene kinder-7-16 haustierzahl wohnungsid] :as anfrage} preise]
   (when (and (kal/valid-iso? anreise) (kal/valid-iso? abreise)
              (pos? (kal/nights anreise abreise)))
-    (let [{:keys [reinigung-unter gaestebeitrag
+    (let [{:keys [reinigung-unter
                   aufschlag_zus_person aufschlag_haustier
                   energieaufschlag]} (:allgdaten preise)
           {:keys [standardbelegung grundpreis reinigung]}
           (get-in preise [:basisdaten wohnungsid])
+          gaestezahl       (gaestezahl anfrage)
+          [satz-erw satz-kind] (gaestebeitrag-satz (:allgdaten preise))
           saisonen         (saisonen-with-iso (:saisonen preise))
           tageszahl        (kal/nights anreise abreise)
           woche?           (>= tageszahl 7)
@@ -80,7 +104,8 @@
           gesamtsumme
           (+ einzeltage-summe belegungsaufschlag reinigungsaufschlag haustieraufschlag)
           gaestebeitrag-total
-          (* tageszahl gaestezahl (js/parseFloat (or gaestebeitrag 0)))
+          (* tageszahl (+ (* (or erwachsene 0) satz-erw)
+                          (* (or kinder-7-16 0) satz-kind)))
           energieaufschlag-total
           (-> (or energieaufschlag 0) float
               (* tageszahl gaestezahl)

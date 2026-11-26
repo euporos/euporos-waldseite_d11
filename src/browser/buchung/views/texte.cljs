@@ -34,8 +34,14 @@
 ;; ---------------------------------------------------------------------------
 ;; Selectors
 
-(defn gaeste-option [loc n]
-  (str n " " (if (> n 1) (snip/gaeste loc) (snip/gast loc))))
+(defn gaeste-option
+  "Option label of a guest-category dropdown, e.g. \"2 Erwachsene (17+)\"."
+  [loc kategorie n]
+  (let [[eins mehr alter] (case kategorie
+                            :erwachsene   [snip/erwachsener snip/erwachsene snip/alter-erwachsene]
+                            :kinder-7-16  [snip/kind snip/kinder snip/alter-7-16]
+                            :kinder-bis-6 [snip/kind snip/kinder snip/alter-bis-6])]
+    (str n " " (if (= n 1) (eins loc) (mehr loc)) " (" (alter loc) ")")))
 
 (defn haustiere-option [loc n]
   (str n " " (if (= n 1) (snip/haustier loc) (snip/haustiere loc))))

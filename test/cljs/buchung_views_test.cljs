@@ -205,3 +205,11 @@
         (is (str/includes? (pr-str hh) "Juli"))
         (doseq [[_ _ _ on-click] buttons] (on-click))
         (is (= [[:year -1] [:month -1] [:month 1] [:year 1]] @shifted))))))
+
+(deftest gaeste-optionen-texte
+  (is (= "2 Erwachsene (17+)" (tx/gaeste-option :de :erwachsene 2)))
+  (is (= "1 Erwachsener (17+)" (tx/gaeste-option :de :erwachsene 1)))
+  (is (= "1 Kind (7–16 J.)" (tx/gaeste-option :de :kinder-7-16 1)))
+  (is (= "0 Kinder (bis 6 J.)" (tx/gaeste-option :de :kinder-bis-6 0)))
+  (is (= "2 children (up to 6 yrs)" (tx/gaeste-option :en :kinder-bis-6 2)))
+  (is (= "1 volwassene (17+)" (tx/gaeste-option :nl :erwachsene 1))))

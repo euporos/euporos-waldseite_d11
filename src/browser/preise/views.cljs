@@ -32,7 +32,8 @@
              [[:aufschlag_zus_person "zus. Person" "€"]
               [:aufschlag_haustier "zus. Tier" "€"]
               [:reinigung-unter "Reinigung fällig unter:" "Tage"]
-              [:gaestebeitrag "Gästebeitrag" "€"]
+              [:gaestebeitrag "Gästebeitrag Erw." "€"]
+              [:gaestebeitrag_kind "Gästebeitrag Kind 7–16" "€"]
               [:energieaufschlag "Energie /Tag+Pers" "€"]]))]]]))
 
 ;; ---------------------------------------------------------------------------

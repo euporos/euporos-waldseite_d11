@@ -46,7 +46,7 @@
 (defn- new-preis
   ([a] (new-preis a (new-preise)))
   ([{:keys [anreise abreise gaeste tiere whg]} p]
-   (preis/berechnen {:anreise anreise :abreise abreise :gaestezahl gaeste
+   (preis/berechnen {:anreise anreise :abreise abreise :erwachsene gaeste
                      :haustierzahl tiere :wohnungsid whg}
                     p)))
 
@@ -200,3 +200,31 @@
     (is (nil? (p 1 "2026-07-04" "2026-07-04" 2 0)))
     (is (nil? (p 1 "2026-07-07" "2026-07-04" 2 0)))
     (is (nil? (p 1 "2026-02-30" "2026-03-04" 2 0)))))
+
+;; ---------------------------------------------------------------------------
+;; Guest categories (owner decision 2026-11-26): children 7–16 pay the child
+;; Gästebeitrag (adult rate when empty), up to 6 none; everyone counts
+;; towards Belegungs- and Energieaufschlag.
+
+(defn- familie [preise]
+  (preis/berechnen {:anreise "2026-07-04" :abreise "2026-07-11"
+                    :erwachsene 2 :kinder-7-16 2 :kinder-bis-6 1
+                    :haustierzahl 0 :wohnungsid 1}
+                   (pm/normalize preise)))
+
+(deftest gaestekategorien
+  (testing "no child rate: children 7–16 pay the adult rate, up to 6 nothing"
+    (let [r (familie (fx/preise))]
+      (is (= 5 (:gaestezahl r)))
+      (is (= 70 (:gaestebeitrag r)) "7 × (2 × 2.5 + 2 × 2.5)")
+      (is (= 53 (:energieaufschlag r)) "7 × 5 × 1.5 = 52.5, rounded")
+      (is (= 105 (:belegungsaufschlag r)) "7 × (5 − 4) × 15")))
+  (testing "empty child rate falls back to the adult rate"
+    (is (= 70 (:gaestebeitrag (familie (assoc-in (fx/preise) [:allgdaten :gaestebeitrag_kind] ""))))))
+  (testing "child rate set"
+    (is (= 49 (:gaestebeitrag (familie (assoc-in (fx/preise) [:allgdaten :gaestebeitrag_kind] "1"))))
+        "7 × (2 × 2.5 + 2 × 1)")
+    (is (= 35 (:gaestebeitrag (familie (assoc-in (fx/preise) [:allgdaten :gaestebeitrag_kind] "0"))))
+        "a child rate of 0 is a rate, not a fallback"))
+  (testing "gaestezahl sums the categories, missing ones as 0"
+    (is (= 3 (preis/gaestezahl {:erwachsene 1 :kinder-bis-6 2})))))

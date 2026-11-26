@@ -47,6 +47,7 @@
   [:map
    [:reinigung-unter      {:optional true} zahl]
    [:gaestebeitrag        {:optional true} zahl]
+   [:gaestebeitrag_kind   {:optional true} zahl]
    [:aufschlag_zus_person {:optional true} zahl]
    [:aufschlag_haustier   {:optional true} zahl]
    [:energieaufschlag     {:optional true} zahl]])
@@ -76,12 +77,12 @@
 ;; Normalisation (in memory only)
 
 (def numeric-fields
-  "Keys whose string values get parsed to numbers — same set as legacy
-   `legacy.buchung.ajaxing/numeric-fields`."
+  "Keys whose string values get parsed to numbers — legacy
+   `legacy.buchung.ajaxing/numeric-fields` plus `:gaestebeitrag_kind`."
   #{:mindestaufenthalt :mindestaufenthalt_standard :grundpreis
     :preis_woche :preis_tag :reinigung-unter :standardbelegung
     :maximalbelegung :reinigung :aufschlag_zus_person
-    :aufschlag_haustier :gaestebeitrag :energieaufschlag})
+    :aufschlag_haustier :gaestebeitrag :gaestebeitrag_kind :energieaufschlag})
 
 (defn- numparse
   "Legacy semantics: a non-empty string at a numeric key is `js/parseFloat`ed

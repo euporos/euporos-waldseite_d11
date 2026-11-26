@@ -23,7 +23,9 @@
   [:map
    [:anreise                  iso-day]
    [:abreise                  iso-day]
-   [:gaestezahl               [:int {:min 1 :max 20}]]
+   [:erwachsene               [:int {:min 1 :max 20}]]
+   [:kinder-7-16              [:int {:min 0 :max 20}]]
+   [:kinder-bis-6             [:int {:min 0 :max 20}]]
    [:haustierzahl             [:int {:min 0 :max 10}]]
    [:wohnungsid               [:int {:min 1}]]
    [:wohnungsname             [:string {:min 1 :max 256}]]

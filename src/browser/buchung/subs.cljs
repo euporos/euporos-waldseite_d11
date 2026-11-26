@@ -57,6 +57,11 @@
   :<- [::wohnungsid]
   (fn [[preise id] _] (db/maximalbelegung preise id)))
 
+(rf/reg-sub ::gaeste-optionen
+  :<- [::auswahl]
+  :<- [::maximalbelegung]
+  (fn [[auswahl max-n] [_ kategorie]] (db/optionen auswahl max-n kategorie)))
+
 (rf/reg-sub ::belegung
   :<- [::wohnung]
   (fn [w _] (vf/prepare-belegung (:belegung w))))

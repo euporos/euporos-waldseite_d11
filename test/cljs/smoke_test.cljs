@@ -5,7 +5,9 @@
 (def sample
   {:anreise "2026-07-04"
    :abreise "2026-07-11"
-   :gaestezahl 2
+   :erwachsene 2
+   :kinder-7-16 0
+   :kinder-bis-6 0
    :haustierzahl 0
    :wohnungsid 1
    :wohnungsname "Waldseite"
@@ -18,5 +20,5 @@
   (testing "valid sample"
     (is (anfrage/valid? sample)))
   (testing "invalid sample"
-    (is (not (anfrage/valid? (assoc sample :gaestezahl 0))))
+    (is (not (anfrage/valid? (assoc sample :erwachsene 0))))
     (is (not (anfrage/valid? (assoc sample :anreise "04.07.2026"))))))
